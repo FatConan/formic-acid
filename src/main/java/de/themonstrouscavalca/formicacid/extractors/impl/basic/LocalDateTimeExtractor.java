@@ -15,17 +15,17 @@ public class LocalDateTimeExtractor extends AbstractExtractor<LocalDateTime> imp
     private Logger logger = LoggerFactory.getLogger(LocalDateTimeExtractor.class);
 
     @Override
-    protected Optional<LocalDateTime> extractValueFromJson(JsonNode node) {
+    protected LocalDateTime extractValueFromJson(JsonNode node) {
         if(!this.missing(node)){
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()) {
                 try {
-                    return Optional.of(LocalDateTime.parse(valueAsText.get(), DateFormatters.API_DATE_TIME_FORMAT));
+                    return LocalDateTime.parse(valueAsText.get(), DateFormatters.API_DATE_TIME_FORMAT);
                 } catch (Exception e) {
                     logger.error("Unable to parse data", e);
                 }
             }
         }
-        return Optional.empty();
+        return null;
     }
 }

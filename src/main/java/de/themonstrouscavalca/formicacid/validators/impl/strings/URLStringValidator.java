@@ -27,10 +27,10 @@ public class URLStringValidator extends AbstractValidator<String> implements IVa
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            if (!URL_VALIDATOR.isValid(value.get())) {
+        if(this.isPresent(value)){
+            if (!URL_VALIDATOR.isValid(value)) {
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());
             }

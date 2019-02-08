@@ -7,13 +7,14 @@ import java.util.Optional;
 public class IntermediateValidateOptional<T>{
     private List<String> errors;
     private boolean valid;
-    private Optional<T> validatedValue;
+    private boolean presentInJson;
+    private T validatedValue;
 
     public IntermediateValidateOptional(){
-        this(Optional.empty());
+        this(null);
     }
 
-    public IntermediateValidateOptional(Optional<T> initialValue){
+    public IntermediateValidateOptional(T initialValue){
         this.errors = new ArrayList<>();
         this.valid = true;
         this.validatedValue = initialValue;
@@ -27,12 +28,20 @@ public class IntermediateValidateOptional<T>{
         this.valid = valid;
     }
 
-    public Optional<T> getValidatedValue(){
+    public T getValidatedValue(){
         return validatedValue;
     }
 
-    public void setValidatedValue(Optional<T> validatedValue){
+    public void setValidatedValue(T validatedValue){
         this.validatedValue = validatedValue;
+    }
+
+    public boolean isPresentInJson(){
+        return presentInJson;
+    }
+
+    public void setPresentInJson(boolean presentInJson){
+        this.presentInJson = presentInJson;
     }
 
     public List<String> getErrors(){
@@ -53,6 +62,7 @@ public class IntermediateValidateOptional<T>{
 
     public void merge(IntermediateValidateOptional<T> validated){
         this.setValid(this.isValid() && validated.isValid());
+        this.setPresentInJson(validated.isPresentInJson());
         this.addErrors(validated.getErrors());
         this.validatedValue = validated.getValidatedValue();
     }

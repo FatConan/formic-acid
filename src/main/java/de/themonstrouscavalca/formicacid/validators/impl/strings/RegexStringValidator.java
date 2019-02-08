@@ -29,10 +29,10 @@ public class RegexStringValidator extends AbstractValidator<String> implements I
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            Matcher m = pattern.matcher(value.get());
+        if(this.isPresent(value)){
+            Matcher m = pattern.matcher(value);
             if(!m.matches()){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());

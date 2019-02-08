@@ -19,66 +19,70 @@ public class RelativeDatesValidator implements IValidate<LocalDate>{
         DEFAULT_ERROR_MESSAGES.put(RelativeDateTimeComparator.LESS_THAN, "This must be earlier than the previous date");
         DEFAULT_ERROR_MESSAGES.put(RelativeDateTimeComparator.LESS_THAN_OR_EQUAL, "This must be earlier than or equal to the previous date");
     }
-    private final Optional<Map<RelativeDateTimeComparator, String>> overriddenErrorMessages;
-    private final Optional<LocalDate> date;
+    private final Map<RelativeDateTimeComparator, String> overriddenErrorMessages;
+    private final LocalDate date;
     private final RelativeDateTimeComparator comparator;
 
-    public RelativeDatesValidator(Optional<LocalDate> date, RelativeDateTimeComparator comparator){
+    public RelativeDatesValidator(LocalDate date, RelativeDateTimeComparator comparator){
         this(date, comparator, null);
     }
 
-    public RelativeDatesValidator(Optional<LocalDate> date, RelativeDateTimeComparator comparator, Map<RelativeDateTimeComparator, String> overriddenErrorMessages){
-        this.overriddenErrorMessages = Optional.ofNullable(overriddenErrorMessages);
+    public RelativeDatesValidator(LocalDate date, RelativeDateTimeComparator comparator, Map<RelativeDateTimeComparator, String> overriddenErrorMessages){
+        this.overriddenErrorMessages = overriddenErrorMessages;
         this.date = date;
         this.comparator = comparator;
     }
 
     private String getError(RelativeDateTimeComparator key){
-        if(overriddenErrorMessages.isPresent() && overriddenErrorMessages.get().containsKey(key)){
-            return overriddenErrorMessages.get().get(key);
+        if(overriddenErrorMessages != null && overriddenErrorMessages.containsKey(key)){
+            return overriddenErrorMessages.get(key);
         }
 
         return DEFAULT_ERROR_MESSAGES.get(key);
     }
 
+    private boolean isPresent(LocalDate value){
+        return value != null;
+    }
+
     @Override
-    public IntermediateValidateOptional<LocalDate> getValidatedValue(Optional<LocalDate> value){
+    public IntermediateValidateOptional<LocalDate> getValidatedValue(LocalDate value){
         IntermediateValidateOptional<LocalDate> inter = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            if(date.isPresent()){
+        if(this.isPresent(value)){
+            if(this.isPresent(date)){
                 switch(comparator){
                     case EQUALS:
-                        if(!value.get().equals(date.get())){
+                        if(!value.equals(date)){
                             inter.setValid(false);
                             inter.addError(this.getError(RelativeDateTimeComparator.EQUALS));
                         }
                         break;
                     case GREATER_THAN:
-                        if(!value.get().isAfter(date.get())){
+                        if(!value.isAfter(date)){
                             inter.setValid(false);
                             inter.addError(this.getError(RelativeDateTimeComparator.GREATER_THAN));
                         }
                         break;
                     case LESS_THAN:
-                        if(!value.get().isBefore(date.get())){
+                        if(!value.isBefore(date)){
                             inter.setValid(false);
                             inter.addError(this.getError(RelativeDateTimeComparator.LESS_THAN));
                         }
                         break;
                     case GREATER_THAN_OR_EQUAL:
-                        if(!value.get().isAfter(date.get()) && !value.get().equals(date.get())){
+                        if(!value.isAfter(date) && !value.equals(date)){
                             inter.setValid(false);
                             inter.addError(this.getError(RelativeDateTimeComparator.GREATER_THAN_OR_EQUAL));
                         }
                         break;
                     case LESS_THAN_OR_EQUAL:
-                        if(!value.get().isBefore(date.get()) && !value.get().equals(date.get())){
+                        if(!value.isBefore(date) && !value.equals(date)){
                             inter.setValid(false);
                             inter.addError(this.getError(RelativeDateTimeComparator.LESS_THAN_OR_EQUAL));
                         }
                         break;
                     case NOT_EQUALS:
-                        if(value.get().equals(date.get())){
+                        if(value.equals(date)){
                             inter.setValid(false);
                             inter.addError(this.getError(RelativeDateTimeComparator.NOT_EQUALS));
                         }

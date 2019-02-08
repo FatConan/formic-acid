@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class BooleanExtractor extends AbstractExtractor<Boolean> implements IExtract<Boolean>{
     @Override
-    public Optional<Boolean> extractValueFromJson(JsonNode node){
-        return this.missing(node) ? Optional.empty() : Optional.of(node.asBoolean());
+    public Boolean extractValueFromJson(JsonNode node){
+        return this.missing(node) ? null : node.asBoolean();
     }
 }

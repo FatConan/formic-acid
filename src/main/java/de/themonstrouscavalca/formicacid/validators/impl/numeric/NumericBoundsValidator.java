@@ -37,20 +37,19 @@ public class NumericBoundsValidator<T> extends AbstractValidator<T> implements I
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> inter = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            T val = value.get();
-            if(val instanceof Double){
-                if((Double) val < min || (Double) val > max){
+        if(this.isPresent(value)){
+            if(value instanceof Double){
+                if((Double) value < min || (Double) value > max){
                     outOfBounds(inter);
                 }
-            }else if(val instanceof Long){
-                if((Long) val < min || (Long) val > max){
+            }else if(value instanceof Long){
+                if((Long) value < min || (Long) value > max){
                     outOfBounds(inter);
                 }
-            }else if(val instanceof Integer){
-                if((Integer) val < min || (Integer) val > max){
+            }else if(value instanceof Integer){
+                if((Integer) value < min || (Integer) value > max){
                     outOfBounds(inter);
                 }
             }else{

@@ -10,14 +10,14 @@ import java.util.Optional;
 
 public class StringListExtractor extends AbstractExtractor<List<String>> implements IExtract<List<String>>{
     @Override
-    public Optional<List<String>> extractValueFromJson(JsonNode node){
+    public List<String> extractValueFromJson(JsonNode node){
         if(node.isArray() && node.size() > 0){
             List<String> strings = new ArrayList<>();
             for(JsonNode subNode: node){
                 strings.add(subNode.asText());
             }
-            return Optional.ofNullable(strings);
+            return strings;
         }
-        return Optional.empty();
+        return null;
     }
 }

@@ -37,11 +37,10 @@ public class CollectionLengthRangeValidator <T extends Collection> extends Abstr
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> inter = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            T val = value.get();
-            int size = val.size();
+        if(this.isPresent(value)){
+            int size = value.size();
             if(size < min || size > max){
                 outOfBounds(inter);
             }

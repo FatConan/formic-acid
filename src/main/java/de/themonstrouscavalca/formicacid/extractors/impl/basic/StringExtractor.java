@@ -8,11 +8,7 @@ import java.util.Optional;
 
 public class StringExtractor extends AbstractExtractor<String> implements IExtract<String>{
     @Override
-    public Optional<String> extractValueFromJson(JsonNode node){
-        String n = node.asText();
-        if(n != null){
-            n = n.trim();
-        }
-        return Optional.ofNullable(n);
+    public String extractValueFromJson(JsonNode node){
+        return this.missing(node) ? null : node.asText().trim();
     }
 }

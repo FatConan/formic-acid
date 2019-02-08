@@ -7,7 +7,7 @@ import de.themonstrouscavalca.formicacid.validators.impl.AbstractValidator;
 import java.util.Optional;
 
 public class OneOrTheOtherValidator<T> extends AbstractValidator<T> implements IValidate<T>{
-    private final Optional<T> theOther;
+    private final T theOther;
     private final String DEFAULT_ERROR_MSG = "This is a required field";
 
     @Override
@@ -15,20 +15,20 @@ public class OneOrTheOtherValidator<T> extends AbstractValidator<T> implements I
         return DEFAULT_ERROR_MSG;
     }
 
-    public OneOrTheOtherValidator(Optional<T> theOther){
+    public OneOrTheOtherValidator(T theOther){
         super(null);
         this.theOther = theOther;
     }
 
-    public OneOrTheOtherValidator(Optional<T> theOther, String errorMessage){
+    public OneOrTheOtherValidator(T theOther, String errorMessage){
         super(errorMessage);
         this.theOther = theOther;
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> intermediate = new IntermediateValidateOptional<>(value);
-        if(!value.isPresent() && !theOther.isPresent()){
+        if(!this.isPresent(value) && !this.isPresent(theOther)){
             intermediate.setValid(false);
             intermediate.addError(this.getErrorMessage());
         }

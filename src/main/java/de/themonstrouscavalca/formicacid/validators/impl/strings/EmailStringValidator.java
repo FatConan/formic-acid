@@ -27,11 +27,11 @@ public class EmailStringValidator extends AbstractValidator<String> implements I
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent() && !value.get().isEmpty()){
+        if(!this.isPresent("value")){
             try {
-                InternetAddress emailAddr = new InternetAddress(value.get());
+                InternetAddress emailAddr = new InternetAddress(value);
                 emailAddr.validate();
             } catch (AddressException ex) {
                 intermediate.setValid(false);

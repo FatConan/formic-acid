@@ -24,15 +24,10 @@ public class RequiredCollectionValidator<T extends Collection> extends AbstractV
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> inter = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            if(value.get().isEmpty()){
-                inter.addError(this.getErrorMessage());
-                inter.setValid(false);
-            }else{
-                inter.setValid(true);
-            }
+        if(this.isPresent(value)){
+            inter.setValid(true);
         }else{
             inter.addError(this.getErrorMessage());
             inter.setValid(false);

@@ -21,13 +21,12 @@ public class LocalDateTimeStringValidator extends AbstractValidator<String> impl
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent() && !value.get().isEmpty()){
+        if(this.isPresent(value)){
             LocalDateTime datetime = null;
-
             try {
-                datetime = LocalDateTime.parse(value.get(), DateFormatters.API_DATE_TIME_FORMAT);
+                datetime = LocalDateTime.parse(value, DateFormatters.API_DATE_TIME_FORMAT);
             }catch (Exception e){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());

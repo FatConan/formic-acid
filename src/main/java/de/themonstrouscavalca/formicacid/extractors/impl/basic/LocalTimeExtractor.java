@@ -15,17 +15,17 @@ public class LocalTimeExtractor extends AbstractExtractor<LocalTime> implements 
 
 
     @Override
-    public Optional<LocalTime> extractValueFromJson(JsonNode node){
+    public LocalTime extractValueFromJson(JsonNode node){
         if(!this.missing(node)) {
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()) {
                 try {
-                    return Optional.ofNullable(LocalTime.parse(valueAsText.get(), DateFormatters.API_TIME_FORMAT));
+                    return LocalTime.parse(valueAsText.get(), DateFormatters.API_TIME_FORMAT);
                 } catch (Exception e) {
                     logger.error("Unable to parse time", e);
                 }
             }
         }
-        return Optional.empty();
+        return null;
     }
 }

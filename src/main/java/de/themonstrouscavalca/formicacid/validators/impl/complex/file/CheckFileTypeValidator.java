@@ -30,10 +30,10 @@ public class CheckFileTypeValidator extends AbstractValidator<String> implements
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            File f = new File(value.get());
+        if(this.isPresent(value)){
+            File f = new File(value);
             try{
                 String fileType = Files.probeContentType(f.toPath());
                 if(!permissableTypes.contains(fileType)){
@@ -44,7 +44,6 @@ public class CheckFileTypeValidator extends AbstractValidator<String> implements
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());
             }
-
         }
         return intermediate;
     }

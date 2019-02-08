@@ -27,11 +27,13 @@ public class OneOfTheseValidator<T> extends AbstractValidator<T> implements IVal
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> intermediate = new IntermediateValidateOptional<>(value);
-        if(!value.isPresent() || !this.these.contains(value.get())){
-            intermediate.setValid(false);
-            intermediate.addError(this.getErrorMessage());
+        if(this.isPresent(value)){
+            if(!this.these.contains(value)){
+                intermediate.setValid(false);
+                intermediate.addError(this.getErrorMessage());
+            }
         }
         return intermediate;
     }

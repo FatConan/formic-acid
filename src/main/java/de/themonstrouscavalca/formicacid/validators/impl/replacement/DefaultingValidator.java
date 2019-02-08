@@ -13,12 +13,12 @@ public class DefaultingValidator<T> implements IValidate<T>{
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> intermediate = new IntermediateValidateOptional<>();
-        if(value.isPresent()){
+        if(value != null){
            intermediate.setValidatedValue(value);
         }else{
-            intermediate.setValidatedValue(Optional.of(this.replacement));
+            intermediate.setValidatedValue(this.replacement);
         }
         return intermediate;
     }

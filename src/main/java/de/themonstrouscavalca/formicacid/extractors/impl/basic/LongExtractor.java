@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class LongExtractor extends AbstractExtractor<Long> implements IExtract<Long>{
     @Override
-    public Optional<Long> extractValueFromJson(JsonNode node){
-        return this.missing(node) ? Optional.empty() : Optional.of(node.asLong());
+    public Long extractValueFromJson(JsonNode node){
+        return this.missing(node) ? null : node.asLong();
     }
 }

@@ -24,10 +24,10 @@ public class StringOneOfValidator extends AbstractValidator<String> implements I
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            if(!toMatch.contains(value.get())){
+        if(this.isPresent(value)){
+            if(!toMatch.contains(value)){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());
             }

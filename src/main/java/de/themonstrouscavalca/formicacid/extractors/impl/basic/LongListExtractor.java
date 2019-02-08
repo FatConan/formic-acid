@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class LongListExtractor extends AbstractExtractor<List<Long>> implements IExtract<List<Long>>{
     @Override
-    public Optional<List<Long>> extractValueFromJson(JsonNode node){
+    public List<Long> extractValueFromJson(JsonNode node){
         if(node.isArray() && node.size() > 0){
             List<Long> longs = new ArrayList<>();
             for(JsonNode subNode: node){
@@ -18,8 +18,8 @@ public class LongListExtractor extends AbstractExtractor<List<Long>> implements 
                     longs.add(subNode.asLong());
                 }
             }
-            return Optional.ofNullable(longs);
+            return longs;
         }
-        return Optional.empty();
+        return null;
     }
 }

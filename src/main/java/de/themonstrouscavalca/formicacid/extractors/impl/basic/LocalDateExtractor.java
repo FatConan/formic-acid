@@ -13,19 +13,18 @@ import java.util.Optional;
 public class LocalDateExtractor extends AbstractExtractor<LocalDate> implements IExtract<LocalDate> {
     private Logger logger = LoggerFactory.getLogger(LocalDateExtractor.class);
 
-
     @Override
-    public Optional<LocalDate> extractValueFromJson(JsonNode node){
+    public LocalDate extractValueFromJson(JsonNode node){
         if(!this.missing(node)) {
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()){
                 try {
-                    return Optional.ofNullable(LocalDate.parse(valueAsText.get(), DateFormatters.API_DATE_FORMAT));
+                    return LocalDate.parse(valueAsText.get(), DateFormatters.API_DATE_FORMAT);
                 } catch (Exception e){
                     logger.info("Unable to parse data", e);
                 }
             }
         }
-        return Optional.empty();
+        return null;
     }
 }

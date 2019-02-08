@@ -1,28 +1,28 @@
 package de.themonstrouscavalca.formicacid.validators.helpers;
 
-import java.util.Optional;
-
 public class ValidatedOptional<T>{
-    private static final ValidatedOptional<?> EMPTY = new ValidatedOptional<>(Optional.empty(), true, new String[]{});
+    private static final ValidatedOptional<?> EMPTY = new ValidatedOptional<>(null, true, false, new String[]{});
 
-    private final IntermediateValidateOptional finalIntermediate;
+    private final IntermediateValidateOptional<T> finalIntermediate;
     private final boolean valid;
-    private final Optional<T> validatedValue;
+    private final boolean presentInJson;
+    private final T validatedValue;
     private final String[] errors;
 
-    public static<T> ValidatedOptional<T> empty() {
+    public static<T> ValidatedOptional<T> empty(){
         @SuppressWarnings("unchecked")
         ValidatedOptional<T> t = (ValidatedOptional<T>) EMPTY;
         return t;
     }
 
-    public ValidatedOptional(T value){
-        this(Optional.of(value), true, new String[]{});
+    public ValidatedOptional(T value, boolean presentInJson){
+        this(value, true, presentInJson, new String[]{});
     }
 
-    public ValidatedOptional(Optional<T> validatedValue, boolean valid, String[] errors){
+    public ValidatedOptional(T validatedValue, boolean valid, boolean presentInJson, String[] errors){
         this.finalIntermediate = null;
         this.valid = valid;
+        this.presentInJson = presentInJson;
         this.validatedValue = validatedValue;
         this.errors = errors;
     }
@@ -30,6 +30,7 @@ public class ValidatedOptional<T>{
     public ValidatedOptional(IntermediateValidateOptional<T> finalIntermediate){
         this.finalIntermediate = finalIntermediate;
         this.valid = finalIntermediate.isValid();
+        this.presentInJson = finalIntermediate.isPresentInJson();
         this.validatedValue = finalIntermediate.getValidatedValue();
 
         String[] errors = new String[finalIntermediate.getErrors().size()];
@@ -38,18 +39,18 @@ public class ValidatedOptional<T>{
     }
 
     public T get(){
-        return validatedValue.get();
+        return this.validatedValue;
     }
 
     public boolean isPresent(){
-        return validatedValue.isPresent();
+        return this.presentInJson;
     }
 
     public boolean isValid(){
         return valid;
     }
 
-    public Optional<T> getValidatedValue(){
+    public T getValidatedValue(){
         return validatedValue;
     }
 
@@ -57,8 +58,8 @@ public class ValidatedOptional<T>{
         return this.errors;
     }
 
-    public Optional<IntermediateValidateOptional<T>> getFinaleIntermediate(){
-        return Optional.ofNullable(finalIntermediate);
+    public IntermediateValidateOptional<T> getFinaleIntermediate(){
+        return this.finalIntermediate;
     }
 }
 

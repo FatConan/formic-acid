@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class IntegerExtractor extends AbstractExtractor<Integer> implements IExtract<Integer>{
     @Override
-    public Optional<Integer> extractValueFromJson(JsonNode node){
-        return this.missing(node) ? Optional.empty() : Optional.of(node.asInt());
+    public Integer extractValueFromJson(JsonNode node){
+        return this.missing(node) ? null : node.asInt();
     }
 }

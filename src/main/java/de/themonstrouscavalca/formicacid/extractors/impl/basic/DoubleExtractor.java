@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class DoubleExtractor extends AbstractExtractor<Double> implements IExtract<Double>{
     @Override
-    public Optional<Double> extractValueFromJson(JsonNode node){
-        return this.missing(node) ? Optional.empty() : Optional.of(node.asDouble());
+    public Double extractValueFromJson(JsonNode node){
+        return this.missing(node) ? null : node.asDouble();
     }
 }

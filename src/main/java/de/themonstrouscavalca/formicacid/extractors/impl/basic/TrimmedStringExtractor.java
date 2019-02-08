@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class TrimmedStringExtractor extends AbstractExtractor<String> implements IExtract<String>{
     @Override
-    public Optional<String> extractValueFromJson(JsonNode node){
-        return this.missing(node) ? Optional.empty() : Optional.of(node.asText().trim());
+    public String extractValueFromJson(JsonNode node){
+        return this.missing(node) ? null : node.asText().trim();
     }
 }

@@ -4,7 +4,6 @@ import de.themonstrouscavalca.formicacid.validators.defn.IValidate;
 import de.themonstrouscavalca.formicacid.validators.helpers.IntermediateValidateOptional;
 import de.themonstrouscavalca.formicacid.validators.impl.AbstractValidator;
 
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class HipChatHandleValidator extends AbstractValidator<String> implements IValidate<String>{
@@ -18,11 +17,10 @@ public class HipChatHandleValidator extends AbstractValidator<String> implements
     private final Pattern test = Pattern.compile("^@[^\\s]+$");
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> inter = new IntermediateValidateOptional<>(value);
-        if(value.isPresent() && !value.get().isEmpty()){
-            String val = value.get();
-            if(!test.matcher(val).matches()){
+        if(this.isPresent(value)){
+            if(!test.matcher(value).matches()){
                 inter.setValid(false);
                 inter.addError(this.getErrorMessage());
             }

@@ -23,9 +23,9 @@ public class PasswordStringValidator extends AbstractValidator<String> implement
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
+        if(this.isPresent(value)){
             //TODO  defined a decent password policy, until then just pass through whatever's returned
         }
         return intermediate;

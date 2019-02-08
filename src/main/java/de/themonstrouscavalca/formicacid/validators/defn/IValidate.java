@@ -5,5 +5,5 @@ import de.themonstrouscavalca.formicacid.validators.helpers.IntermediateValidate
 import java.util.Optional;
 
 public interface IValidate<T>{
-    IntermediateValidateOptional<T> getValidatedValue(Optional<T> value);
+    IntermediateValidateOptional<T> getValidatedValue(T value);
 }

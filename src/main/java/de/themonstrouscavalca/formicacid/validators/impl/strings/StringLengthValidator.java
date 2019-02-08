@@ -71,22 +71,25 @@ public class StringLengthValidator implements IValidate<String>{
         return String.format(err, this.minLength.get(), this.maxLength.get());
     }
 
+    private boolean isPresent(String value){
+        return value != null;
+    }
+
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> inter = new IntermediateValidateOptional<>(value);
 
-        if(value.isPresent()){
-            String val = value.get();
-            if(val.isEmpty()){
+        if(this.isPresent(value)){
+            if(value.isEmpty()){
                 if(minLength.isPresent() && minLength.get() > 0){
                     inter.setValid(false);
                     inter.addError(this.getAppropriateErrorMessage());
                 }
             }else{
-                if(minLength.isPresent() && val.length() < minLength.get()){
+                if(minLength.isPresent() && value.length() < minLength.get()){
                     inter.setValid(false);
                     inter.addError(this.getAppropriateErrorMessage());
-                }else if(maxLength.isPresent() && val.length() > maxLength.get()){
+                }else if(maxLength.isPresent() && value.length() > maxLength.get()){
                     inter.setValid(false);
                     inter.addError(this.getAppropriateErrorMessage());
                 }

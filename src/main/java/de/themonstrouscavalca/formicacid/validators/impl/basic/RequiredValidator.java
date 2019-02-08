@@ -23,10 +23,9 @@ public class RequiredValidator<T> extends AbstractValidator<T> implements IValid
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> intermediate = new IntermediateValidateOptional<>(value);
-        //Making a change here, not allowing missing OR empty values...
-        if(!value.isPresent() || value.get().toString().isEmpty()){
+        if(!this.isPresent(value)){
             intermediate.setValid(false);
             intermediate.addError(this.getErrorMessage());
         }

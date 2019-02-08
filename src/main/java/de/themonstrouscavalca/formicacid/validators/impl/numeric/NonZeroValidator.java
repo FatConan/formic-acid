@@ -21,20 +21,19 @@ public class NonZeroValidator<T> extends AbstractValidator<T> implements IValida
     }
 
     @Override
-    public IntermediateValidateOptional<T> getValidatedValue(Optional<T> value){
+    public IntermediateValidateOptional<T> getValidatedValue(T value){
         IntermediateValidateOptional<T> inter = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            T val = value.get();
-            if(val instanceof Double){
-                if((Double) val == 0){
+        if(this.isPresent(value)){
+            if(value instanceof Double){
+                if((Double) value == 0){
                     zeroError(inter);
                 }
-            }else if(val instanceof Long){
-                if((Long) val == 0){
+            }else if(value instanceof Long){
+                if((Long) value == 0){
                     zeroError(inter);
                 }
-            }else if(val instanceof Integer){
-                if((Integer) val == 0){
+            }else if(value instanceof Integer){
+                if((Integer) value == 0){
                     zeroError(inter);
                 }
             }else{

@@ -26,10 +26,10 @@ public class TelephoneNumberValidator extends AbstractValidator<String> implemen
     }
 
     @Override
-    public IntermediateValidateOptional<String> getValidatedValue(Optional<String> value){
+    public IntermediateValidateOptional<String> getValidatedValue(String value){
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
-        if(value.isPresent()){
-            Matcher m = PHONE_REGEX.matcher(value.get());
+        if(this.isPresent(value)){
+            Matcher m = PHONE_REGEX.matcher(value);
             if(!m.matches()){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());
