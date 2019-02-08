@@ -15,6 +15,10 @@ public class ValidatedOptional<T>{
         return t;
     }
 
+    public ValidatedOptional(T value){
+        this(value, true, true, new String[]{});
+    }
+
     public ValidatedOptional(T value, boolean presentInJson){
         this(value, true, presentInJson, new String[]{});
     }
