@@ -1,6 +1,7 @@
 package de.themonstrouscavalca.formicacid.validators.impl.datetime;
 
-public enum RelativeDateTimeComparator{
+public enum
+RelativeDateTimeComparator{
     EQUALS,
     NOT_EQUALS,
     GREATER_THAN,
