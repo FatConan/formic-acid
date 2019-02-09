@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collections;
 
@@ -43,9 +45,9 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
-        assertEquals(testString.get(), "string");
-        assertEquals(testPassword.get(), "password");
-        assertEquals(testPaddedString.get(), "string");
+        assertEquals("string", testString.get());
+        assertEquals("password", testPassword.get());
+        assertEquals("string", testPaddedString.get());
     }
 
     @Test
@@ -54,7 +56,7 @@ public class TestExtraction{
         node.put("testEmpty", "");
         node.putNull("testNull");
         node.put("testWhitespace", "        ");
-        node.put("testString", "6");
+        node.put("testString", "-6");
         node.put("testLong", 7);
 
         LongExtractor extractor = new LongExtractor();
@@ -73,8 +75,8 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
-        assertEquals(testString.get(), 6L);
-        assertEquals(testLong.get(), 7L);
+        assertEquals(-6L, testString.get());
+        assertEquals(7L, testLong.get());
     }
 
     @Test
@@ -102,8 +104,8 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
-        assertEquals(testString.get(), 4);
-        assertEquals(testInt.get(), 5);
+        assertEquals(4, testString.get());
+        assertEquals(5, testInt.get());
     }
 
     @Test
@@ -131,8 +133,8 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
-        assertEquals(testString.get(), 4.123);
-        assertEquals(testDouble.get(), 5.9906);
+        assertEquals(4.123, testString.get());
+        assertEquals(5.9906, testDouble.get());
     }
 
     @Test
@@ -164,28 +166,30 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
-        assertEquals(testString.get(), Boolean.TRUE);
-        assertEquals(testBoolean.get(), Boolean.FALSE);
-        assertEquals(testInt.get(), Boolean.TRUE);
-        assertEquals(testAlternative.get(), Boolean.FALSE);
+        assertEquals(Boolean.TRUE, testString.get());
+        assertEquals(Boolean.FALSE, testBoolean.get());
+        assertEquals(Boolean.TRUE, testInt.get());
+        assertEquals(Boolean.FALSE, testAlternative.get());
     }
 
     @Test
-    public void extractLocalTime(){
+    public void extractLocalDate(){
         ObjectNode node = JsonNodeFactory.instance.objectNode();
         node.put("testEmpty", "");
         node.putNull("testNull");
         node.put("testWhitespace", "        ");
-        node.put("testString", "20:30");
-        node.put("testInvalidString", "25:00");
+        node.put("testString", "2015-01-29");
+        node.put("testString2", "2020-07-31");
+        node.put("testInvalidString", "2018-12-32");
         node.put("testIncorrectString", "incorrect");
 
-        LocalTimeExtractor extractor = new LocalTimeExtractor();
+        LocalDateExtractor extractor = new LocalDateExtractor();
         ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
         ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
         ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
         ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
         ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional testString2 = extractor.extractValidatedValue("testString2", node, Collections.emptyList());
         ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
         ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
 
@@ -197,7 +201,78 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
-        assertEquals(testString.get(), LocalTime.of(20, 30));
+        assertEquals(LocalDate.of(2015, 1, 29), testString.get());
+        assertEquals(LocalDate.of(2020, 7, 31), testString2.get());
+        assertNull(testInvalidString.get());
+        assertNull(testIncorrectString.get());
+    }
+
+    @Test
+    public void extractLocalTime(){
+        ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put("testEmpty", "");
+        node.putNull("testNull");
+        node.put("testWhitespace", "        ");
+        node.put("testString", "20:30");
+        node.put("testString2", "05:25");
+        node.put("testInvalidString", "25:00");
+        node.put("testIncorrectString", "incorrect");
+
+        LocalTimeExtractor extractor = new LocalTimeExtractor();
+        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
+        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
+        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
+        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
+        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional testString2 = extractor.extractValidatedValue("testString2", node, Collections.emptyList());
+        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
+        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
+
+        assert(testEmpty.isPresent());
+        assert(testNull.isPresent());
+        assert(testWhitespace.isPresent());
+        assert(!testNoHit.isPresent());
+        assertNull(testNoHit.get());
+        assertNull(testEmpty.get());
+        assertNull(testNull.get());
+        assertNull(testWhitespace.get());
+        assertEquals(LocalTime.of(20, 30), testString.get());
+        assertEquals(LocalTime.of(5, 25), testString2.get());
+        assertNull(testInvalidString.get());
+        assertNull(testIncorrectString.get());
+    }
+
+    @Test
+    public void extractLocalDateTime(){
+        ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put("testEmpty", "");
+        node.putNull("testNull");
+        node.put("testWhitespace", "        ");
+        node.put("testString", "2015-01-29 11:59");
+        node.put("testString2", "2020-07-31 07:49");
+        node.put("testInvalidString", "2018-12-32");
+        node.put("testIncorrectString", "incorrect");
+
+        LocalDateTimeExtractor extractor = new LocalDateTimeExtractor();
+        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
+        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
+        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
+        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
+        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional testString2 = extractor.extractValidatedValue("testString2", node, Collections.emptyList());
+        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
+        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
+
+        assert(testEmpty.isPresent());
+        assert(testNull.isPresent());
+        assert(testWhitespace.isPresent());
+        assert(!testNoHit.isPresent());
+        assertNull(testNoHit.get());
+        assertNull(testEmpty.get());
+        assertNull(testNull.get());
+        assertNull(testWhitespace.get());
+        assertEquals(LocalDateTime.of(2015, 1, 29, 11, 59), testString.get());
+        assertEquals(LocalDateTime.of(2020, 7, 31, 7, 49), testString2.get());
         assertNull(testInvalidString.get());
         assertNull(testIncorrectString.get());
     }
