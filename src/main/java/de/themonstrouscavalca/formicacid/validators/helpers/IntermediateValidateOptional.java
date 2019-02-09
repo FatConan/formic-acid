@@ -66,7 +66,7 @@ public class IntermediateValidateOptional<T>{
 
     public void merge(IntermediateValidateOptional<T> validated){
         this.setValid(this.isValid() && validated.isValid());
-        this.setPresentInJson(validated.isPresentInJson());
+        this.setPresentInJson(this.isPresentInJson() || validated.isPresentInJson());
         this.addErrors(validated.getErrors());
         this.validatedValue = validated.getValidatedValue();
     }
