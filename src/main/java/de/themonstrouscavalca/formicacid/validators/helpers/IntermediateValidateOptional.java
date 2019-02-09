@@ -24,6 +24,10 @@ public class IntermediateValidateOptional<T>{
         return valid;
     }
 
+    public boolean isEmpty(){
+        return this.validatedValue == null;
+    }
+
     public void setValid(boolean valid){
         this.valid = valid;
     }

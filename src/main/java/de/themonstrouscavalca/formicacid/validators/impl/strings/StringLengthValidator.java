@@ -32,8 +32,8 @@ public class StringLengthValidator implements IValidate<String>{
     }
 
     /* If it's a required field then set to min -> max otherwise allow zero length */
-    public StringLengthValidator(Optional<Boolean> isRequired, Integer min, Integer max){
-        if(isRequired.isPresent() && isRequired.get()){
+    public StringLengthValidator(Boolean isRequired, Integer min, Integer max){
+        if(isRequired != null && isRequired){
             this.minLength = Optional.ofNullable(min);
         }else{
             this.minLength = Optional.of(0);
@@ -44,8 +44,8 @@ public class StringLengthValidator implements IValidate<String>{
         this.maxOnlyErrorMsg = Optional.empty();
     }
 
-    public StringLengthValidator(Optional<Boolean>  isRequired, Integer min, Integer max, String errorMsg, String minOnly, String maxOnly){
-        if(isRequired.isPresent() && isRequired.get()){
+    public StringLengthValidator(Boolean isRequired, Integer min, Integer max, String errorMsg, String minOnly, String maxOnly){
+        if(isRequired != null && isRequired){
             this.minLength = Optional.ofNullable(min);
         }else{
             this.minLength = Optional.of(0);

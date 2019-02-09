@@ -50,6 +50,10 @@ public class ValidatedOptional<T>{
         return this.presentInJson;
     }
 
+    public boolean isEmpty(){
+        return this.validatedValue == null;
+    }
+
     public boolean isValid(){
         return valid;
     }
