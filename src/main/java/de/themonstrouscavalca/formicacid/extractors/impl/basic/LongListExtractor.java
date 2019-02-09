@@ -14,7 +14,7 @@ public class LongListExtractor extends AbstractExtractor<List<Long>> implements 
         if(node.isArray() && node.size() > 0){
             List<Long> longs = new ArrayList<>();
             for(JsonNode subNode: node){
-                if(!this.missing(subNode)) {
+                if(!this.missing(subNode)){
                     longs.add(subNode.asLong());
                 }
             }

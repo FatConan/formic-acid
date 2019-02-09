@@ -1,5 +1,6 @@
 package de.themonstrouscavalca.formicacid.tests;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.themonstrouscavalca.formicacid.extractors.impl.basic.*;
@@ -13,6 +14,7 @@ import static org.junit.Assert.assertNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class TestExtraction{
@@ -273,6 +275,54 @@ public class TestExtraction{
         assertNull(testWhitespace.get());
         assertEquals(LocalDateTime.of(2015, 1, 29, 11, 59), testString.get());
         assertEquals(LocalDateTime.of(2020, 7, 31, 7, 49), testString2.get());
+        assertNull(testInvalidString.get());
+        assertNull(testIncorrectString.get());
+    }
+
+    @Test
+    public void extractLongList(){
+        ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put("testEmpty", "");
+        node.putNull("testNull");
+        node.put("testWhitespace", "        ");
+
+        ArrayNode testList = node.putArray("testString");
+        testList.add("1");
+        testList.add("2");
+        testList.add("3");
+        testList.add("4");
+        testList.add("5");
+
+        ArrayNode testListLong = node.putArray("testLongs");
+        testListLong.add(1L);
+        testListLong.add(2L);
+        testListLong.add(3L);
+        testListLong.add(4L);
+        testListLong.add(5L);
+
+        node.put("testInvalidString", "[1,2,3,4,5]");
+        node.put("testIncorrectString", "incorrect");
+
+        LongListExtractor extractor = new LongListExtractor();
+        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
+        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
+        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
+        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
+        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional testString2 = extractor.extractValidatedValue("testLongs", node, Collections.emptyList());
+        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
+        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
+
+        assert(testEmpty.isPresent());
+        assert(testNull.isPresent());
+        assert(testWhitespace.isPresent());
+        assert(!testNoHit.isPresent());
+        assertNull(testNoHit.get());
+        assertNull(testEmpty.get());
+        assertNull(testNull.get());
+        assertNull(testWhitespace.get());
+        assertEquals(Arrays.asList(1L, 2L, 3L, 4L, 5L), testString.get());
+        assertEquals(Arrays.asList(1L, 2L, 3L, 4L, 5L), testString2.get());
         assertNull(testInvalidString.get());
         assertNull(testIncorrectString.get());
     }
