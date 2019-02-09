@@ -26,8 +26,7 @@ public abstract class AbstractExtractor<T> implements IExtract<T>{
         return inter;
     }
 
-    /* These methods need to be overridden, but they should not be publicly accessible */
-    protected abstract T extractValueFromJson(JsonNode node);
+    public abstract T extractValueFromJson(JsonNode node);
 
     protected PresentValue<T> extractValueFromJson(String fieldName, JsonNode node){
         T value = null;

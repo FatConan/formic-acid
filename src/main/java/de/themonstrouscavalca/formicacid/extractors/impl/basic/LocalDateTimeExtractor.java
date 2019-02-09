@@ -15,7 +15,7 @@ public class LocalDateTimeExtractor extends AbstractExtractor<LocalDateTime> imp
     private Logger logger = LoggerFactory.getLogger(LocalDateTimeExtractor.class);
 
     @Override
-    protected LocalDateTime extractValueFromJson(JsonNode node) {
+    public LocalDateTime extractValueFromJson(JsonNode node) {
         if(!this.missing(node)){
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()) {

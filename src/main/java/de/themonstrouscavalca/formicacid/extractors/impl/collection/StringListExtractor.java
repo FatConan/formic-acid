@@ -1,23 +1,17 @@
-package de.themonstrouscavalca.formicacid.extractors.impl.basic;
+package de.themonstrouscavalca.formicacid.extractors.impl.collection;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
 import de.themonstrouscavalca.formicacid.extractors.impl.AbstractExtractor;
+import de.themonstrouscavalca.formicacid.extractors.impl.basic.StringExtractor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class StringListExtractor extends AbstractExtractor<List<String>> implements IExtract<List<String>>{
+    private final GenericListExtractor<String> genericListExtractor  = new GenericListExtractor<>(new StringExtractor());
+
     @Override
     public List<String> extractValueFromJson(JsonNode node){
-        if(node.isArray() && node.size() > 0){
-            List<String> strings = new ArrayList<>();
-            for(JsonNode subNode: node){
-                strings.add(subNode.asText());
-            }
-            return strings;
-        }
-        return null;
+       return genericListExtractor.extractValueFromJson(node);
     }
 }

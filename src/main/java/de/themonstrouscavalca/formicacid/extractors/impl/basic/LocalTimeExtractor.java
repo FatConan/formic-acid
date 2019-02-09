@@ -13,7 +13,6 @@ import java.util.Optional;
 public class LocalTimeExtractor extends AbstractExtractor<LocalTime> implements IExtract<LocalTime>{
     private Logger logger = LoggerFactory.getLogger(LocalTimeExtractor.class);
 
-
     @Override
     public LocalTime extractValueFromJson(JsonNode node){
         if(!this.missing(node)) {

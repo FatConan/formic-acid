@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.themonstrouscavalca.formicacid.extractors.impl.basic.*;
+import de.themonstrouscavalca.formicacid.extractors.impl.collection.BooleanListExtractor;
+import de.themonstrouscavalca.formicacid.extractors.impl.collection.DoubleListExtractor;
+import de.themonstrouscavalca.formicacid.extractors.impl.collection.LongListExtractor;
 import de.themonstrouscavalca.formicacid.validators.helpers.ValidatedOptional;
 import org.junit.Test;
 
@@ -171,7 +174,7 @@ public class TestExtraction{
         assertEquals(Boolean.TRUE, testString.get());
         assertEquals(Boolean.FALSE, testBoolean.get());
         assertEquals(Boolean.TRUE, testInt.get());
-        assertEquals(Boolean.FALSE, testAlternative.get());
+        assertNull(testAlternative.get());
     }
 
     @Test
@@ -323,6 +326,111 @@ public class TestExtraction{
         assertNull(testWhitespace.get());
         assertEquals(Arrays.asList(1L, 2L, 3L, 4L, 5L), testString.get());
         assertEquals(Arrays.asList(1L, 2L, 3L, 4L, 5L), testString2.get());
+        assertNull(testInvalidString.get());
+        assertNull(testIncorrectString.get());
+    }
+
+    @Test
+    public void extractBooleanList(){
+        ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put("testEmpty", "");
+        node.putNull("testNull");
+        node.put("testWhitespace", "        ");
+
+        ArrayNode testList = node.putArray("testString");
+        testList.add("true");
+        testList.add("True");
+        testList.add("False");
+        testList.add("false");
+        testList.add("TRUE");
+
+        ArrayNode testListLong = node.putArray("testBoolean");
+        testListLong.add(true);
+        testListLong.add(true);
+        testListLong.add(false);
+        testListLong.add(false);
+        testListLong.add(true);
+
+        ArrayNode testPartialBooleans = node.putArray("testPartialBoolean");
+        testPartialBooleans.add(true);
+        testPartialBooleans.add(true);
+        testPartialBooleans.addNull();
+        testPartialBooleans.add(false);
+        testPartialBooleans.add(true);
+
+        node.put("testInvalidString", "[true,true,false,false,true]");
+        node.put("testIncorrectString", "incorrect");
+
+        BooleanListExtractor extractor = new BooleanListExtractor();
+        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
+        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
+        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
+        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
+        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional testBoolean = extractor.extractValidatedValue("testBoolean", node, Collections.emptyList());
+        ValidatedOptional testPartialBoolean = extractor.extractValidatedValue("testPartialBoolean", node, Collections.emptyList());
+        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
+        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
+
+        assert(testEmpty.isPresent());
+        assert(testNull.isPresent());
+        assert(testWhitespace.isPresent());
+        assert(!testNoHit.isPresent());
+        assertNull(testNoHit.get());
+        assertNull(testEmpty.get());
+        assertNull(testNull.get());
+        assertNull(testWhitespace.get());
+        assertEquals(Arrays.asList(true, true, false, false, true), testString.get());
+        assertEquals(Arrays.asList(true, true, false, true), testPartialBoolean.get());
+        assertEquals(Arrays.asList(true, true, false, false, true), testBoolean.get());
+        assertNull(testInvalidString.get());
+        assertNull(testIncorrectString.get());
+    }
+
+
+    public void extractDoubleList(){
+        ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put("testEmpty", "");
+        node.putNull("testNull");
+        node.put("testWhitespace", "        ");
+
+        ArrayNode testList = node.putArray("testString");
+        testList.add("true");
+        testList.add("true");
+        testList.add("false");
+        testList.add("false");
+        testList.add("true");
+
+        ArrayNode testListLong = node.putArray("testBoolean");
+        testListLong.add(true);
+        testListLong.add(true);
+        testListLong.add(false);
+        testListLong.add(false);
+        testListLong.add(true);
+
+        node.put("testInvalidString", "[true,true,false,false,true]");
+        node.put("testIncorrectString", "incorrect");
+
+        DoubleListExtractor extractor = new DoubleListExtractor();
+        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
+        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
+        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
+        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
+        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional testBoolean = extractor.extractValidatedValue("testBoolean", node, Collections.emptyList());
+        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
+        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
+
+        assert(testEmpty.isPresent());
+        assert(testNull.isPresent());
+        assert(testWhitespace.isPresent());
+        assert(!testNoHit.isPresent());
+        assertNull(testNoHit.get());
+        assertNull(testEmpty.get());
+        assertNull(testNull.get());
+        assertNull(testWhitespace.get());
+        assertEquals(Arrays.asList(true, true, false, false, true), testString.get());
+        assertEquals(Arrays.asList(true, true, false, false, true), testBoolean.get());
         assertNull(testInvalidString.get());
         assertNull(testIncorrectString.get());
     }
