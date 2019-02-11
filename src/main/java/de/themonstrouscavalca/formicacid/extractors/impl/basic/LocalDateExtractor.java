@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
 import de.themonstrouscavalca.formicacid.extractors.impl.AbstractExtractor;
 import de.themonstrouscavalca.formicacid.formatters.DateFormatters;
+import de.themonstrouscavalca.formicacid.helpers.ParsableValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,17 +15,24 @@ public class LocalDateExtractor extends AbstractExtractor<LocalDate> implements 
     private Logger logger = LoggerFactory.getLogger(LocalDateExtractor.class);
 
     @Override
-    public LocalDate extractValueFromJson(JsonNode node){
+    protected String parsingErrorText(){
+        return String.format("This should be a string in the format %s", DateFormatters.API_DATE_FORMAT.toString());
+    }
+
+    @Override
+    public ParsableValue<LocalDate> extractValueFromJson(JsonNode node){
         if(!this.missing(node)) {
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()){
-                try {
-                    return LocalDate.parse(valueAsText.get(), DateFormatters.API_DATE_FORMAT);
-                } catch (Exception e){
+                try{
+                    return ParsableValue.of(true, LocalDate.parse(valueAsText.get(), DateFormatters.API_DATE_FORMAT));
+                }catch (Exception e){
                     logger.info("Unable to parse data", e);
                 }
             }
+        }else{
+            return ParsableValue.empty();
         }
-        return null;
+        return ParsableValue.invalid();
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
 import de.themonstrouscavalca.formicacid.extractors.impl.AbstractExtractor;
 import de.themonstrouscavalca.formicacid.extractors.impl.basic.BooleanExtractor;
+import de.themonstrouscavalca.formicacid.helpers.ParsableValue;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class BooleanListExtractor extends AbstractExtractor<List<Boolean>> imple
     private final GenericListExtractor<Boolean> genericListExtractor  = new GenericListExtractor<>(new BooleanExtractor());
 
     @Override
-    public List<Boolean> extractValueFromJson(JsonNode node){
+    public ParsableValue<List<Boolean>> extractValueFromJson(JsonNode node){
         return genericListExtractor.extractValueFromJson(node);
     }
 }

@@ -1,10 +1,10 @@
 package de.themonstrouscavalca.formicacid.extractors.impl.basic;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import de.themonstrouscavalca.dbaser.dao.BasicIdentifiedModelDAO;
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
 import de.themonstrouscavalca.formicacid.extractors.impl.AbstractExtractor;
 import de.themonstrouscavalca.formicacid.formatters.DateFormatters;
+import de.themonstrouscavalca.formicacid.helpers.ParsableValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,17 +15,24 @@ public class LocalDateTimeExtractor extends AbstractExtractor<LocalDateTime> imp
     private Logger logger = LoggerFactory.getLogger(LocalDateTimeExtractor.class);
 
     @Override
-    public LocalDateTime extractValueFromJson(JsonNode node) {
+    protected String parsingErrorText(){
+        return String.format("This should be a string in the format %s", DateFormatters.API_DATE_TIME_FORMAT.toString());
+    }
+
+    @Override
+    public ParsableValue<LocalDateTime> extractValueFromJson(JsonNode node) {
         if(!this.missing(node)){
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()) {
                 try {
-                    return LocalDateTime.parse(valueAsText.get(), DateFormatters.API_DATE_TIME_FORMAT);
+                    return ParsableValue.of(true, LocalDateTime.parse(valueAsText.get(), DateFormatters.API_DATE_TIME_FORMAT));
                 } catch (Exception e) {
                     logger.error("Unable to parse data", e);
                 }
             }
+        }else{
+            return ParsableValue.empty();
         }
-        return null;
+        return ParsableValue.invalid();
     }
 }

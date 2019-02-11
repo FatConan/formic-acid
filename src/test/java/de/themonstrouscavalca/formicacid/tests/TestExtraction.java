@@ -154,14 +154,14 @@ public class TestExtraction{
         node.put("testAlternative", "on");
 
         BooleanExtractor extractor = new BooleanExtractor();
-        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
-        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
-        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
-        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
-        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
-        ValidatedOptional testBoolean = extractor.extractValidatedValue("testBoolean", node, Collections.emptyList());
-        ValidatedOptional testInt = extractor.extractValidatedValue("testInt", node, Collections.emptyList());
-        ValidatedOptional testAlternative = extractor.extractValidatedValue("testAlternative", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testBoolean = extractor.extractValidatedValue("testBoolean", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testInt = extractor.extractValidatedValue("testInt", node, Collections.emptyList());
+        ValidatedOptional<Boolean> testAlternative = extractor.extractValidatedValue("testAlternative", node, Collections.emptyList());
 
         assert(testEmpty.isPresent());
         assert(testNull.isPresent());
