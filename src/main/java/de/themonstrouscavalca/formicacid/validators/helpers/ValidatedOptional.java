@@ -1,12 +1,9 @@
 package de.themonstrouscavalca.formicacid.validators.helpers;
 
-public class ValidatedOptional<T>{
+public class ValidatedOptional<T> extends AbstractOptional<T>{
     private static final ValidatedOptional<?> EMPTY = new ValidatedOptional<>(null, true, false, new String[]{});
 
     private final IntermediateValidateOptional<T> finalIntermediate;
-    private final boolean valid;
-    private final boolean presentInJson;
-    private final T validatedValue;
     private final String[] errors;
 
     public static<T> ValidatedOptional<T> empty(){
@@ -48,18 +45,6 @@ public class ValidatedOptional<T>{
 
     public boolean isPresent(){
         return this.presentInJson;
-    }
-
-    public boolean isEmpty(){
-        return this.validatedValue == null;
-    }
-
-    public boolean isValid(){
-        return valid;
-    }
-
-    public T getValidatedValue(){
-        return validatedValue;
     }
 
     public String[] getErrors(){
