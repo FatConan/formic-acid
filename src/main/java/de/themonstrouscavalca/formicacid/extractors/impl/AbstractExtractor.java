@@ -75,7 +75,7 @@ public abstract class AbstractExtractor<T> implements IExtract<T>{
 
     @Override
     public IntermediateValidateOptional<T> extractFinalIntermediate(String fieldName, JsonNode node, Collection<IValidate<T>> validators){
-        PresentValue<T> presentValue = extractValueFromJson(fieldName, node);
+        PresentValue<T> presentValue = this.extractValueFromJson(fieldName, node);
         return this.runValidators(presentValue, validators);
     }
 

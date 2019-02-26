@@ -58,16 +58,16 @@ public class StringLengthValidator implements IValidate<String>{
 
     private String getAppropriateErrorMessage(){
         if(this.maxLength.isPresent() && this.minLength.isPresent()){
-            String err = this.defaultErrorMsg.isPresent() ? this.defaultErrorMsg.get() : DEFAULT_ERROR_MSG;
+            String err = this.defaultErrorMsg.orElse(DEFAULT_ERROR_MSG);
             return String.format(err, this.minLength.get(), this.maxLength.get());
         }else if(this.maxLength.isPresent()){
-            String err = this.maxOnlyErrorMsg.isPresent() ? this.maxOnlyErrorMsg.get() : DEFAULT_MAX_ONLY_MSG;
+            String err = this.maxOnlyErrorMsg.orElse(DEFAULT_MAX_ONLY_MSG);
             return String.format(err, this.maxLength.get());
         }else if(this.minLength.isPresent()){
-            String err = this.minOnlyErrorMsg.isPresent() ? this.minOnlyErrorMsg.get() : DEFAULT_MIN_ONLY_MSG;
+            String err = this.minOnlyErrorMsg.orElse(DEFAULT_MIN_ONLY_MSG);
             return String.format(err, this.minLength.get());
         }
-        String err = this.defaultErrorMsg.isPresent() ? this.defaultErrorMsg.get() : DEFAULT_ERROR_MSG;
+        String err = this.defaultErrorMsg.orElse(DEFAULT_ERROR_MSG);
         return String.format(err, this.minLength.get(), this.maxLength.get());
     }
 
