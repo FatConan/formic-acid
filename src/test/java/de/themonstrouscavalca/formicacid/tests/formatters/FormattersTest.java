@@ -2,9 +2,7 @@ package de.themonstrouscavalca.formicacid.tests.formatters;
 
 import de.themonstrouscavalca.formicacid.formatters.DateFormatters;
 import org.junit.Test;
-
 import java.time.*;
-
 import static org.junit.Assert.assertEquals;
 
 public class FormattersTest{
@@ -26,10 +24,15 @@ public class FormattersTest{
     public void testDaysAgo(){
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(10);
         assertEquals("10 day(s) ago", DateFormatters.daysAgo(localDateTime));
+
         localDateTime = LocalDateTime.now().minusDays(23);
         assertEquals("23 day(s) ago", DateFormatters.daysAgo(localDateTime));
+
         localDateTime = LocalDateTime.now().minusDays(177);
         assertEquals("177 day(s) ago", DateFormatters.daysAgo(localDateTime));
+
+        localDateTime = null;
+        assertEquals("Not available", DateFormatters.daysAgo(localDateTime));
     }
 
     @Test
@@ -39,5 +42,8 @@ public class FormattersTest{
         Instant instant = Instant.ofEpochMilli(Long.parseLong(sinceEpoch));
         LocalDateTime fromEpoch = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
         assertEquals(fromEpoch, localDateTime);
+
+        localDateTime = null;
+        assertEquals("-1", DateFormatters.sinceEpoch(localDateTime));
     }
 }
