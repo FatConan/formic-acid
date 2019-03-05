@@ -10,7 +10,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class LocalDateTimeListExtractor extends AbstractExtractor<List<LocalDateTime>> implements IExtract<List<LocalDateTime>>{
-    private final GenericListExtractor<LocalDateTime> genericListExtractor  = new GenericListExtractor<>(new LocalDateTimeExtractor());
+    private final GenericListExtractor<LocalDateTime> genericListExtractor;
+
+    public LocalDateTimeListExtractor(){
+        this.genericListExtractor = new GenericListExtractor<>(new LocalDateTimeExtractor());
+    }
+
+    public LocalDateTimeListExtractor(boolean secondsAccuracy){
+        this.genericListExtractor = new GenericListExtractor<>(new LocalDateTimeExtractor(secondsAccuracy));
+    }
 
     @Override
     public ParsableValue<List<LocalDateTime>> extractValueFromJson(JsonNode node){

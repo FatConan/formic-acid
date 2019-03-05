@@ -11,7 +11,7 @@ import java.util.Optional;
 public class DoubleExtractor extends AbstractExtractor<Double> implements IExtract<Double>{
     @Override
     protected String parsingErrorText(){
-        return String.format("This should be a floating point number");
+        return "This should be a floating point number";
     }
 
     @Override

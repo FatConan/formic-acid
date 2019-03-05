@@ -1,6 +1,5 @@
 package de.themonstrouscavalca.formicacid.helpers.dynamic;
 
-
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
 import de.themonstrouscavalca.formicacid.validators.defn.IValidate;
 

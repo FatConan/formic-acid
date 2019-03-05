@@ -15,7 +15,9 @@ public class DateFormatters{
 
     public static final DateTimeFormatter API_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter API_TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
+    public static final DateTimeFormatter API_TIME_WITH_SECONDS_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final DateTimeFormatter API_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter API_DATE_TIME_WITH_SECONDS_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final DateTimeFormatter DAY_ONLY = DateTimeFormatter.ofPattern("d");
     public static final DateTimeFormatter DAY_MONTH = DateTimeFormatter.ofPattern("d MMMM");
 

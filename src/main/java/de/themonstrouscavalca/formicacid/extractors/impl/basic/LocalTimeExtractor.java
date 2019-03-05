@@ -9,14 +9,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class LocalTimeExtractor extends AbstractExtractor<LocalTime> implements IExtract<LocalTime>{
     private Logger logger = LoggerFactory.getLogger(LocalTimeExtractor.class);
+    private final DateTimeFormatter parseFormat;
+
+    public LocalTimeExtractor(){
+        this.parseFormat = DateFormatters.API_TIME_FORMAT;
+    }
+
+    public LocalTimeExtractor(boolean secondsAccuracy){
+        if(secondsAccuracy){
+            this.parseFormat = DateFormatters.API_TIME_WITH_SECONDS_FORMAT;
+        }else{
+            this.parseFormat = DateFormatters.API_TIME_FORMAT;
+        }
+    }
 
     @Override
     protected String parsingErrorText(){
-        return String.format("This should be a string in the format %s", DateFormatters.API_TIME_FORMAT.toString());
+        return String.format("This should be a string in the format %s", this.parseFormat.toString());
     }
 
     @Override
@@ -25,7 +39,7 @@ public class LocalTimeExtractor extends AbstractExtractor<LocalTime> implements 
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()) {
                 try {
-                    return ParsableValue.of(true, LocalTime.parse(valueAsText.get(), DateFormatters.API_TIME_FORMAT));
+                    return ParsableValue.of(true, LocalTime.parse(valueAsText.get(), this.parseFormat));
                 } catch (Exception e) {
                     logger.error("Unable to parse time", e);
                 }

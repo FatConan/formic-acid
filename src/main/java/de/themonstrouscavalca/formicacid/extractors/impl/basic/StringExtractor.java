@@ -7,11 +7,6 @@ import de.themonstrouscavalca.formicacid.helpers.ParsableValue;
 
 public class StringExtractor extends AbstractExtractor<String> implements IExtract<String>{
     @Override
-    protected String parsingErrorText(){
-        return String.format("This should be a string");
-    }
-
-    @Override
     public ParsableValue<String> extractValueFromJson(JsonNode node){
         return this.missing(node) ? ParsableValue.empty() : ParsableValue.of(true, node.asText().trim());
     }

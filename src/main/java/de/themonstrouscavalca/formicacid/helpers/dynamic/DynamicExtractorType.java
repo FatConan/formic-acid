@@ -1,4 +1,4 @@
-package marshaller.helpers.dynamic;
+package de.themonstrouscavalca.formicacid.helpers.dynamic;
 
 public enum DynamicExtractorType{
     STRING("STRING"),

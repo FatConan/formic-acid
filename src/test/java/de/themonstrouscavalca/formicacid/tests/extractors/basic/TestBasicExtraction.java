@@ -1,27 +1,20 @@
-package de.themonstrouscavalca.formicacid.tests;
+package de.themonstrouscavalca.formicacid.tests.extractors.basic;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.themonstrouscavalca.formicacid.extractors.impl.basic.*;
-import de.themonstrouscavalca.formicacid.extractors.impl.collection.BooleanListExtractor;
-import de.themonstrouscavalca.formicacid.extractors.impl.collection.DoubleListExtractor;
-import de.themonstrouscavalca.formicacid.extractors.impl.collection.LongListExtractor;
 import de.themonstrouscavalca.formicacid.validators.helpers.ValidatedOptional;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.Collections;
 
-public class TestExtraction{
-
+public class TestBasicExtraction{
 
     @Test
     public void extractString(){
@@ -32,6 +25,7 @@ public class TestExtraction{
         node.put("testString", "string");
         node.put("testPassword", "password");
         node.put("testPaddedString", "   string     ");
+        node.put("testBadType", 10.2);
 
         StringExtractor extractor = new StringExtractor();
         ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
@@ -41,6 +35,7 @@ public class TestExtraction{
         ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
         ValidatedOptional testPassword = extractor.extractValidatedValue("testPassword", node, Collections.emptyList());
         ValidatedOptional testPaddedString = extractor.extractValidatedValue("testPaddedString", node, Collections.emptyList());
+        ValidatedOptional testBadType = extractor.extractValidatedValue("testBadType", node, Collections.emptyList());
 
         assert(testEmpty.isPresent());
         assert(testNull.isPresent());
@@ -50,6 +45,7 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
+        assertEquals("10.2", testBadType.get());
         assertEquals("string", testString.get());
         assertEquals("password", testPassword.get());
         assertEquals("string", testPaddedString.get());
@@ -63,6 +59,8 @@ public class TestExtraction{
         node.put("testWhitespace", "        ");
         node.put("testString", "-6");
         node.put("testLong", 7);
+        node.put("testBadFormat","10.1");
+        node.put("testBadType", true);
 
         LongExtractor extractor = new LongExtractor();
         ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
@@ -71,6 +69,8 @@ public class TestExtraction{
         ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
         ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
         ValidatedOptional testLong = extractor.extractValidatedValue("testLong", node, Collections.emptyList());
+        ValidatedOptional testBadFormat = extractor.extractValidatedValue("testBadFormat", node, Collections.emptyList());
+        ValidatedOptional testBadType = extractor.extractValidatedValue("testBadType", node, Collections.emptyList());
 
         assert(testEmpty.isPresent());
         assert(testNull.isPresent());
@@ -80,6 +80,8 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
+        assertNull(testBadFormat.get());
+        assertNull(testBadType.get());
         assertEquals(-6L, testString.get());
         assertEquals(7L, testLong.get());
     }
@@ -92,6 +94,8 @@ public class TestExtraction{
         node.put("testWhitespace", "        ");
         node.put("testString", "4");
         node.put("testInt", 5);
+        node.put("testBadFormat","10.1");
+        node.put("testBadType", true);
 
         IntegerExtractor extractor = new IntegerExtractor();
         ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
@@ -100,6 +104,8 @@ public class TestExtraction{
         ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
         ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
         ValidatedOptional testInt = extractor.extractValidatedValue("testInt", node, Collections.emptyList());
+        ValidatedOptional testBadFormat = extractor.extractValidatedValue("testBadFormat", node, Collections.emptyList());
+        ValidatedOptional testBadType = extractor.extractValidatedValue("testBadType", node, Collections.emptyList());
 
         assert(testEmpty.isPresent());
         assert(testNull.isPresent());
@@ -109,6 +115,8 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
+        assertNull(testBadFormat.get());
+        assertNull(testBadType.get());
         assertEquals(4, testString.get());
         assertEquals(5, testInt.get());
     }
@@ -121,6 +129,8 @@ public class TestExtraction{
         node.put("testWhitespace", "        ");
         node.put("testString", "4.123");
         node.put("testDouble", 5.9906);
+        node.put("testBadFormat","10.0.1");
+        node.put("testBadType", true);
 
         DoubleExtractor extractor = new DoubleExtractor();
         ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
@@ -129,6 +139,8 @@ public class TestExtraction{
         ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
         ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
         ValidatedOptional testDouble = extractor.extractValidatedValue("testDouble", node, Collections.emptyList());
+        ValidatedOptional testBadFormat = extractor.extractValidatedValue("testBadFormat", node, Collections.emptyList());
+        ValidatedOptional testBadType = extractor.extractValidatedValue("testBadType", node, Collections.emptyList());
 
         assert(testEmpty.isPresent());
         assert(testNull.isPresent());
@@ -138,6 +150,8 @@ public class TestExtraction{
         assertNull(testEmpty.get());
         assertNull(testNull.get());
         assertNull(testWhitespace.get());
+        assertNull(testBadFormat.get());
+        assertNull(testBadType.get());
         assertEquals(4.123, testString.get());
         assertEquals(5.9906, testDouble.get());
     }
@@ -278,159 +292,6 @@ public class TestExtraction{
         assertNull(testWhitespace.get());
         assertEquals(LocalDateTime.of(2015, 1, 29, 11, 59), testString.get());
         assertEquals(LocalDateTime.of(2020, 7, 31, 7, 49), testString2.get());
-        assertNull(testInvalidString.get());
-        assertNull(testIncorrectString.get());
-    }
-
-    @Test
-    public void extractLongList(){
-        ObjectNode node = JsonNodeFactory.instance.objectNode();
-        node.put("testEmpty", "");
-        node.putNull("testNull");
-        node.put("testWhitespace", "        ");
-
-        ArrayNode testList = node.putArray("testString");
-        testList.add("1");
-        testList.add("2");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-
-        ArrayNode testListLong = node.putArray("testLongs");
-        testListLong.add(1L);
-        testListLong.add(2L);
-        testListLong.add(3L);
-        testListLong.add(4L);
-        testListLong.add(5L);
-
-        node.put("testInvalidString", "[1,2,3,4,5]");
-        node.put("testIncorrectString", "incorrect");
-
-        LongListExtractor extractor = new LongListExtractor();
-        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
-        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
-        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
-        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
-        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
-        ValidatedOptional testString2 = extractor.extractValidatedValue("testLongs", node, Collections.emptyList());
-        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
-        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
-
-        assert(testEmpty.isPresent());
-        assert(testNull.isPresent());
-        assert(testWhitespace.isPresent());
-        assert(!testNoHit.isPresent());
-        assertNull(testNoHit.get());
-        assertNull(testEmpty.get());
-        assertNull(testNull.get());
-        assertNull(testWhitespace.get());
-        assertEquals(Arrays.asList(1L, 2L, 3L, 4L, 5L), testString.get());
-        assertEquals(Arrays.asList(1L, 2L, 3L, 4L, 5L), testString2.get());
-        assertNull(testInvalidString.get());
-        assertNull(testIncorrectString.get());
-    }
-
-    @Test
-    public void extractBooleanList(){
-        ObjectNode node = JsonNodeFactory.instance.objectNode();
-        node.put("testEmpty", "");
-        node.putNull("testNull");
-        node.put("testWhitespace", "        ");
-
-        ArrayNode testList = node.putArray("testString");
-        testList.add("true");
-        testList.add("True");
-        testList.add("False");
-        testList.add("false");
-        testList.add("TRUE");
-
-        ArrayNode testListLong = node.putArray("testBoolean");
-        testListLong.add(true);
-        testListLong.add(true);
-        testListLong.add(false);
-        testListLong.add(false);
-        testListLong.add(true);
-
-        ArrayNode testPartialBooleans = node.putArray("testPartialBoolean");
-        testPartialBooleans.add(true);
-        testPartialBooleans.add(true);
-        testPartialBooleans.addNull();
-        testPartialBooleans.add(false);
-        testPartialBooleans.add(true);
-
-        node.put("testInvalidString", "[true,true,false,false,true]");
-        node.put("testIncorrectString", "incorrect");
-
-        BooleanListExtractor extractor = new BooleanListExtractor();
-        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
-        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
-        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
-        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
-        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
-        ValidatedOptional testBoolean = extractor.extractValidatedValue("testBoolean", node, Collections.emptyList());
-        ValidatedOptional testPartialBoolean = extractor.extractValidatedValue("testPartialBoolean", node, Collections.emptyList());
-        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
-        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
-
-        assert(testEmpty.isPresent());
-        assert(testNull.isPresent());
-        assert(testWhitespace.isPresent());
-        assert(!testNoHit.isPresent());
-        assertNull(testNoHit.get());
-        assertNull(testEmpty.get());
-        assertNull(testNull.get());
-        assertNull(testWhitespace.get());
-        assertEquals(Arrays.asList(true, true, false, false, true), testString.get());
-        assertEquals(Arrays.asList(true, true, false, true), testPartialBoolean.get());
-        assertEquals(Arrays.asList(true, true, false, false, true), testBoolean.get());
-        assertNull(testInvalidString.get());
-        assertNull(testIncorrectString.get());
-    }
-
-
-    public void extractDoubleList(){
-        ObjectNode node = JsonNodeFactory.instance.objectNode();
-        node.put("testEmpty", "");
-        node.putNull("testNull");
-        node.put("testWhitespace", "        ");
-
-        ArrayNode testList = node.putArray("testString");
-        testList.add("true");
-        testList.add("true");
-        testList.add("false");
-        testList.add("false");
-        testList.add("true");
-
-        ArrayNode testListLong = node.putArray("testBoolean");
-        testListLong.add(true);
-        testListLong.add(true);
-        testListLong.add(false);
-        testListLong.add(false);
-        testListLong.add(true);
-
-        node.put("testInvalidString", "[true,true,false,false,true]");
-        node.put("testIncorrectString", "incorrect");
-
-        DoubleListExtractor extractor = new DoubleListExtractor();
-        ValidatedOptional testNoHit = extractor.extractValidatedValue("notPresent", node, Collections.emptyList());
-        ValidatedOptional testEmpty = extractor.extractValidatedValue("testEmpty", node, Collections.emptyList());
-        ValidatedOptional testNull = extractor.extractValidatedValue("testNull", node, Collections.emptyList());
-        ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
-        ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
-        ValidatedOptional testBoolean = extractor.extractValidatedValue("testBoolean", node, Collections.emptyList());
-        ValidatedOptional testInvalidString = extractor.extractValidatedValue("testInvalidString", node, Collections.emptyList());
-        ValidatedOptional testIncorrectString = extractor.extractValidatedValue("testIncorrectString", node, Collections.emptyList());
-
-        assert(testEmpty.isPresent());
-        assert(testNull.isPresent());
-        assert(testWhitespace.isPresent());
-        assert(!testNoHit.isPresent());
-        assertNull(testNoHit.get());
-        assertNull(testEmpty.get());
-        assertNull(testNull.get());
-        assertNull(testWhitespace.get());
-        assertEquals(Arrays.asList(true, true, false, false, true), testString.get());
-        assertEquals(Arrays.asList(true, true, false, false, true), testBoolean.get());
         assertNull(testInvalidString.get());
         assertNull(testIncorrectString.get());
     }
