@@ -129,6 +129,9 @@ public class TestBasicExtraction{
         node.put("testWhitespace", "        ");
         node.put("testString", "4.123");
         node.put("testDouble", 5.9906);
+        node.put("testInt", 6);
+        node.put("testIntString", "6");
+        node.put("testDoubleZero", 6.0);
         node.put("testBadFormat","10.0.1");
         node.put("testBadType", true);
 
@@ -139,6 +142,9 @@ public class TestBasicExtraction{
         ValidatedOptional testWhitespace = extractor.extractValidatedValue("testWhitespace", node, Collections.emptyList());
         ValidatedOptional testString = extractor.extractValidatedValue("testString", node, Collections.emptyList());
         ValidatedOptional testDouble = extractor.extractValidatedValue("testDouble", node, Collections.emptyList());
+        ValidatedOptional testDoubleZero = extractor.extractValidatedValue("testDoubleZero", node, Collections.emptyList());
+        ValidatedOptional testInt = extractor.extractValidatedValue("testInt", node, Collections.emptyList());
+        ValidatedOptional testIntString = extractor.extractValidatedValue("testIntString", node, Collections.emptyList());
         ValidatedOptional testBadFormat = extractor.extractValidatedValue("testBadFormat", node, Collections.emptyList());
         ValidatedOptional testBadType = extractor.extractValidatedValue("testBadType", node, Collections.emptyList());
 
@@ -152,6 +158,9 @@ public class TestBasicExtraction{
         assertNull(testWhitespace.get());
         assertNull(testBadFormat.get());
         assertNull(testBadType.get());
+        assertEquals(6.0, testInt.get());
+        assertEquals(6.0, testDoubleZero.get());
+        assertEquals(6.0, testIntString.get());
         assertEquals(4.123, testString.get());
         assertEquals(5.9906, testDouble.get());
     }

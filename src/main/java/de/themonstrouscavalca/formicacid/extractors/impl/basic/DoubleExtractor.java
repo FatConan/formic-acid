@@ -22,6 +22,9 @@ public class DoubleExtractor extends AbstractExtractor<Double> implements IExtra
         if(node.isDouble()){
             return ParsableValue.of(true, node.asDouble());
         }
+        if(node.isInt() || node.isBigInteger()){
+            return ParsableValue.of(true, node.asDouble());
+        }
         if(node.isTextual()){
             try{
                 return ParsableValue.of(true, Double.parseDouble(node.asText()));
