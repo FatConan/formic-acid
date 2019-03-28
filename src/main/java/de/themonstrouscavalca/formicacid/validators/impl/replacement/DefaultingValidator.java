@@ -17,8 +17,10 @@ public class DefaultingValidator<T> implements IValidate<T>{
         IntermediateValidateOptional<T> intermediate = new IntermediateValidateOptional<>();
         if(value != null){
            intermediate.setValidatedValue(value);
+           intermediate.setPresentInJson(true);
         }else{
             intermediate.setValidatedValue(this.replacement);
+            intermediate.setPresentInJson(true);
         }
         return intermediate;
     }
