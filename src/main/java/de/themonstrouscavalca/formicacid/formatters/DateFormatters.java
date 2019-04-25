@@ -1,5 +1,7 @@
 package de.themonstrouscavalca.formicacid.formatters;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -36,5 +38,9 @@ public class DateFormatters{
                     .toInstant().toEpochMilli());
         }
         return "-1";
+    }
+
+    public static LocalDate localDatefromTimestamp(Long ts){
+        return Instant.ofEpochMilli(ts).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }
