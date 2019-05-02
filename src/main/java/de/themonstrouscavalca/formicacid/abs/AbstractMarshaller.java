@@ -11,7 +11,7 @@ import de.themonstrouscavalca.formicacid.validators.impl.basic.RequiredValidator
 
 import java.util.*;
 
-public abstract class AbstractMarshaller<T> {
+public abstract class AbstractMarshaller<T>{
     private boolean errored = false;
     private ObjectNode response;
     private ObjectNode errors;
