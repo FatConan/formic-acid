@@ -21,7 +21,7 @@ public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
         }
     }
 
-    protected <M> void validatedValue(T entity, String fieldName, JsonNode json, IExtract<M> extractor, IHandleValue<ValidatedOptional<M>, T> handleValue){
+    protected <M> void validateValue(T entity, String fieldName, JsonNode json, IExtract<M> extractor, IHandleValue<ValidatedOptional<M>, T> handleValue){
         validateValue(entity, fieldName, json, extractor, Collections.emptyList(), handleValue);
     }
 
