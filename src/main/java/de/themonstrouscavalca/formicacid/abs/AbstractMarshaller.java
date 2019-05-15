@@ -63,6 +63,18 @@ public abstract class AbstractMarshaller<T>{
         }
     }
 
+    public void pullErrorsFromGenerator(String entryIdentifier, AbstractMarshaller marshaller){
+        if(marshaller.hasErrors()){
+            this.errored = true;
+            Iterator<Map.Entry<String, JsonNode>> iter = marshaller.errors.fields();
+            while(iter.hasNext()){
+                Map.Entry<String, JsonNode> entry = iter.next();
+                this.errors.set(String.format("%s_%s", entry.getKey(), entryIdentifier), entry.getValue());
+            }
+            this.globalErrors.addAll(marshaller.globalErrors);
+        }
+    }
+
     public void addError(String jsonField, String errorMsg){
         this.errored = true;
         this.errors.put(jsonField, errorMsg);
