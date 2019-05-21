@@ -1,0 +1,10 @@
+@import java.util
+
+@(name: String, attributes:util.Map[String, String], legend:String)(elements: Html)
+<fieldset id="fieldset_@name" class="fieldset @name"
+@for(entry:util.Map.Entry[String, String] <- attributes.entrySet()){
+    @entry.getKey="@entry.getValue"
+    }>
+<legend>@legend</legend>
+@elements
+</fieldset>
