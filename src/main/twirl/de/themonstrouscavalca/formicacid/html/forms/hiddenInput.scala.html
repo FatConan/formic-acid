@@ -1,4 +1,6 @@
+@de.themonstrouscavalca.formicacid.helpers.templates.InputNamer
+
 @(name:String, formName:String, value:String)
-@defining(if(formName != null && !formName.isEmpty){formName + "_input_" + name}else{"input_" + name}){ id =>
+@defining(InputNamer.id(name, formName)){ id =>
     <input name="@name" id="@id" type="hidden" @if(value != null){value="@value"} />
 }

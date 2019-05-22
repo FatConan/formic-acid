@@ -1,13 +1,11 @@
 @import java.util
-@(inputType:String, attributes:util.Map[String, String], name:String, required:Boolean, label:String, placeholder:String, formName:String, value:String)
-@defining(if(formName != null && !formName.isEmpty){formName + "_input_" + name}else{"input_" + name}) { id =>
-    <div class="input-row @if(required) {required}" data-errorname="@name">
-        <div class="error"></div>
-        <label for="@id">@label: </label>
-        <input name="@name" id="@id" placeholder="@placeholder" type="@inputType"
-            @for(entry:util.Map.Entry[String, String] <- attributes.entrySet()){
-                @entry.getKey="@entry.getValue"
-            }
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputNamer
+
+@(inputType:String, options:InputConfig, name:String, required:Boolean, label:String, placeholder:String, formName:String, value:String)
+@defining(InputNamer.id(name, formName)){ id =>
+    @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrapping(id, name, required, label, options){
+        <input class="@options.getInputClasses" name="@name" id="@id" placeholder="@placeholder" type="@inputType" @Html(options.getInputAttributes)
             @if(value != null){value="@value"} />
-    </div>
+    }
 }

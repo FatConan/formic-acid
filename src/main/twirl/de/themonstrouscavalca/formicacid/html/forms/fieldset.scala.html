@@ -1,10 +1,8 @@
 @import java.util
+@import de.themonstrouscavalca.formicacid.helpers.templates.FieldsetConfig
 
-@(name: String, attributes:util.Map[String, String], legend:String)(elements: Html)
-<fieldset id="fieldset_@name" class="fieldset @name"
-@for(entry:util.Map.Entry[String, String] <- attributes.entrySet()){
-    @entry.getKey="@entry.getValue"
-    }>
-<legend>@legend</legend>
+@(options: FieldsetConfig)(elements: Html)
+<fieldset id="@options.getId" class="fieldset @options.getClasses" @Html(options.getAttributes)>
+    <legend>@options.getLegend</legend>
 @elements
 </fieldset>
