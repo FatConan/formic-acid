@@ -1,9 +1,12 @@
 package de.themonstrouscavalca.formicacid.helpers.templates;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InputConfigBuilder{
     private String formName = "";
@@ -23,6 +26,10 @@ public class InputConfigBuilder{
 
     public static InputConfigBuilder instance(){
         return new InputConfigBuilder();
+    }
+
+    public static InputConfigBuilder of(String name){
+        return of(name, "", "");
     }
 
     public static InputConfigBuilder of(String name, String label){
@@ -73,6 +80,11 @@ public class InputConfigBuilder{
 
     public InputConfigBuilder addValueOption(String value, String label){
         this.inputValuePairs.add(new InputValuePair(value, label));
+        return this;
+    }
+
+    public InputConfigBuilder addValueOptions(List<Pair<String, String>> pairs){
+        this.inputValuePairs.addAll(pairs.stream().map(pair -> new InputValuePair(pair.getKey(), pair.getValue())).collect(Collectors.toList()));
         return this;
     }
 

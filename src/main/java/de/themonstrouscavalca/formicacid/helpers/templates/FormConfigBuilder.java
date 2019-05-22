@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FormConfigBuilder{
     private String id = "";
@@ -80,10 +81,8 @@ public class FormConfigBuilder{
 
     public FormConfig build(){
         String cssClasses = String.join(" ", this.classes);
-
-        StringBuilder attrBuilder = new StringBuilder();
-        this.attributes.entrySet().stream().map(entry -> attrBuilder.append(String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())));
-        String attrs = attrBuilder.toString();
+        String attrs = String.join(" ", this.attributes.entrySet().stream()
+                .map(entry -> String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())).collect(Collectors.toList()));
 
         return new FormConfig(this.id, this.name, cssClasses, attrs, this.requiredNotice, this.globalErrors);
     }
