@@ -1,10 +1,9 @@
-@(name:String, required:Boolean, label:String, formName:String, value:String)(options: Html)
-@defining(if(formName != null && !formName.isEmpty){formName + "_input_" + name}else{"input_" + name}){ id =>
-    <div class="input-row @if(required) {required}" data-errorname="@name">
-        <div class="error"></div>
-        <label for="@id">@label: </label>
-        <select name="@name" id="@id">
-            @options
-        </select>
-    </div>
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputValuePair
+
+@(options: InputConfig)(optionElements: Html)
+@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
+    <select @Html(options.getInputAttributes) class="@options.getInputClasses" name="@options.getName" id="@options.getId">
+        @optionElements
+    </select>
 }

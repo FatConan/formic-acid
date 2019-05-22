@@ -1,11 +1,8 @@
-@import java.util
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
 
-@(name:String, required:Boolean, label:String, formName:String, value:String)
-@defining(if(formName != null && !formName.isEmpty){formName + "_input_" + name}else{"input_" + name}) { id =>
-    <div class="input-row @if(required) {required}" data-errorname="@name">
-        <div class="error"></div>
-        <label for="@id">@label:
-            <input name="@name" id="@id" type="checkbox" @if(value != null && value.equals("on")){checked="checked"} />
-        </label>
-    </div>
+@(options: InputConfig)
+@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrapping(options){
+    <label for="@options.getId">@options.getLabel:
+        <input class="@options.getInputClasses" @Html(options.getInputAttributes) name="@options.getName" id="@options.getId" type="checkbox" @if(options.getValue != null && options.getValue.equals("on")){checked="checked"} />
+    </label>
 }

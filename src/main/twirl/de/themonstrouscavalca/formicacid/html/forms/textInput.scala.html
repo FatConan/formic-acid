@@ -1,4 +1,4 @@
-@import java.util.Collections
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
 
-@(name:String, required:Boolean, label:String, placeholder:String, formName:String, value:String)
-@de.themonstrouscavalca.formicacid.html.forms.html.input("text", Collections.emptyMap(), name, required, label, placeholder, formName, value)
+@(options: InputConfig)
+@de.themonstrouscavalca.formicacid.html.forms.html.input("text", options)

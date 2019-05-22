@@ -1,15 +1,13 @@
 @import java.util
+@import de.themonstrouscavalca.formicacid.helpers.templates.FormConfig
 
-@(name: String, attributes:util.Map[String, String], showRequiredNotice: Boolean, addGlobalErrors: Boolean)(elements: Html)
-<form id="form_@name" class="form @name"
-    @for(entry:util.Map.Entry[String, String] <- attributes.entrySet()){
-        @entry.getKey="@entry.getValue"
-    }>
-    @if(addGlobalErrors) {
+@(options: FormConfig)(elements: Html)
+<form id="@options.getId" class="form @options.getClasses" @Html(options.getAttributes)>
+    @if(options.getAddGlobalErrors()){
         @de.themonstrouscavalca.formicacid.html.forms.html.globalErrors()
     }
     @elements
-    @if(showRequiredNotice) {
+    @if(options.getShowRequiredNotice()){
         @de.themonstrouscavalca.formicacid.html.forms.html.requiredNotice()
     }
     <input type="submit" class="hidden" />

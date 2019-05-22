@@ -1,5 +1,7 @@
 package de.themonstrouscavalca.formicacid.helpers.templates;
 
+import java.util.List;
+
 public class InputConfig{
     private final String formName;
     private final String name;
@@ -8,13 +10,19 @@ public class InputConfig{
     private final boolean required;
     private final String value;
 
+    private String placeholder;
+
     private final String wrapperClasses;
     private final String inputClasses;
     private final String wrapperAttributes;
     private final String inputAttributes;
 
+    private final List<InputValuePair> inputValuesPairs;
+
     public InputConfig(String id, String name, String formName, String label, Boolean required,
+                       String placeholder,
                        String wrapperClasses, String inputClasses, String wrapperAttributes, String inputAttributes,
+                       List<InputValuePair> inputValuePairs,
                        String value){
         this.id = id;
         this.name = name;
@@ -22,6 +30,9 @@ public class InputConfig{
         this.formName = formName;
         this.label = label;
         this.value = value;
+
+        this.placeholder = placeholder;
+        this.inputValuesPairs = inputValuePairs;
 
         this.wrapperClasses = wrapperClasses;
         this.inputClasses = inputClasses;
@@ -43,6 +54,10 @@ public class InputConfig{
 
     public String getValue(){
         return value;
+    }
+
+    public String getPlaceholder(){
+        return placeholder;
     }
 
     public String getId(){
@@ -67,5 +82,9 @@ public class InputConfig{
 
     public String getInputAttributes(){
         return inputAttributes;
+    }
+
+    public List<InputValuePair> getInputValuesPairs(){
+        return inputValuesPairs;
     }
 }

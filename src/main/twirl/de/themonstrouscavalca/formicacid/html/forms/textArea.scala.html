@@ -1,8 +1,7 @@
-@(name:String, required:Boolean, label:String, placeholder:String, formName:String, value:String)
-@defining(if(formName != null && !formName.isEmpty){formName + "_input_" + name}else{"input_" + name}) { id =>
-    <div class="input-row @if(required) {required}" data-errorname="@name">
-        <div class="error"></div>
-        <label for="@id">@label: </label>
-        <textarea name="@name" id="@id" placeholder="@placeholder">@if(value != null){@value}</textarea>
-    </div>
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputValuePair
+
+@(options: InputConfig)
+@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
+    <textarea @Html(options.getInputAttributes) class="@options.getInputClasses" name="@options.getName" id="@options.getId" placeholder="@options.getPlaceholder">@if(options.getValue != null){@options.getValue}</textarea>
 }

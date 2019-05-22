@@ -13,10 +13,13 @@ public class InputConfigBuilder{
     private String value = null;
     private boolean required = false;
 
+    private String placeholder = "";
+
     private List<String> wrapperClasses;
     private List<String> inputClasses;
     private Map<String, String> wrapperAttributes;
     private Map<String, String> inputAttributes;
+    private List<InputValuePair> inputValuePairs;
 
     public static InputConfigBuilder instance(){
         return new InputConfigBuilder();
@@ -40,6 +43,12 @@ public class InputConfigBuilder{
         this.inputClasses = new ArrayList<>();
         this.wrapperAttributes = new HashMap<>();
         this.inputAttributes = new HashMap<>();
+        this.inputValuePairs = new ArrayList<>();
+    }
+
+    public InputConfigBuilder setPlaceholder(String placeholder){
+        this.placeholder = placeholder;
+        return this;
     }
 
     public InputConfigBuilder setLabel(String label){
@@ -59,6 +68,11 @@ public class InputConfigBuilder{
 
     public InputConfigBuilder setFormName(String formName){
         this.formName = formName;
+        return this;
+    }
+
+    public InputConfigBuilder addValueOption(String value, String label){
+        this.inputValuePairs.add(new InputValuePair(value, label));
         return this;
     }
 
@@ -110,8 +124,9 @@ public class InputConfigBuilder{
         this.wrapperAttributes.entrySet().stream().map(entry -> wrapperAttrBuilder.append(String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())));
         String wrapperAttrs = wrapperAttrBuilder.toString();
 
-        return new InputConfig(this.id, this.name, this.formName, this.label, this.required,
+        return new InputConfig(this.id, this.name, this.formName, this.label, this.required, this.placeholder,
                 wrapperClasses, inputClasses, wrapperAttrs, inputAttrs,
+                this.inputValuePairs,
                 this.value);
     }
 }

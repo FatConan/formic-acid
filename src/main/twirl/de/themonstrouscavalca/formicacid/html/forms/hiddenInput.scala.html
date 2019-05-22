@@ -1,6 +1,4 @@
-@de.themonstrouscavalca.formicacid.helpers.templates.InputNamer
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
 
-@(name:String, formName:String, value:String)
-@defining(InputNamer.id(name, formName)){ id =>
-    <input name="@name" id="@id" type="hidden" @if(value != null){value="@value"} />
-}
+@(options: InputConfig)
+<input name="@options.getName" id="@options.getFormName" type="hidden" @if(options.getValue != null){value="@options.getValue"} />

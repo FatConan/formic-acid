@@ -1,11 +1,8 @@
 @import java.util
 @import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputNamer
 
-@(inputType:String, options:InputConfig, name:String, required:Boolean, label:String, placeholder:String, formName:String, value:String)
-@defining(InputNamer.id(name, formName)){ id =>
-    @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrapping(id, name, required, label, options){
-        <input class="@options.getInputClasses" name="@name" id="@id" placeholder="@placeholder" type="@inputType" @Html(options.getInputAttributes)
-            @if(value != null){value="@value"} />
-    }
+@(inputType: String, options: InputConfig)
+@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
+    <input class="@options.getInputClasses" name="@options.getName" id="@options.getId" placeholder="@options.getPlaceholder"
+    type="@inputType" @Html(options.getInputAttributes) @if(options.getValue != null){value="@options.getValue"} />
 }

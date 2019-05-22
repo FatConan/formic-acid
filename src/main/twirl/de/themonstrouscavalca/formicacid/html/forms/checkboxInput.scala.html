@@ -1,14 +1,12 @@
 @import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputNamer
+@import de.themonstrouscavalca.formicacid.helpers.templates.InputValuePair
 
-@(name:String, required:Boolean, label:String, options:InputConfig, formName:String, value:String)
-@defining(InputNamer.id(name, formName)){ id =>
-    @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrapping(id, name, required, label, options) {
-        <div class="checkboxes @options.getInputClasses" @Html(options.getInputAttributes()) id="@id">
-            @*for(pair: javafx.util.Pair[String, String] <- options) {
-            <label class="no-annotations">@pair.getValue <input name="@{name}_@{pair.getValue}" type="checkbox" value="@pair.getKey"
-            @if(value != null && value.equals(pair.getKey)){checked="checked"} /></label>
-            }*@
-        </div>
-    }
+@(options: InputConfig)
+@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options) {
+    <div class="checkboxes @options.getInputClasses" @Html(options.getInputAttributes()) id="@options.getId">
+        @for(pair: InputValuePair <- options.getInputValuesPairs) {
+            <label class="no-annotations">@pair.getLabel <input name="@{options.getName}_@{pair.getValue}" type="checkbox" value="@pair.getValue"
+                @if(options.getValue != null && options.getValue.equals(pair.getValue)){checked="checked"} /></label>
+        }
+    </div>
 }
