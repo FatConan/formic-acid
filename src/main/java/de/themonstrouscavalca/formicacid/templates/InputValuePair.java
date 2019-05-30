@@ -1,4 +1,4 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
 
 public class InputValuePair{
     private final String label;

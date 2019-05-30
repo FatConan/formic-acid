@@ -1,4 +1,6 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
+
+import play.twirl.api.Html;
 
 public class FieldsetConfig{
     private final String formName;
@@ -7,10 +9,10 @@ public class FieldsetConfig{
     private final String id;
 
     private final String fieldsetClasses;
-    private final String fieldsetAttributes;
+    private final Html fieldsetAttributes;
 
     public FieldsetConfig(String id, String name, String formName, String legend,
-                          String fieldsetClasses, String fieldsetAttributes){
+                          String fieldsetClasses, Html fieldsetAttributes){
         this.id = id;
         this.name = name;
         this.formName = formName;
@@ -40,7 +42,7 @@ public class FieldsetConfig{
         return fieldsetClasses;
     }
 
-    public String getAttributes(){
+    public Html getAttributes(){
         return fieldsetAttributes;
     }
 }

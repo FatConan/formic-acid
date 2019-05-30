@@ -1,9 +1,9 @@
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputValuePair
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.templates.InputValuePair
 
 @(options: InputConfig)
 @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options) {
-    <div class="checkboxes @options.getInputClasses" @Html(options.getInputAttributes()) id="@options.getId">
+    <div class="checkboxes @options.getInputClasses" @options.getInputAttributes id="@options.getId">
         @for(pair: InputValuePair <- options.getInputValuesPairs) {
             <label class="no-annotations">@pair.getLabel <input name="@{options.getName}_@{pair.getValue}" type="checkbox" value="@pair.getValue"
                 @if(options.getValue != null && options.getValue.equals(pair.getValue)){checked="checked"} /></label>

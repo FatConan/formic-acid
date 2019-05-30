@@ -1,8 +1,8 @@
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
 
 @(options: InputConfig)(inner: Html)
 <div class="input-row @if(options.isRequired){required} @options.getWrapperClasses" data-errorname="@options.getName"
-    @Html(options.getWrapperAttributes)>
+    @options.getWrapperAttributes>
     <div class="error"></div>
     @inner
 </div>

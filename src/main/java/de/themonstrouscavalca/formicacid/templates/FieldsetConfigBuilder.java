@@ -1,9 +1,12 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.themonstrouscavalca.formicacid.html.forms.attributes.html.attributesHtml;
+import play.twirl.api.Html;
 
 public class FieldsetConfigBuilder{
     private String formName = "";
@@ -69,9 +72,7 @@ public class FieldsetConfigBuilder{
     public FieldsetConfig build(){
         String cssClasses = String.join(" ", this.fieldsetClasses);
 
-        StringBuilder attrBuilder = new StringBuilder();
-        this.fieldsetAttributes.entrySet().stream().map(entry -> attrBuilder.append(String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())));
-        String attrs = attrBuilder.toString();
+        Html attrs = attributesHtml.render(this.fieldsetAttributes);
 
         return new FieldsetConfig(this.id, this.name, this.formName, this.legend, cssClasses, attrs);
     }

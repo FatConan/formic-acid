@@ -1,7 +1,7 @@
-@import de.themonstrouscavalca.formicacid.helpers.templates.FieldsetConfig
+@import de.themonstrouscavalca.formicacid.templates.FieldsetConfig
 
 @(options: FieldsetConfig)(elements: Html)
-<fieldset id="@options.getId" class="fieldset @options.getClasses" @Html(options.getAttributes)>
+<fieldset id="@options.getId" class="fieldset @options.getClasses" @options.getAttributes>
     <legend>@options.getLegend</legend>
 @elements
 </fieldset>

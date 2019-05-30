@@ -1,9 +1,9 @@
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputValuePair
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.templates.InputValuePair
 
 @(options: InputConfig)(optionElements: Html)
 @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
-    <select @Html(options.getInputAttributes) class="@options.getInputClasses" name="@options.getName" id="@options.getId">
+    <select @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" id="@options.getId">
         @optionElements
     </select>
 }

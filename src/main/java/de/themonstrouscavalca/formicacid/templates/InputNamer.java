@@ -1,4 +1,4 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
 
 public class InputNamer{
     public static String id(String inputName, String formName){

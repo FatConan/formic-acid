@@ -1,4 +1,4 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
 
 import javafx.util.Pair;
 
@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import de.themonstrouscavalca.formicacid.html.forms.attributes.html.attributesHtml;
+import play.twirl.api.Html;
+
 
 public class InputConfigBuilder{
     private String formName = "";
@@ -128,13 +132,8 @@ public class InputConfigBuilder{
         String inputClasses = String.join(" ", this.inputClasses);
         String wrapperClasses = String.join(" ", this.wrapperClasses);
 
-        StringBuilder inputAttrBuilder = new StringBuilder();
-        this.inputAttributes.entrySet().stream().map(entry -> inputAttrBuilder.append(String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())));
-        String inputAttrs = inputAttrBuilder.toString();
-
-        StringBuilder wrapperAttrBuilder = new StringBuilder();
-        this.wrapperAttributes.entrySet().stream().map(entry -> wrapperAttrBuilder.append(String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())));
-        String wrapperAttrs = wrapperAttrBuilder.toString();
+        Html inputAttrs = attributesHtml.render(this.inputAttributes);
+        Html wrapperAttrs = attributesHtml.render(this.wrapperAttributes);
 
         return new InputConfig(this.id, this.name, this.formName, this.label, this.required, this.placeholder,
                 wrapperClasses, inputClasses, wrapperAttrs, inputAttrs,

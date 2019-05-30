@@ -1,4 +1,6 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
+
+import play.twirl.api.Html;
 
 import java.util.List;
 
@@ -14,14 +16,14 @@ public class InputConfig{
 
     private final String wrapperClasses;
     private final String inputClasses;
-    private final String wrapperAttributes;
-    private final String inputAttributes;
+    private final Html wrapperAttributes;
+    private final Html inputAttributes;
 
     private final List<InputValuePair> inputValuesPairs;
 
     public InputConfig(String id, String name, String formName, String label, Boolean required,
                        String placeholder,
-                       String wrapperClasses, String inputClasses, String wrapperAttributes, String inputAttributes,
+                       String wrapperClasses, String inputClasses, Html wrapperAttributes, Html inputAttributes,
                        List<InputValuePair> inputValuePairs,
                        String value){
         this.id = id;
@@ -76,11 +78,11 @@ public class InputConfig{
         return inputClasses;
     }
 
-    public String getWrapperAttributes(){
+    public Html getWrapperAttributes(){
         return wrapperAttributes;
     }
 
-    public String getInputAttributes(){
+    public Html getInputAttributes(){
         return inputAttributes;
     }
 

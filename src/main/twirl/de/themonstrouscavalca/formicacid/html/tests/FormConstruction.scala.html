@@ -1,0 +1,9 @@
+@import de.themonstrouscavalca.formicacid.html.forms
+@import de.themonstrouscavalca.formicacid.templates.FormConfigBuilder
+@import de.themonstrouscavalca.formicacid.templates.InputConfigBuilder
+@import com.fasterxml.jackson.databind.JsonNode
+
+@(data: JsonNode)
+@forms.html.form(FormConfigBuilder.of("test").addAttribute("data-data", data.toString).build()){
+    <p>A form is rendered without inputs</p>
+}

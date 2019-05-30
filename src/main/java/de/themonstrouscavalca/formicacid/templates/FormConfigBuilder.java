@@ -1,10 +1,12 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import play.twirl.api.Html;
+
+import de.themonstrouscavalca.formicacid.html.forms.attributes.html.attributesHtml;
 
 public class FormConfigBuilder{
     private String id = "";
@@ -81,8 +83,7 @@ public class FormConfigBuilder{
 
     public FormConfig build(){
         String cssClasses = String.join(" ", this.classes);
-        String attrs = String.join(" ", this.attributes.entrySet().stream()
-                .map(entry -> String.format(" %s=\"%s\" ", entry.getKey(), entry.getValue())).collect(Collectors.toList()));
+        Html attrs = attributesHtml.render(this.attributes);
 
         return new FormConfig(this.id, this.name, cssClasses, attrs, this.requiredNotice, this.globalErrors);
     }

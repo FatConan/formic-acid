@@ -1,14 +1,16 @@
-package de.themonstrouscavalca.formicacid.helpers.templates;
+package de.themonstrouscavalca.formicacid.templates;
+
+import play.twirl.api.Html;
 
 public class FormConfig{
     private final String id;
     private final String name;
     private final String classes;
-    private final String attributes;
+    private final Html attributes;
     private final boolean showRequiredNotice;
     private final boolean addGlobalErrors;
 
-    public FormConfig(String id, String name, String classes, String attributes, Boolean showRequiredNotice, Boolean addGlobalErrors){
+    public FormConfig(String id, String name, String classes, Html attributes, Boolean showRequiredNotice, Boolean addGlobalErrors){
         this.id = id;
         this.name = name;
         this.classes = classes;
@@ -29,7 +31,7 @@ public class FormConfig{
         return classes;
     }
 
-    public String getAttributes(){
+    public Html getAttributes(){
         return attributes;
     }
 

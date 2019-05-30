@@ -1,7 +1,7 @@
-@import de.themonstrouscavalca.formicacid.helpers.templates.FormConfig
+@import de.themonstrouscavalca.formicacid.templates.FormConfig
 
 @(options: FormConfig)(elements: Html)
-<form id="@options.getId" class="form @options.getClasses" @Html(options.getAttributes)>
+<form id="@options.getId" class="form @options.getClasses" @options.getAttributes>
     @if(options.getAddGlobalErrors()){
         @de.themonstrouscavalca.formicacid.html.forms.html.globalErrors()
     }

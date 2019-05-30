@@ -1,8 +1,8 @@
 @import java.util
-@import de.themonstrouscavalca.formicacid.helpers.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
 
 @(inputType: String, options: InputConfig)
 @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
     <input class="@options.getInputClasses" name="@options.getName" id="@options.getId" placeholder="@options.getPlaceholder"
-    type="@inputType" @Html(options.getInputAttributes) @if(options.getValue != null){value="@options.getValue"} />
+    type="@inputType" @options.getInputAttributes @if(options.getValue != null){value="@options.getValue"} />
 }
