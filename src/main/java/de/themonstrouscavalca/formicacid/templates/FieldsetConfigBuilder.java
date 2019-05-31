@@ -71,9 +71,7 @@ public class FieldsetConfigBuilder{
 
     public FieldsetConfig build(){
         String cssClasses = String.join(" ", this.fieldsetClasses);
-
         Html attrs = attributesHtml.render(this.fieldsetAttributes);
-
         return new FieldsetConfig(this.id, this.name, this.formName, this.legend, cssClasses, attrs);
     }
 }
