@@ -6,7 +6,7 @@
     <div class="radios" id="@options.getId">
     @for(pair: InputValuePair <- options.getInputValuesPairs){
         <label class="no-annotations">@pair.getLabel
-            <input @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" type="radio" value="@pair.getValue"
+            <input @options.getInputAttributes class="@options.getInputClasses" @options.getInputAttributes name="@options.getName" type="radio" value="@pair.getValue"
             @if(options.getValue != null && options.getValue.equals(pair.getValue)){
             checked="checked"} /></label>
     }

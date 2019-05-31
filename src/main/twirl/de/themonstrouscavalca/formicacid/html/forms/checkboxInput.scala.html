@@ -5,7 +5,7 @@
 @de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options) {
     <div class="checkboxes @options.getInputClasses" @options.getInputAttributes id="@options.getId">
         @for(pair: InputValuePair <- options.getInputValuesPairs) {
-            <label class="no-annotations">@pair.getLabel <input name="@{options.getName}_@{pair.getValue}" type="checkbox" value="@pair.getValue"
+            <label class="no-annotations">@pair.getLabel <input name="@{options.getName}_@{pair.getValue}" @options.getInputAttributes type="checkbox" value="@pair.getValue"
                 @if(options.getValue != null && options.getValue.equals(pair.getValue)){checked="checked"} /></label>
         }
     </div>
