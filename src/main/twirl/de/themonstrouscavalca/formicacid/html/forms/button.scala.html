@@ -1,0 +1,10 @@
+@import de.themonstrouscavalca.formicacid.templates.ButtonConfig
+
+@(config: ButtonConfig)
+<button id="@config.getId" class="btn @config.getClasses" title="@config.getTitle" @config.getAttributes>
+    @if(config.isSpanWrapped){
+        <span>@config.getLabel</span>
+    }else{
+        @config.getLabel
+    }
+</button>
