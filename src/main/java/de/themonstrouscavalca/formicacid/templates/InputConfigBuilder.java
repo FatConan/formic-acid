@@ -98,8 +98,14 @@ public class InputConfigBuilder{
     }
 
     public InputConfigBuilder disable(){
-        this.addInputAttribute("disabled", "disabled");
-        this.addWrapperClass("disabled");
+       return disabled(true);
+    }
+
+    public InputConfigBuilder disabled(boolean disable){
+        if(disable){
+            this.addInputAttribute("disabled", "disabled");
+            this.addWrapperClass("disabled");
+        }
         return this;
     }
 
