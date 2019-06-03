@@ -3,10 +3,7 @@ package de.themonstrouscavalca.formicacid.templates;
 import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ButtonConfigBuilder{
     private String formName = "";
@@ -38,7 +35,7 @@ public class ButtonConfigBuilder{
 
     public ButtonConfigBuilder(){
         this.buttonClasses = new ArrayList<>();
-        this.buttonAttributes = new HashMap<>();
+        this.buttonAttributes = new TreeMap<>();
     }
 
     public ButtonConfigBuilder setLabel(String label){

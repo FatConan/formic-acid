@@ -1,9 +1,6 @@
 package de.themonstrouscavalca.formicacid.templates;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
@@ -36,7 +33,7 @@ public class FieldsetConfigBuilder{
 
     public FieldsetConfigBuilder(){
         this.fieldsetClasses = new ArrayList<>();
-        this.fieldsetAttributes = new HashMap<>();
+        this.fieldsetAttributes = new TreeMap<>();
     }
 
     public FieldsetConfigBuilder setLegend(String legend){

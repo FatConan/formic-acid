@@ -2,12 +2,14 @@
 
 @(options: FormConfig)(elements: Html)
 <form id="@options.getId" class="form @options.getClasses" @options.getAttributes>
-    @if(options.getAddGlobalErrors()){
+    @if(options.getAddGlobalErrors){
         @de.themonstrouscavalca.formicacid.twirl.forms.html.globalErrors()
     }
     @elements
-    @if(options.getShowRequiredNotice()){
+    @if(options.getShowRequiredNotice){
         @de.themonstrouscavalca.formicacid.twirl.forms.html.requiredNotice()
     }
-    <input type="submit" class="hidden" />
+    @if(options.getShowRequiredNotice) {
+        <input type="submit" class="hidden" />
+    }
 </form>

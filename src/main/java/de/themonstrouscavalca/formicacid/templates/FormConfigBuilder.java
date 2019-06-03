@@ -1,9 +1,7 @@
 package de.themonstrouscavalca.formicacid.templates;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import play.twirl.api.Html;
 
 import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
@@ -15,6 +13,7 @@ public class FormConfigBuilder{
     private Map<String, String> attributes;
     private boolean requiredNotice = false;
     private boolean globalErrors = false;
+    private boolean hiddenSubmit = false;
 
     private List<String> fieldsetClasses;
     private Map<String, String> fieldsetAttributes;
@@ -24,21 +23,22 @@ public class FormConfigBuilder{
     }
 
     public static FormConfigBuilder of(String name){
-        return of(name, true, true);
+        return of(name, true, true, true);
     }
 
-    public static FormConfigBuilder of(String name, Boolean showRequiredNotice, Boolean addGlobalErrors){
+    public static FormConfigBuilder of(String name, boolean showRequiredNotice, boolean addGlobalErrors, boolean addHiddenSubmit){
         FormConfigBuilder builder = new FormConfigBuilder();
         builder.setName(name);
         builder.requiredNotice = showRequiredNotice;
         builder.globalErrors = addGlobalErrors;
+        builder.hiddenSubmit = addHiddenSubmit;
         builder.setId(FormNamer.id(name));
         return builder;
     }
 
     public FormConfigBuilder(){
         this.classes = new ArrayList<>();
-        this.attributes = new HashMap<>();
+        this.attributes = new TreeMap<>();
     }
 
     public FormConfigBuilder setName(String name){
@@ -58,6 +58,16 @@ public class FormConfigBuilder{
 
     private FormConfigBuilder setGlobalErrors(boolean globalErrors){
         this.globalErrors = globalErrors;
+        return this;
+    }
+
+    public FormConfigBuilder setAction(String action){
+        this.addAttribute("action", action);
+        return this;
+    }
+
+    public FormConfigBuilder setMethod(String method){
+        this.addAttribute("method", method);
         return this;
     }
 
@@ -85,7 +95,7 @@ public class FormConfigBuilder{
         String cssClasses = String.join(" ", this.classes);
         Html attrs = attributesHtml.render(this.attributes);
 
-        return new FormConfig(this.id, this.name, cssClasses, attrs, this.requiredNotice, this.globalErrors);
+        return new FormConfig(this.id, this.name, cssClasses, attrs, this.requiredNotice, this.globalErrors, this.hiddenSubmit);
     }
 
 }
