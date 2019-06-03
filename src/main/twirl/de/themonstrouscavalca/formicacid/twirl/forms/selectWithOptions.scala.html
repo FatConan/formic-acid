@@ -2,7 +2,7 @@
 @import de.themonstrouscavalca.formicacid.templates.InputValuePair
 
 @(options: InputConfig)(optionElements: Html)
-@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrappingWithLabel(options){
     <select @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" id="@options.getId">
         @optionElements
     </select>

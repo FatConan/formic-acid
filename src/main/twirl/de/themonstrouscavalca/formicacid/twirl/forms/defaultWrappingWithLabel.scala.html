@@ -1,7 +1,7 @@
 @import de.themonstrouscavalca.formicacid.templates.InputConfig
 
 @(options: InputConfig)(inner: Html)
-@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrapping(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrapping(options){
     <label for="@options.getId">@options.getLabel: </label>
     @inner
 }

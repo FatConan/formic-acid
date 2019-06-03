@@ -2,6 +2,6 @@
 @import de.themonstrouscavalca.formicacid.templates.InputValuePair
 
 @(options: InputConfig)
-@de.themonstrouscavalca.formicacid.html.forms.html.defaultWrappingWithLabel(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrappingWithLabel(options){
     <textarea @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" id="@options.getId" placeholder="@options.getPlaceholder">@if(options.getValue != null){@options.getValue}</textarea>
 }

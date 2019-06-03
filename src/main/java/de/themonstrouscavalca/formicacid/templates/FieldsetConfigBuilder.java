@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.themonstrouscavalca.formicacid.html.forms.attributes.html.attributesHtml;
+import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
 public class FieldsetConfigBuilder{

@@ -1,6 +1,6 @@
 package de.themonstrouscavalca.formicacid.templates;
 
-import de.themonstrouscavalca.formicacid.html.forms.attributes.html.attributesHtml;
+import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
 import java.util.ArrayList;

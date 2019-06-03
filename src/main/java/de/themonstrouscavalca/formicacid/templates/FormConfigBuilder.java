@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import play.twirl.api.Html;
 
-import de.themonstrouscavalca.formicacid.html.forms.attributes.html.attributesHtml;
+import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 
 public class FormConfigBuilder{
     private String id = "";
