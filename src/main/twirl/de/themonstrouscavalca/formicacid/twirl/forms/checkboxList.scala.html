@@ -1,0 +1,9 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+
+@(options: InputConfig)(listElements: Html)
+@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrapping(options){
+    <div class="checklist-holder">
+        <label class="checklist-title">@options.getLabel</label>
+        @listElements
+    </div>
+}
