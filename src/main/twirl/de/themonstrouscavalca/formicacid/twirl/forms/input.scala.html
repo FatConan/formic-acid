@@ -2,7 +2,7 @@
 @import de.themonstrouscavalca.formicacid.templates.InputConfig
 
 @(inputType: String, options: InputConfig)
-@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrappingWithLabel(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
     <input class="@options.getInputClasses" name="@options.getName" id="@options.getId" placeholder="@options.getPlaceholder"
     type="@inputType" @options.getInputAttributes @if(options.getValue != null){value="@options.getValue"} />
 }

@@ -1,0 +1,7 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+
+@(options: InputConfig)(inner: Html)
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRow(options){
+    @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.inlineError()
+    @inner
+}

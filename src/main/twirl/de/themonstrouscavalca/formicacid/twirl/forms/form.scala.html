@@ -3,13 +3,13 @@
 @(options: FormConfig)(elements: Html)
 <form id="@options.getId" class="form @options.getClasses" @options.getAttributes>
     @if(options.getAddGlobalErrors){
-        @de.themonstrouscavalca.formicacid.twirl.forms.html.globalErrors()
+        @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.globalErrors()
     }
     @elements
     @if(options.getShowRequiredNotice){
-        @de.themonstrouscavalca.formicacid.twirl.forms.html.requiredNotice()
+        @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.requiredNotice()
     }
     @if(options.getShowRequiredNotice) {
-        @de.themonstrouscavalca.formicacid.twirl.forms.html.hiddenSubmit()
+        @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.hiddenSubmit()
     }
 </form>

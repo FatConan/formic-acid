@@ -1,7 +1,7 @@
 @import de.themonstrouscavalca.formicacid.templates.InputConfig
 
 @(options: InputConfig)
-@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrapping(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrors(options){
     <label class="no-annotations" for="@options.getId">@options.getLabel:
         <input class="@options.getInputClasses" @options.getInputAttributes name="@options.getName" id="@options.getId" type="checkbox" @if(options.getValue != null && options.getValue.equals("on")){checked="checked"} />
     </label>

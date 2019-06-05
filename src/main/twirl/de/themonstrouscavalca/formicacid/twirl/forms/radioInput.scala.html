@@ -2,7 +2,7 @@
 @import de.themonstrouscavalca.formicacid.templates.InputValuePair
 
 @(options: InputConfig)
-@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrappingWithLabel(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
     <div class="radios" id="@options.getId">
     @for(pair: InputValuePair <- options.getInputValuesPairs){
         <label class="no-annotations">@pair.getLabel

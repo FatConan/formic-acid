@@ -1,6 +1,6 @@
 @import de.themonstrouscavalca.formicacid.templates.InputConfig
 @(options: InputConfig)(supportingFields: Html)
-@de.themonstrouscavalca.formicacid.twirl.forms.html.defaultWrappingWithLabel(options){
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
     <input type="file" @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" id="@options.getId" @if(options.getValue != null){value="@options.getValue"} />
     @supportingFields
 }

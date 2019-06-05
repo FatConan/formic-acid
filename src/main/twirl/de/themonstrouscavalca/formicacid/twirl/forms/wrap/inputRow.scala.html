@@ -3,6 +3,5 @@
 @(options: InputConfig)(inner: Html)
 <div class="input-row @if(options.isRequired){required} @options.getWrapperClasses" data-errorname="@options.getName"
     @options.getWrapperAttributes>
-    <div class="error"></div>
     @inner
 </div>
