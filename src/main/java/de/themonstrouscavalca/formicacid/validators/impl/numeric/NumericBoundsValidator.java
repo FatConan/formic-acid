@@ -15,17 +15,17 @@ public class NumericBoundsValidator<T> extends AbstractValidator<T> implements I
         return DEFAULT_ERROR_MSG;
     }
 
-    private final long min;
-    private final long max;
+    private final T min;
+    private final T max;
 
 
-    public NumericBoundsValidator(long min, long max){
+    public NumericBoundsValidator(T min, T max){
         super(null);
         this.min = min;
         this.max = max;
     }
 
-    public NumericBoundsValidator(long min, long max, String outOfBoundsMessage){
+    public NumericBoundsValidator(T min, T max, String outOfBoundsMessage){
         super(outOfBoundsMessage);
         this.min = min;
         this.max = max;
@@ -41,15 +41,15 @@ public class NumericBoundsValidator<T> extends AbstractValidator<T> implements I
         IntermediateValidateOptional<T> inter = new IntermediateValidateOptional<>(value);
         if(this.isPresent(value)){
             if(value instanceof Double){
-                if((Double) value < min || (Double) value > max){
+                if((Double) value < (Double) min || (Double) value > (Double) max){
                     outOfBounds(inter);
                 }
             }else if(value instanceof Long){
-                if((Long) value < min || (Long) value > max){
+                if((Long) value < (Long) min || (Long) value > (Long) max){
                     outOfBounds(inter);
                 }
             }else if(value instanceof Integer){
-                if((Integer) value < min || (Integer) value > max){
+                if((Integer) value < (Integer) min || (Integer) value > (Integer) max){
                     outOfBounds(inter);
                 }
             }else{
