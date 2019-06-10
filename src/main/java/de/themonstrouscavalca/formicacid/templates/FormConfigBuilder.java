@@ -38,7 +38,7 @@ public class FormConfigBuilder{
 
     public FormConfigBuilder(){
         this.classes = new ArrayList<>();
-        this.attributes = new TreeMap<>();
+        this.attributes = new LinkedHashMap<>();
     }
 
     public FormConfigBuilder setName(String name){

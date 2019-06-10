@@ -33,7 +33,7 @@ public class FieldsetConfigBuilder{
 
     public FieldsetConfigBuilder(){
         this.fieldsetClasses = new ArrayList<>();
-        this.fieldsetAttributes = new TreeMap<>();
+        this.fieldsetAttributes = new LinkedHashMap<>();
     }
 
     public FieldsetConfigBuilder setLegend(String legend){

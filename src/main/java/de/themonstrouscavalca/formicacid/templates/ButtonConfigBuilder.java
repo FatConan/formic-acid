@@ -35,7 +35,7 @@ public class ButtonConfigBuilder{
 
     public ButtonConfigBuilder(){
         this.buttonClasses = new ArrayList<>();
-        this.buttonAttributes = new TreeMap<>();
+        this.buttonAttributes = new LinkedHashMap<>();
     }
 
     public ButtonConfigBuilder setLabel(String label){

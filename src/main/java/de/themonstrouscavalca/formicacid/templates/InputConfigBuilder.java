@@ -49,8 +49,8 @@ public class InputConfigBuilder{
     public InputConfigBuilder(){
         this.wrapperClasses = new ArrayList<>();
         this.inputClasses = new ArrayList<>();
-        this.wrapperAttributes = new TreeMap<>();
-        this.inputAttributes = new TreeMap<>();
+        this.wrapperAttributes = new LinkedHashMap<>();
+        this.inputAttributes = new LinkedHashMap<>();
         this.inputValuePairs = new ArrayList<>();
     }
 
