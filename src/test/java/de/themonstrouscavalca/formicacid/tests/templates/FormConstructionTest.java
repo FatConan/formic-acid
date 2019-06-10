@@ -22,7 +22,7 @@ public class FormConstructionTest{
                 "<div class=\"input-row required\"><p class=\"indicates-required\">Indicates a required field.</p></div>" +
                 "<input type=\"submit\" class=\"hidden\" />" +
                 "</form>";
-        final String actionAndMethodFormReference = "<form id=\"form_form\" class=\"form \" action=\"/form-submission-url\" method=\"POST\"><div class=\"global-errors\"></div>" +
+        final String actionAndMethodFormReference = "<form id=\"form_form\" class=\"form \" action=\"/form-submission-url\" method=\"POST\" A=\"a\" B=\"b\" C=\"c\"><div class=\"global-errors\"></div>" +
                 "<div class=\"input-row required\"><p class=\"indicates-required\">Indicates a required field.</p></div>" +
                 "<input type=\"submit\" class=\"hidden\" />" +
                 "</form>";
@@ -42,7 +42,7 @@ public class FormConstructionTest{
         assertEquals("Rendered standard form HTML doesn't match expectation", standardFormReference, form.body());
 
         form = Helpers.reduce(de.themonstrouscavalca.formicacid.twirl.forms.html.form.render(
-                FormConfigBuilder.of(formName).setAction("/form-submission-url").setMethod("POST").build(), null));
+                FormConfigBuilder.of(formName).setAction("/form-submission-url").setMethod("POST").addAttribute("A", "a").addAttribute("B", "b").addAttribute("C", "c").build(), null));
         assertEquals("Rendered action and method form HTML doesn't match expectation", actionAndMethodFormReference, form.body());
 
         ObjectNode data = mapper.createObjectNode();
