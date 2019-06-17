@@ -28,3 +28,7 @@ to build the formic jar or
 mvn clean install
 ```
 to add it to your local maven repo.
+
+# Usage
+
+## JSON Formats
