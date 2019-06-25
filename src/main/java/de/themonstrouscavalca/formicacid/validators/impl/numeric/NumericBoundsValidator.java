@@ -9,15 +9,19 @@ import java.util.Optional;
 
 public class NumericBoundsValidator<T> extends AbstractValidator<T> implements IValidate<T>{
     private final String DEFAULT_ERROR_MSG = "You must enter a value between %d and %d";
+    private final String DEFAULT_FLOAT_ERROR_MSG = "You must enter a value between %f and %f";
 
     @Override
     protected String defaultError(){
+        if(min instanceof Double || max instanceof Double){
+            return DEFAULT_FLOAT_ERROR_MSG;
+        }
         return DEFAULT_ERROR_MSG;
     }
 
+
     private final T min;
     private final T max;
-
 
     public NumericBoundsValidator(T min, T max){
         super(null);
