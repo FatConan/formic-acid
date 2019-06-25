@@ -113,10 +113,24 @@ public class RequiredValidationTests extends ValidationBase{
         assertFalse(stringTest.isValid());
         assertEquals( "This is not a valid phone number", stringTest.getErrors()[0]);
 
-
         stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new TelephoneNumberValidator("WRONG PHONE")));
         assertFalse(stringTest.isValid());
         assertEquals("WRONG PHONE", stringTest.getErrors()[0]);
+
+        //URL String tests
+        data.put(presentKey, "https://www.themonstrouscavalca.de");
+        data.put(invalidKey, "ftp://ftp.example.org");
+
+        stringTest = stringExtractor.extractValidatedValue(presentKey, data, Arrays.asList(new RequiredValidator<>(), new URLStringValidator()));
+        assertTrue(stringTest.isValid());
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new URLStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals( "This is not a valid URL", stringTest.getErrors()[0]);
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new URLStringValidator("INVALID URL")));
+        assertFalse(stringTest.isValid());
+        assertEquals("INVALID URL", stringTest.getErrors()[0]);
 
         //Long Tests
         data.put(invalidKey, "INVALID");
