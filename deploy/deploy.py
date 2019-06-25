@@ -1,9 +1,6 @@
 import subprocess
 import os
-import spur
 import shlex
-import datetime
-import time
 import click
 import xml.etree.ElementTree as ET
 
