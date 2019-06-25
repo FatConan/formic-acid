@@ -6,8 +6,6 @@ import de.themonstrouscavalca.formicacid.validators.impl.AbstractValidator;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
-import java.util.Optional;
-
 public class URLStringValidator extends AbstractValidator<String> implements IValidate<String>{
     private final String DEFAULT_ERROR_MSG = "This is not a valid URL";
     private final String[] SCHEMES = {"http","https"};
