@@ -8,6 +8,9 @@ import de.themonstrouscavalca.formicacid.validators.impl.basic.RequiredValidator
 import de.themonstrouscavalca.formicacid.validators.impl.numeric.NonZeroValidator;
 import de.themonstrouscavalca.formicacid.validators.impl.numeric.NumericBoundsValidator;
 import de.themonstrouscavalca.formicacid.validators.impl.strings.*;
+import de.themonstrouscavalca.formicacid.validators.impl.strings.dates.LocalDateStringValidator;
+import de.themonstrouscavalca.formicacid.validators.impl.strings.dates.LocalDateTimeStringValidator;
+import de.themonstrouscavalca.formicacid.validators.impl.strings.dates.LocalTimeStringValidator;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -131,6 +134,57 @@ public class RequiredValidationTests extends ValidationBase{
         stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new URLStringValidator("INVALID URL")));
         assertFalse(stringTest.isValid());
         assertEquals("INVALID URL", stringTest.getErrors()[0]);
+
+        //String dates
+        data.put(presentKey, "2019-06-01");
+        data.put(invalidKey, "2019-12-41");
+
+        stringTest = stringExtractor.extractValidatedValue(presentKey, data, Arrays.asList(new RequiredValidator<>(), new LocalDateStringValidator()));
+        assertTrue(stringTest.isValid());
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new LocalDateStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals("The provided value is not parsable as a date", stringTest.getErrors()[0]);
+
+        data.put(invalidKey, "INVALID");
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new LocalDateStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals("The provided value is not parsable as a date", stringTest.getErrors()[0]);
+
+        //String times
+        data.put(presentKey, "12:00");
+        data.put(invalidKey, "24:59");
+
+        stringTest = stringExtractor.extractValidatedValue(presentKey, data, Arrays.asList(new RequiredValidator<>(), new LocalTimeStringValidator()));
+        assertTrue(stringTest.isValid());
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new LocalTimeStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals("The provided value is not parsable as a time", stringTest.getErrors()[0]);
+
+        data.put(invalidKey, "INVALID");
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new LocalTimeStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals("The provided value is not parsable as a time", stringTest.getErrors()[0]);
+
+        //String times
+        data.put(presentKey, "2019-06-01 12:00");
+        data.put(invalidKey, "2019-12-41 24:59");
+
+        stringTest = stringExtractor.extractValidatedValue(presentKey, data, Arrays.asList(new RequiredValidator<>(), new LocalDateTimeStringValidator()));
+        assertTrue(stringTest.isValid());
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new LocalDateTimeStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals("The provided value is not parsable as a datetime", stringTest.getErrors()[0]);
+
+        data.put(invalidKey, "INVALID");
+
+        stringTest = stringExtractor.extractValidatedValue(invalidKey, data, Arrays.asList(new RequiredValidator<>(), new LocalDateTimeStringValidator()));
+        assertFalse(stringTest.isValid());
+        assertEquals("The provided value is not parsable as a datetime", stringTest.getErrors()[0]);
 
         //Long Tests
         data.put(invalidKey, "INVALID");
