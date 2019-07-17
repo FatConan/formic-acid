@@ -91,6 +91,10 @@ public class FormConfigBuilder{
         return this;
     }
 
+    public FormConfigBuilder addData(String dataKey, String value){
+        return this.addAttribute(String.format("data-%s", dataKey), value);
+    }
+
     public FormConfig build(){
         String cssClasses = String.join(" ", this.classes);
         Html attrs = attributesHtml.render(this.attributes);

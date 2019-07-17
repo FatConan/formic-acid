@@ -78,6 +78,10 @@ public class ButtonConfigBuilder{
         return this;
     }
 
+    public ButtonConfigBuilder addData(String dataKey, String value){
+        return this.addAttribute(String.format("data-%s", dataKey), value);
+    }
+
     public ButtonConfig build(){
         String cssClasses = String.join(" ", this.buttonClasses);
         Html attrs = attributesHtml.render(this.buttonAttributes);

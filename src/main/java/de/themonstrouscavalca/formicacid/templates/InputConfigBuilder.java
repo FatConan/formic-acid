@@ -121,14 +121,22 @@ public class InputConfigBuilder{
         return this;
     }
 
-    public InputConfigBuilder addWrapperAttributes(String key, String value){
+    public InputConfigBuilder addWrapperAttribute(String key, String value){
         this.wrapperAttributes.put(key, value);
         return this;
+    }
+
+    public InputConfigBuilder addWrapperData(String dataKey, String value){
+        return this.addWrapperAttribute(String.format("data-%s", dataKey), value);
     }
 
     public InputConfigBuilder addInputAttribute(String key, String value){
         this.inputAttributes.put(key, value);
         return this;
+    }
+
+    public InputConfigBuilder addInputData(String dataKey, String value){
+        return this.addInputAttribute(String.format("data-%s", dataKey), value);
     }
 
     public InputConfig build(){

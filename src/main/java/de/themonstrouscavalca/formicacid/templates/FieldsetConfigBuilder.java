@@ -66,6 +66,10 @@ public class FieldsetConfigBuilder{
         return this;
     }
 
+    public FieldsetConfigBuilder addData(String dataKey, String value){
+        return this.addAttribute(String.format("data-%s", dataKey), value);
+    }
+
     public FieldsetConfig build(){
         String cssClasses = String.join(" ", this.fieldsetClasses);
         Html attrs = attributesHtml.render(this.fieldsetAttributes);
