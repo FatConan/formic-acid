@@ -1,7 +1,7 @@
 language: java
 jdk: openjdk8
 before_install:
-  - git clone git@github.com:FatConan/dbaser.git
+  - git clone --barnch=master https://github.com/FatConan/dbaser.git
   - cd dbaser
   - mvn clean install
  
