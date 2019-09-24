@@ -25,7 +25,7 @@ public class LocalDateStringValidator extends AbstractValidator<String> implemen
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
         if(this.isPresent(value)){
             try {
-                LocalDate.parse(value, DateFormatters.API_DATE_FORMAT);
+                LocalDate.parse(value, DateFormatters.API_DATE_FORMAT.getFormatter());
             }catch (Exception e){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());

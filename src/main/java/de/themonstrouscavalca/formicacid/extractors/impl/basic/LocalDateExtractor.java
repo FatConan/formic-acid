@@ -16,7 +16,7 @@ public class LocalDateExtractor extends AbstractExtractor<LocalDate> implements 
 
     @Override
     protected String parsingErrorText(){
-        return String.format("This should be a string in the format %s", DateFormatters.API_DATE_FORMAT.toString());
+        return String.format("This should be a string in the format %s", DateFormatters.API_DATE_FORMAT.getPattern());
     }
 
     @Override
@@ -25,7 +25,7 @@ public class LocalDateExtractor extends AbstractExtractor<LocalDate> implements 
             Optional<String> valueAsText = Optional.ofNullable(node.asText());
             if (valueAsText.isPresent()){
                 try{
-                    return ParsableValue.of(true, LocalDate.parse(valueAsText.get(), DateFormatters.API_DATE_FORMAT));
+                    return ParsableValue.of(true, LocalDate.parse(valueAsText.get(), DateFormatters.API_DATE_FORMAT.getFormatter()));
                 }catch (Exception e){
                     logger.info("Unable to parse data", e);
                 }

@@ -25,7 +25,7 @@ public class LocalTimeStringValidator extends AbstractValidator<String> implemen
         IntermediateValidateOptional<String> intermediate = new IntermediateValidateOptional<>(value);
         if(this.isPresent(value)){
             try {
-                LocalTime.parse(value, DateFormatters.API_TIME_FORMAT);
+                LocalTime.parse(value, DateFormatters.API_TIME_FORMAT.getFormatter());
             }catch (Exception e){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());

@@ -26,7 +26,7 @@ public class LocalDateTimeStringValidator extends AbstractValidator<String> impl
         if(this.isPresent(value)){
             LocalDateTime datetime = null;
             try {
-                datetime = LocalDateTime.parse(value, DateFormatters.API_DATE_TIME_FORMAT);
+                datetime = LocalDateTime.parse(value, DateFormatters.API_DATE_TIME_FORMAT.getFormatter());
             }catch (Exception e){
                 intermediate.setValid(false);
                 intermediate.addError(this.getErrorMessage());
