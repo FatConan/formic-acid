@@ -1,6 +1,7 @@
 package de.themonstrouscavalca.formicacid.formatters;
 
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 
 public class PrintableDateFormatter{
@@ -41,5 +42,9 @@ public class PrintableDateFormatter{
 
     public DateTimeFormatter getFormatter(){
         return formatter;
+    }
+
+    public String format(TemporalAccessor temporal){
+        return this.getFormatter().format(temporal);
     }
 }
