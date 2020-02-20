@@ -1,9 +1,8 @@
 language: java
 jdk: openjdk8
-before_script:
-  provider: script
-  script: bash $TRAVIS_BUILD_DIR/deploy/travis-setup.sh
-  skip_cleanup: true
+script:
+  - bash $TRAVIS_BUILD_DIR/deploy/travis-setup.sh
+
 deploy:
   provider: script
   script: bash $TRAVIS_BUILD_DIR/deploy/travis-deploy.sh
