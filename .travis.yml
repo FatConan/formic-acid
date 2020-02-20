@@ -1,7 +1,11 @@
 language: java
 jdk: openjdk8
-before_install:
-  - git clone --branch=master https://github.com/FatConan/dbaser.git
-  - cd dbaser
-  - mvn clean install
- 
+deploy:
+  provider: script
+  script: bash $TRAVIS_BUILD_DIR/deploy/travis-deploy.sh
+  skip_cleanup: true
+  on:
+    tags: true
+env:
+  global:
+    secure: fopWq0MkKnvHYeXuPku8o5h+g0xDua+7wWyPId4dKf6pDmNNxe6A5R8dErDQ5gzw0nwfa/vAVKlSQqstB6Rot4618yIGUSEykTcvfC03rVNayLtUefEZEXc9gfESD+FRwwoYo5NkVer1bXiaUGSuxQcoe4I+uwQBp1QUqiVolfGoIzn2p25T0ffeZAzvtRl+ZfQShSlLgWCsambnFrAJsqGFDC/spJRIir9Eql3K7YiCMTOgd0zYuMTzfqHOEPGRcryha+BFt5UoNgVMz+QnXAM9PTGLebzk8kXUgvX+KzbFYZtlWsQWSibRuzkLY5PAPnVnPiduC60ZHN6SaRUFerWgwB8NuPAkIL6/XJXjgR9NnrRzUCktnOelK5DCXmcRQHcMPuR4D/5XwlH7vfBmWnLBn538WBaPQKNMd+21vKXU3M2akp5G6NPZsXLJF53zbhgEUASmznjmwqaR31vLbg3eTDLw7KQGYDSlu8ssTfrBRimgxpCC2J9SiNYR8S0SxGYWZ4p2h225/mHIEsXZ3oDwBuV81AU41PvSe4VqQn4BE/mVHinP1ea9WfnsSXq6ykgx24fuMK2Htgovw89yqVcv7mM+Od5rupojR03O7RdgLq2qSFRfKCMQpqYhqi6NPw0cL+/3RyoWvTB7fWHx1LefEHwWPx9/gfH5mFBYKqg=

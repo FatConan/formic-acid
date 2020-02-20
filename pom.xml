@@ -4,13 +4,28 @@
     <groupId>de.themonstrouscavalca</groupId>
     <artifactId>formicacid</artifactId>
     <packaging>jar</packaging>
-    <version>2019.09.2</version>
+    <version>2020.02.1</version>
     <name>formicacid</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub FatConan Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/FatConan/formicacid</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/FatConan/dbaser</url>
+        </repository>
+    </repositories>
 
     <build>
         <pluginManagement>
@@ -111,7 +126,7 @@
         <dependency>
             <groupId>de.themonstrouscavalca</groupId>
             <artifactId>dbaser</artifactId>
-            <version>2018.10.01.a1</version>
+            <version>2020.02.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -148,11 +163,10 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
-
         <dependency>
             <groupId>de.themonstrouscavalca</groupId>
             <artifactId>dbaser</artifactId>
-            <version>2018.09.20.a1</version>
+            <version>2020.02.3</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
