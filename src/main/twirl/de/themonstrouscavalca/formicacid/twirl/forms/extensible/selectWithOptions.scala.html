@@ -1,0 +1,9 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+
+@(options: InputConfig)(optionElements: Html)(extension: Html)
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
+    <select @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" id="@options.getId">
+        @optionElements
+    </select>
+    @extension
+}

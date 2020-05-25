@@ -1,0 +1,7 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+
+@(inputType: String, options: InputConfig)(extension: Html)
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
+   @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.rawInput(inputType, options)
+   @extension
+}

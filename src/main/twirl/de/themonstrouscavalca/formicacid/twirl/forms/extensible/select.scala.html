@@ -1,0 +1,13 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.templates.InputValuePair
+
+@(options: InputConfig)(extension: Html)
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
+    <select @options.getInputAttributes class="@options.getInputClasses" name="@options.getName" id="@options.getId">
+    @for(pair: InputValuePair <- options.getInputValuesPairs) {
+        <option value="@pair.getValue" @if(options.getValue != null && options.getValue.equals(pair.getValue)){
+            selected="selected"}>@pair.getLabel</option>
+    }
+    </select>
+    @extension
+}
