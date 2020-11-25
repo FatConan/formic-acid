@@ -1,4 +1,6 @@
+@import scala.jdk.CollectionConverters.MapHasAsScala
+
 @(attributes: java.util.Map[String, String])
-@for(entry:java.util.Map.Entry[String, String] <- attributes.entrySet.iterator){
-    @entry.getKey="@entry.getValue"
+@for((k, v) <- attributes.asScala){
+    @k="@v"
 }

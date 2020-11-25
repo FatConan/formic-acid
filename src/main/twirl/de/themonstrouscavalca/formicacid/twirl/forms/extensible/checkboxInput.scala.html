@@ -1,10 +1,11 @@
 @import de.themonstrouscavalca.formicacid.templates.InputConfig
 @import de.themonstrouscavalca.formicacid.templates.InputValuePair
+@import scala.jdk.CollectionConverters._
 
 @(options: InputConfig)(extension: Html)
 @de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options) {
     <div class="checkboxes @options.getInputClasses" @options.getInputAttributes id="@options.getId">
-        @for(pair: InputValuePair <- options.getInputValuesPairs) {
+        @for(pair: InputValuePair <- options.getInputValuesPairs.asScala) {
             <label class="no-annotations">@pair.getLabel <input name="@{options.getName}_@{pair.getValue}" @options.getInputAttributes type="checkbox" value="@pair.getValue"
                 @if(options.getValue != null && options.getValue.equals(pair.getValue)){checked="checked"} />
                 @extension
