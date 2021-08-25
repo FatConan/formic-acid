@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.themonstrouscavalca.formicacid.errors.MarshallerErrorMap;
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
 import de.themonstrouscavalca.formicacid.validators.defn.IValidate;
 import de.themonstrouscavalca.formicacid.validators.helpers.ValidatedOptional;
@@ -12,72 +13,42 @@ import de.themonstrouscavalca.formicacid.validators.impl.basic.RequiredValidator
 import java.util.*;
 
 public abstract class AbstractMarshaller<T>{
-    private boolean errored = false;
-    private ObjectNode response;
-    private ObjectNode errors;
-    private ArrayNode globalErrors;
+    private MarshallerErrorMap errors = new MarshallerErrorMap();
 
     public AbstractMarshaller() {
         this.reset();
     }
 
     public static ObjectNode simpleGlobalErrorResponse(String error){
-        ObjectNode response = JsonNodeFactory.instance.objectNode();
-        response.putObject("errors");
-        ArrayNode global = response.putArray("global_errors");
-        global.add(error);
-        return response;
+       return MarshallerErrorMap.simpleGlobalErrorResponse(error);
     }
 
     public static ObjectNode emptyErrorResponse(){
-        ObjectNode response = JsonNodeFactory.instance.objectNode();
-        response.putObject("errors");
-        response.putArray("global_errors");
-        return response;
+        return MarshallerErrorMap.emptyResponse();
     }
 
     public void reset(){
-        errored = false;
-        response = emptyErrorResponse();
-        this.errors = (ObjectNode)response.get("errors");
-        this.globalErrors = (ArrayNode)response.get("global_errors");
+        this.errors = new MarshallerErrorMap();
+    }
+
+    public MarshallerErrorMap getErrors(){
+        return errors;
     }
 
     public void pullErrors(String nameSpace, AbstractMarshaller marshaller){
-        if(marshaller.hasErrors()){
-            this.errored = true;
-            this.errors.set(nameSpace, marshaller.errors);
-            this.globalErrors.addAll(marshaller.globalErrors);
-        }
+        this.errors.mergeErrors(nameSpace, marshaller);
     }
 
     public void pullErrors(AbstractMarshaller marshaller){
-        if(marshaller.hasErrors()){
-            this.errored = true;
-            Iterator<Map.Entry<String, JsonNode>> iter = marshaller.errors.fields();
-            while(iter.hasNext()){
-                Map.Entry<String, JsonNode> entry = iter.next();
-                this.errors.set(entry.getKey(), entry.getValue());
-            }
-            this.globalErrors.addAll(marshaller.globalErrors);
-        }
+        this.errors.mergeErrors(marshaller);
     }
 
     public void pullErrorsFromGenerator(String entryIdentifier, AbstractMarshaller marshaller){
-        if(marshaller.hasErrors()){
-            this.errored = true;
-            Iterator<Map.Entry<String, JsonNode>> iter = marshaller.errors.fields();
-            while(iter.hasNext()){
-                Map.Entry<String, JsonNode> entry = iter.next();
-                this.errors.set(String.format("%s_%s", entry.getKey(), entryIdentifier), entry.getValue());
-            }
-            this.globalErrors.addAll(marshaller.globalErrors);
-        }
+        this.errors.mergeErrorsFromGenerator(entryIdentifier, marshaller);
     }
 
     public void addError(String jsonField, String errorMsg){
-        this.errored = true;
-        this.errors.put(jsonField, errorMsg);
+        this.errors.addError(jsonField, errorMsg);
     }
 
 
@@ -106,25 +77,19 @@ public abstract class AbstractMarshaller<T>{
     }
 
     public boolean hasErrors(){
-        return errored;
+        return this.errors.isErrored();
     }
 
     public JsonNode getErrorResponse(){
-        return response;
+        return this.errors.getErrorResponse();
     }
 
     public void addGlobalError(String errorMessage){
-        this.errored = true;
-        this.globalErrors.add(errorMessage);
+        this.errors.addGlobalError(errorMessage);
     }
 
     public void addErrors(String field, ValidatedOptional validatedOptional){
-        if(!validatedOptional.isValid()){
-            this.errored = true;
-            for(String error: validatedOptional.getErrors()){
-                addError(field, error);
-            }
-        }
+        this.errors.addErrors(field, validatedOptional);
     }
 
     protected void jsonDecodeError(){
