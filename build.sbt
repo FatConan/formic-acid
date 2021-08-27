@@ -1,8 +1,8 @@
 name := """formicacid"""
 organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
-version := "2020.03.3_2.13-SNAPSHOT"
-scalaVersion := "2.13.6"
+version := "2020.03.3-SNAPSHOT"
+scalaVersion := "2.12.8"
 
 resolvers ++= Seq(Resolver.mavenLocal,
     "Sonatype snapshots repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
