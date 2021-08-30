@@ -1,8 +1,10 @@
+import sbt.util
+
 name := """formicacid"""
 organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
-version := "2020.03.3-SNAPSHOT"
-scalaVersion := "2.12.8"
+version := "2020.08.1-SNAPSHOT"
+scalaVersion := "2.12.13"
 
 resolvers ++= Seq(Resolver.mavenLocal,
     "Sonatype snapshots repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
@@ -24,7 +26,13 @@ libraryDependencies ++= Seq(
     "com.fasterxml.jackson.core"    % "jackson-core"            % "2.10.2",
     "commons-codec"                 % "commons-codec"           % "1.10",
     "junit"                         % "junit"                   % "4.13.1"                  % Test,
-    "com.novocode"                  % "junit-interface"         % "0.11"                    % Test
+    "com.novocode"                  % "junit-interface"         % "0.11"                    % Test,
+    "org.slf4j"                     % "slf4j-api"               % "1.7.32",
+    "org.slf4j"                     % "slf4j-simple"            % "1.7.32"
 )
 
+Compile / compile / logLevel := Level.Warn
+Test / test / logLevel := util.Level.Error
+
+logBuffered := false
 scalacOptions += "-deprecation"
