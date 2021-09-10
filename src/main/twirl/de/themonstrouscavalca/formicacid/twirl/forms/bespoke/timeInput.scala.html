@@ -8,23 +8,23 @@
             <tr>
                 <td>
                     <select @options.getInputAttributes class="@options.getInputClasses" name="@{options.getName}_hour" id="@{options.getId}_hour">
-                    @for(i <- 0 to 23){
                         <option value=""></option>
-                        @defining(f"${i}%02d"){ formatted =>
-                            <option value="@formatted">@formatted</option>
+                        @for(i <- 0 to 23){
+                            @defining(f"${i}%02d"){ formatted =>
+                                <option value="@formatted">@formatted</option>
+                            }
                         }
-                    }
                     </select>
                 </td>
                 <td>&nbsp;:&nbsp;</td>
                 <td>
                     <select @options.getInputAttributes class="@options.getInputClasses" name="@{options.getName}_minute" id="@{options.getId}_minute">
-                    @for(i <- 0 to 55 by 5){
                         <option value=""></option>
-                        @defining(f"${i}%02d"){ formatted =>
-                            <option value="@formatted">@formatted</option>
+                        @for(i <- 0 to 55 by 5){
+                            @defining(f"${i}%02d"){ formatted =>
+                                <option value="@formatted">@formatted</option>
+                            }
                         }
-                    }
                     </select>
                 </td>
                 <td><a href="#" class="time-input-now" data-hour="@{options.getName}_hour" data-minute="@{options.getName}_minute">&laquo; Set as now</a></td>
