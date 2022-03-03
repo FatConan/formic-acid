@@ -1,4 +1,4 @@
 @(attributes: java.util.Map[String, String])
-@for(entry:java.util.Map.Entry[String, String] <- attributes.entrySet.iterator){
+@for(entry:java.util.Map.Entry[String, String] <- attributes.entrySet){
     @entry.getKey="@entry.getValue"
 }
