@@ -1,4 +1,4 @@
 package de.themonstrouscavalca.formicacid.reports.builder;
 
-public class ReportColumnBuilder{
+public class ReportCellBuilder{
 }

@@ -1,0 +1,34 @@
+@import de.themonstrouscavalca.formicacid.reports.ReportRow
+@import de.themonstrouscavalca.formicacid.reports.interfaces.IReportCell
+
+@import de.themonstrouscavalca.formicacid.reports.cells.ReportCell
+@import de.themonstrouscavalca.formicacid.reports.cells.HeaderCell
+@import de.themonstrouscavalca.formicacid.reports.cells.ActionCell
+@import scala.language.postfixOps
+
+@(row: ReportRow)
+
+<tr>
+@for(col:IReportCell <- row.getVisibleDataColumns) {
+    @if(col.shouldRender()) {
+        @if(col isInstanceOf[HeaderCell
+        ] )
+        {
+            <th @if(col.getColSpan > 1) {
+                colspan="@col.getColSpan" }>@col.getValue</th>
+        } else
+        {
+        @if(col isInstanceOf[ActionCell
+            ] )
+            {
+                <td class="searchable" @if(col.getColSpan > 1) {
+                    colspan="@col.getColSpan" }>@col.getValue</td>
+            } else
+            {
+                <td class="searchable" @if(col.getColSpan > 1) {
+                    colspan="@col.getColSpan" }>@col.getValue</td>
+            }
+        }
+    }
+}
+</tr>
