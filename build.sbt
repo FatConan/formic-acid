@@ -25,6 +25,7 @@ libraryDependencies ++= Seq(
     "com.fasterxml.jackson.core"    % "jackson-annotations"     % "2.12.5",
     "com.fasterxml.jackson.core"    % "jackson-core"            % "2.12.5",
     "commons-codec"                 % "commons-codec"           % "1.10",
+    "com.opencsv"                   % "opencsv"                 % "3.8",
     "junit"                         % "junit"                   % "4.13.1"                  % Test,
     "com.novocode"                  % "junit-interface"         % "0.11"                    % Test,
     "org.slf4j"                     % "slf4j-api"               % "1.7.32",

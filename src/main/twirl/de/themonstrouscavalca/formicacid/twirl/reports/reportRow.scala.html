@@ -1,34 +1,35 @@
-@import de.themonstrouscavalca.formicacid.reports.ReportRow
 @import de.themonstrouscavalca.formicacid.reports.interfaces.IReportCell
-
 @import de.themonstrouscavalca.formicacid.reports.cells.ReportCell
 @import de.themonstrouscavalca.formicacid.reports.cells.HeaderCell
 @import de.themonstrouscavalca.formicacid.reports.cells.ActionCell
-@import scala.language.postfixOps
+@import de.themonstrouscavalca.formicacid.reports.interfaces.IReportRow
 
-@(row: ReportRow)
+@(row:IReportRow)
+
+@headerCellRender(cell: HeaderCell) = {
+    <th @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>@cell.getValue</th>
+}
+
+@actionCellRender(cell: ActionCell) = {
+    <td @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>@cell.getValue</td>
+}
+
+@cellRender(cell: ReportCell) = {
+    <td class="searchable" @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>@cell.getValue</td>
+}
 
 <tr>
-@for(col:IReportCell <- row.getVisibleDataColumns) {
-    @if(col.shouldRender()) {
-        @if(col isInstanceOf[HeaderCell
-        ] )
-        {
-            <th @if(col.getColSpan > 1) {
-                colspan="@col.getColSpan" }>@col.getValue</th>
-        } else
-        {
-        @if(col isInstanceOf[ActionCell
-            ] )
-            {
-                <td class="searchable" @if(col.getColSpan > 1) {
-                    colspan="@col.getColSpan" }>@col.getValue</td>
-            } else
-            {
-                <td class="searchable" @if(col.getColSpan > 1) {
-                    colspan="@col.getColSpan" }>@col.getValue</td>
+    @for(cell:IReportCell <- row.getVisibleDataColumns) {
+        @if(cell.shouldRender()) {
+            @if(cell.isInstanceOf[HeaderCell]){
+                @headerCellRender(cell.asInstanceOf[HeaderCell])
+            }else{
+                @if(cell.isInstanceOf[ActionCell]){
+                    @actionCellRender(cell.asInstanceOf[ActionCell])
+                }else{
+                    @cellRender(cell.asInstanceOf[ReportCell])
+                }
             }
         }
     }
-}
 </tr>

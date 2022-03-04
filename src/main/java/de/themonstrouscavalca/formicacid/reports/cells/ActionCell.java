@@ -7,9 +7,9 @@ import java.util.List;
 public class ActionCell extends AbstractCell{
     private final List<ButtonConfig> configurations;
 
-    ActionCell(List<ButtonConfig> configurations, int colSpan){
-        super(configurations, colSpan);
-        this.configurations = configurations;
+    public ActionCell(ReportCellBuilder builder){
+        super(builder);
+        this.configurations = builder.getButtonConfigs();
     }
 
     public List<ButtonConfig> getConfigurations(){

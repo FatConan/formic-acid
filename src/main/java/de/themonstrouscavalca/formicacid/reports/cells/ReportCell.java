@@ -1,16 +1,14 @@
 package de.themonstrouscavalca.formicacid.reports.cells;
 
-import de.themonstrouscavalca.formicacid.reports.interfaces.IReportCell;
-
 public class ReportCell extends AbstractCell{
     private static final String SPACE = " ";
-    private static final ReportCell SPACER = new ReportCell(SPACE, 0, null);
+    private static final ReportCell SPACER = (ReportCell) new ReportCellBuilder().setValue(SPACE).setColSpan(0).build();
 
     private final String linkText;
 
-    ReportCell(Object value, int colSpan, String linkText){
-        super(value, colSpan);
-        this.linkText = linkText;
+    public ReportCell(ReportCellBuilder builder){
+        super(builder);
+        this.linkText = builder.getLink();
     }
 
     public static ReportCell spacer(){
@@ -19,9 +17,10 @@ public class ReportCell extends AbstractCell{
     }
 
     public static ReportCell spacer(int colSpan){
-        return new ReportCell(SPACE, colSpan, null);
+        return (ReportCell) new ReportCellBuilder().setValue(SPACE).setColSpan(colSpan).build();
     }
 
+    @Override
     public boolean isLink(){
         return this.linkText != null;
     }

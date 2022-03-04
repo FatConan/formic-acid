@@ -6,9 +6,9 @@ public abstract class AbstractCell implements IReportCell{
     private final int colSpan;
     private final Object value;
 
-    AbstractCell(Object value, int colSpan){
-        this.colSpan = colSpan;
-        this.value = value;
+    AbstractCell(ReportCellBuilder builder){
+        this.colSpan = builder.getColSpan();
+        this.value = builder.getValue();
     }
 
     @Override
@@ -29,5 +29,10 @@ public abstract class AbstractCell implements IReportCell{
     @Override
     public String getText(){
         return this.value.toString();
+    }
+
+    @Override
+    public boolean isLink(){
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 @import de.themonstrouscavalca.formicacid.reports.Report
-@import de.themonstrouscavalca.formicacid.reports.ReportRow
-@import de.themonstrouscavalca.formicacid.reports.interfaces.IReportCell
+@import de.themonstrouscavalca.formicacid.reports.interfaces.IReportRow
+@import de.themonstrouscavalca.formicacid.twirl.reports.html.reportRow
 
 @(report: Report)
 
@@ -16,30 +16,14 @@
 }
 
 @table(){
-    @for(row: ReportRow <- report.getHeaders) {
-        @headerRow(row)
+    @for(row: IReportRow <- report.getHeaders) {
+        @reportRow(row)
     }
 } {
-    @for(row: ReportRow <- report.getBody) {
-        @bodyRow(row)
+    @for(row: IReportRow <- report.getBody) {
+        @reportRow(row)
     }
 }
 
 
-@headerRow(row:ReportRow) = {
-    <tr>
-    @for(col:IReportCell <- row.getVisibleDataColumns) {
-        <th @if(col.getColSpan > 1) {
-            colspan="@col.getColSpan" }>@col.getValue</th>
-    }
-    </tr>
-}
 
-@bodyRow(row:ReportRow) = {
-    <tr>
-    @for(col:IReportCell <- row.getVisibleDataColumns) {
-        <td class="searchable" @if(col.getColSpan > 1) {
-            colspan="@col.getColSpan" }>@col.getValue</td>
-    }
-    </tr>
-}
