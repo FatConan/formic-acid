@@ -83,10 +83,10 @@ public class ReportCellBuilder{
 
     public IReportCell build(){
         IReportCell cell;
-        if(this.isHeader){
-            cell = new HeaderCell(this);
-        }else if(!this.buttonConfigs.isEmpty()){
+        if(!this.buttonConfigs.isEmpty()){
             cell = new ActionCell(this);
+        }else if(this.isHeader){
+            cell = new HeaderCell(this);
         }else{
             cell = new ReportCell(this);
         }
