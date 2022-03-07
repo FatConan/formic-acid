@@ -40,6 +40,11 @@ public class ReportCellBuilder{
         return this;
     }
 
+    public ReportCellBuilder addButton(ButtonConfig config){
+        this.buttonConfigs.add(config);
+        return this;
+    }
+
     public int getColSpan(){
         return colSpan;
     }
