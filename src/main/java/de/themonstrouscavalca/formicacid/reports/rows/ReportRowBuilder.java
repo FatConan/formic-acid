@@ -39,6 +39,13 @@ public class ReportRowBuilder{
         return this;
     }
 
+    public ReportRowBuilder addSimpleCells(String ... values){
+        for(String val: values){
+            this.newCell().setValue(val).end();
+        }
+        return this;
+    }
+
     public ReportRowBuilder addSimpleCell(String value){
         this.newCell().setValue(value).end();
         return this;
