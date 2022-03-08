@@ -1,6 +1,5 @@
 @import de.themonstrouscavalca.formicacid.reports.Report
 @import de.themonstrouscavalca.formicacid.reports.interfaces.IReportRow
-@import de.themonstrouscavalca.formicacid.twirl.reports.html.reportRow
 
 @(report: Report)
 
@@ -17,11 +16,11 @@
 
 @table(){
     @for(row: IReportRow <- report.getHeaders) {
-        @reportRow(row)
+        @de.themonstrouscavalca.formicacid.twirl.reports.html.reportRow(row)
     }
 } {
     @for(row: IReportRow <- report.getBody) {
-        @reportRow(row)
+        @de.themonstrouscavalca.formicacid.twirl.reports.html.reportRow(row)
     }
 }
 
