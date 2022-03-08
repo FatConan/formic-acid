@@ -21,11 +21,11 @@ This is still very loosely defined, but I'll solidify that in future releases.
 # Build
 Run 
 ```
-mvn clean package
+sbt clean package
 ```
 to build the formic jar or 
 ```
-mvn clean install
+mvn clean publishLocal
 ```
 to add it to your local maven repo.
 
