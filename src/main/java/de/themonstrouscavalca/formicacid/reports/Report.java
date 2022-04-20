@@ -11,7 +11,9 @@ public class Report{
 
     public Report(ReportBuilder builder){
         this.defaultSection = builder.defaultSection;
-        this.reportSections.add(this.defaultSection);
+        if(this.defaultSection != null){
+            this.reportSections.add(this.defaultSection);
+        }
         this.reportSections.addAll(builder.sections);
     }
 

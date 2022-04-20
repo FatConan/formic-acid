@@ -1,0 +1,10 @@
+@import de.themonstrouscavalca.formicacid.reports.cells.ActionCell
+@import de.themonstrouscavalca.formicacid.templates.ButtonConfig
+
+@(cell: ActionCell)
+
+<td @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>
+    @for(bc:ButtonConfig <- cell.getConfigurations){
+        @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.button(bc)
+    }
+</td>

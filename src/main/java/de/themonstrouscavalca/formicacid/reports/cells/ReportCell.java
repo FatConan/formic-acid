@@ -1,5 +1,7 @@
 package de.themonstrouscavalca.formicacid.reports.cells;
 
+import play.twirl.api.Html;
+
 public class ReportCell extends AbstractCell{
     private static final String SPACE = " ";
     private static final ReportCell SPACER = (ReportCell) new ReportCellBuilder().setValue(SPACE).setColSpan(0).build();
@@ -27,5 +29,10 @@ public class ReportCell extends AbstractCell{
 
     public String getLinkText(){
         return this.linkText != null ? this.linkText : "";
+    }
+
+    @Override
+    public Html render(){
+        return de.themonstrouscavalca.formicacid.twirl.reports.html.cell.render(this);
     }
 }
