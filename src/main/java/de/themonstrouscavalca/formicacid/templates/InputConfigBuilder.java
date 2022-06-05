@@ -1,7 +1,5 @@
 package de.themonstrouscavalca.formicacid.templates;
-
-import javafx.util.Pair;
-
+import de.themonstrouscavalca.formicacid.util.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 

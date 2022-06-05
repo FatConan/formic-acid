@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
     "org.apache.commons"            % "commons-lang3"           % "3.5",
     "commons-validator"             % "commons-validator"       % "1.7",
     "javax.mail"                    % "mail"                    % "1.5.0-b01",
+    "jakarta.xml.bind"              % "jakarta.xml.bind-api"    % "2.3.3",
     "com.fasterxml.jackson.core"    % "jackson-databind"        % "2.12.5",
     "com.fasterxml.jackson.core"    % "jackson-annotations"     % "2.12.5",
     "com.fasterxml.jackson.core"    % "jackson-core"            % "2.12.5",

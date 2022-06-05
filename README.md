@@ -25,7 +25,7 @@ sbt clean package
 ```
 to build the formic jar or 
 ```
-mvn clean publishLocal
+sbt clean publishLocal
 ```
 to add it to your local maven repo.
 
