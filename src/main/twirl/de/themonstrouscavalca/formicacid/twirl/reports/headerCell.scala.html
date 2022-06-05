@@ -1,0 +1,10 @@
+@import de.themonstrouscavalca.formicacid.reports.cells.HeaderCell
+
+@(cell: HeaderCell)
+<th @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>
+    @if(cell.isLink) {
+        <a href="@cell.getLinkText">@cell.getValue</a>
+    }else{
+        @cell.getValue
+    }
+</th>

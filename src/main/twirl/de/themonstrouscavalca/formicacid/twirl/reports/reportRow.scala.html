@@ -5,49 +5,12 @@
 @import de.themonstrouscavalca.formicacid.reports.interfaces.IReportRow
 @import de.themonstrouscavalca.formicacid.templates.ButtonConfig
 
-
 @(row:IReportRow)
-
-@headerCellRender(cell: HeaderCell) = {
-    <th @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>
-    @if(cell.isLink) {
-        <a href="@cell.getLinkText">@cell.getValue</a>
-    }else{
-        @cell.getValue
-    }
-    </th>
-}
-
-@actionCellRender(cell: ActionCell) = {
-    <td @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>
-        @for(bc:ButtonConfig <- cell.getConfigurations){
-            @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.button(bc)
-        }
-    </td>
-}
-
-@cellRender(cell: ReportCell) = {
-    <td class="searchable" @if(cell.getColSpan > 1) { colspan="@cell.getColSpan" }>
-        @if(cell.isLink) {
-            <a href="@cell.getLinkText">@cell.getValue</a>
-        }else{
-            @cell.getValue
-        }
-    </td>
-}
 
 <tr>
     @for(cell:IReportCell <- row.getVisibleDataColumns) {
         @if(cell.shouldRender()) {
-            @if(cell.isInstanceOf[HeaderCell]){
-                @headerCellRender(cell.asInstanceOf[HeaderCell])
-            }else{
-                @if(cell.isInstanceOf[ActionCell]){
-                    @actionCellRender(cell.asInstanceOf[ActionCell])
-                }else{
-                    @cellRender(cell.asInstanceOf[ReportCell])
-                }
-            }
+           @cell.render()
         }
     }
 </tr>

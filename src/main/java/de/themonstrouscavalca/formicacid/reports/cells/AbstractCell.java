@@ -1,7 +1,11 @@
 package de.themonstrouscavalca.formicacid.reports.cells;
 
 import de.themonstrouscavalca.formicacid.reports.interfaces.IReportCell;
+import play.twirl.api.Html;
 
+/**
+ *
+ */
 public abstract class AbstractCell implements IReportCell{
     private final int colSpan;
     private final Object value;
