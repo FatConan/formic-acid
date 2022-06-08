@@ -17,7 +17,7 @@ resolvers ++= Seq(Resolver.mavenLocal,
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
 libraryDependencies ++= Seq(
-    "de.themonstrouscavalca"        % "dbaser"                  % "2022.6.1",
+    "de.themonstrouscavalca"        %% "dbaser"                  % "2022.6.1",
     "org.apache.commons"            % "commons-lang3"           % "3.5",
     "commons-validator"             % "commons-validator"       % "1.7",
     "javax.mail"                    % "mail"                    % "1.5.0-b01",
