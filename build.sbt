@@ -3,7 +3,7 @@ import sbt.util
 name := """formicacid"""
 organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
-version := "2021.08.1-SNAPSHOT"
+version := "2022.6.2-SNAPSHOT"
 scalaVersion := "2.12.13"
 
 resolvers ++= Seq(Resolver.mavenLocal,
@@ -17,7 +17,7 @@ resolvers ++= Seq(Resolver.mavenLocal,
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
 libraryDependencies ++= Seq(
-    "de.themonstrouscavalca"        % "dbaser"                  % "2020.03.1-SNAPSHOT",
+    "de.themonstrouscavalca"        % "dbaser"                  % "2022.6.1",
     "org.apache.commons"            % "commons-lang3"           % "3.5",
     "commons-validator"             % "commons-validator"       % "1.7",
     "javax.mail"                    % "mail"                    % "1.5.0-b01",
