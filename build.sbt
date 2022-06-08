@@ -3,7 +3,7 @@ import sbt.util
 name := """formicacid"""
 organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
-version := "2022.6.1.0"
+version := "2022.6.1"
 scalaVersion := "2.12.13"
 
 resolvers ++= Seq(Resolver.mavenLocal,
