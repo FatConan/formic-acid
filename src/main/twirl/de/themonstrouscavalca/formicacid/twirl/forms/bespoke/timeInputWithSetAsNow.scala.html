@@ -1,0 +1,6 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+@(options: InputConfig)
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
+    @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.rawInput("time", options)
+    <a href="#" class="time-input-now" data-time="@{options.getName}">&laquo; Set as now</a>
+}
