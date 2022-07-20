@@ -1,18 +1,18 @@
 package de.themonstrouscavalca.formicacid.abs;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.themonstrouscavalca.formicacid.errors.MarshallerErrorMap;
 import de.themonstrouscavalca.formicacid.extractors.defn.IExtract;
+import de.themonstrouscavalca.formicacid.marshallers.defn.IExportToJson;
+import de.themonstrouscavalca.formicacid.marshallers.defn.IValidateForm;
 import de.themonstrouscavalca.formicacid.validators.defn.IValidate;
 import de.themonstrouscavalca.formicacid.validators.helpers.ValidatedOptional;
 import de.themonstrouscavalca.formicacid.validators.impl.basic.RequiredValidator;
 
 import java.util.*;
 
-public abstract class AbstractMarshaller<T>{
+public abstract class AbstractMarshaller<T> implements IValidateForm<T>, IExportToJson<T>{
     private MarshallerErrorMap errors = new MarshallerErrorMap();
 
     public AbstractMarshaller() {
@@ -68,14 +68,6 @@ public abstract class AbstractMarshaller<T>{
         );
     }
 
-    public ArrayNode toJson(Collection<T> entities){
-        ArrayNode node = JsonNodeFactory.instance.arrayNode();
-        for(T entity : entities) {
-            node.add(toJson(entity));
-        }
-        return node;
-    }
-
     public boolean hasErrors(){
         return this.errors.isErrored();
     }
@@ -94,23 +86,6 @@ public abstract class AbstractMarshaller<T>{
 
     protected void jsonDecodeError(){
         addGlobalError("No JSON object could be decoded");
-    }
-
-    public T validateFromPOST(Map<String,String[]> data){
-        ObjectNode toJson = JsonNodeFactory.instance.objectNode();
-        for(Map.Entry<String, String[]> entry: data.entrySet()){
-            if(entry.getValue().length == 0){
-                toJson.put(entry.getKey(), "");
-            }else if(entry.getValue().length == 1){
-                toJson.put(entry.getKey(), entry.getValue()[0]);
-            }else{
-                ArrayNode vals = toJson.putArray(entry.getKey());
-                for(String v: entry.getValue()){
-                    vals.add(v);
-                }
-            }
-        }
-        return validateFromJson(toJson);
     }
 
     public abstract T validateFromJson(JsonNode json);
