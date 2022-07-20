@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.themonstrouscavalca.formicacid.marshallers.exceptions.NotImplemented;
 
 import java.util.Map;
 
@@ -25,5 +26,7 @@ public interface IValidateForm<T>{
         return validateFromJson(toJson);
     }
 
-    T validateFromJson(JsonNode json);
+    default T validateFromJson(JsonNode json){
+        throw new NotImplemented("Validating form data from JSON is not implemented");
+    }
 }

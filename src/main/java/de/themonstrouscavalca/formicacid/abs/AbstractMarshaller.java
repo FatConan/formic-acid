@@ -87,7 +87,4 @@ public abstract class AbstractMarshaller<T> implements IValidateForm<T>, IExport
     protected void jsonDecodeError(){
         addGlobalError("No JSON object could be decoded");
     }
-
-    public abstract T validateFromJson(JsonNode json);
-    public abstract JsonNode toJson(T entity);
 }
