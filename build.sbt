@@ -4,7 +4,9 @@ name := """formicacid"""
 organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
 version := "2022.6.2-SNAPSHOT"
-scalaVersion := "2.12.13"
+//scalaVersion := "2.12.13"
+scalaVersion := "2.13.8"
+
 
 resolvers ++= Seq(Resolver.mavenLocal,
     "Sonatype snapshots repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
@@ -16,14 +18,17 @@ resolvers ++= Seq(Resolver.mavenLocal,
 
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
+val jacksonVersion = "2.11.4"
+//val jacksonVersion = "2.12.5"
+
 libraryDependencies ++= Seq(
-    "de.themonstrouscavalca"        %% "dbaser"                  % "2022.6.1",
+    "de.themonstrouscavalca"        %% "dbaser"                  % "2022.6.2-SNAPSHOT",
     "org.apache.commons"            % "commons-lang3"           % "3.5",
     "commons-validator"             % "commons-validator"       % "1.7",
     "javax.mail"                    % "mail"                    % "1.5.0-b01",
-    "com.fasterxml.jackson.core"    % "jackson-databind"        % "2.12.5",
-    "com.fasterxml.jackson.core"    % "jackson-annotations"     % "2.12.5",
-    "com.fasterxml.jackson.core"    % "jackson-core"            % "2.12.5",
+    "com.fasterxml.jackson.core"    % "jackson-databind"        % jacksonVersion,
+    "com.fasterxml.jackson.core"    % "jackson-annotations"     % jacksonVersion,
+    "com.fasterxml.jackson.core"    % "jackson-core"            % jacksonVersion,
     "commons-codec"                 % "commons-codec"           % "1.10",
     "com.opencsv"                   % "opencsv"                 % "3.8",
     "junit"                         % "junit"                   % "4.13.1"                  % Test,
