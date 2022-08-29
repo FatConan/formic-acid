@@ -11,7 +11,7 @@ public class InputConfigBuilder{
     private String formName = "";
     private String name = "";
     private String label = "";
-    private String id = "";
+    private String explicitId = null;
     private String value = null;
     private boolean required = false;
 
@@ -40,7 +40,6 @@ public class InputConfigBuilder{
         builder.setName(name);
         builder.setLabel(label);
         builder.setFormName(formName);
-        builder.setId(InputNamer.id(name, formName));
         return builder;
     }
 
@@ -68,7 +67,7 @@ public class InputConfigBuilder{
     }
 
     public InputConfigBuilder setId(String id){
-        this.id = id;
+        this.explicitId = id;
         return this;
     }
 
@@ -140,11 +139,12 @@ public class InputConfigBuilder{
     public InputConfig build(){
         String inputClasses = String.join(" ", this.inputClasses);
         String wrapperClasses = String.join(" ", this.wrapperClasses);
+        String id = this.explicitId != null ? this.explicitId : InputNamer.id(this.name, this.formName);
 
         Html inputAttrs = attributesHtml.render(this.inputAttributes);
         Html wrapperAttrs = attributesHtml.render(this.wrapperAttributes);
 
-        return new InputConfig(this.id, this.name, this.formName, this.label, this.required, this.placeholder,
+        return new InputConfig(id, this.name, this.formName, this.label, this.required, this.placeholder,
                 wrapperClasses, inputClasses, wrapperAttrs, inputAttrs,
                 this.inputValuePairs,
                 this.value);
