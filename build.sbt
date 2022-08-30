@@ -4,7 +4,6 @@ name := """formicacid"""
 organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
 version := "2022.6.2-SNAPSHOT"
-//scalaVersion := "2.12.13"
 scalaVersion := "2.13.8"
 
 
@@ -18,8 +17,6 @@ resolvers ++= Seq(Resolver.mavenLocal,
 
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
-//val jacksonVersion = "2.11.4"
-//val jacksonVersion = "2.12.5"
 val jacksonVersion = "2.13.3"
 
 libraryDependencies ++= Seq(
