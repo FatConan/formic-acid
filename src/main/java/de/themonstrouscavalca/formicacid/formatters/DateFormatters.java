@@ -15,6 +15,8 @@ public class DateFormatters{
     public static final PrintableDateFormatter HUMAN_READABLE_YEAR_MONTH = PrintableDateFormatter.ofPattern("MMMM yyyy");
     public static final PrintableDateFormatter HUMAN_READABLE_YEAR = PrintableDateFormatter.ofPattern("yyyy");
 
+    public static final PrintableDateFormatter SHORTENED_MONTH_YEAR = PrintableDateFormatter.ofPattern("MMM yyyy");
+
     public static final PrintableDateFormatter API_DATE_FORMAT = PrintableDateFormatter.ofPattern("yyyy-MM-dd");
     public static final PrintableDateFormatter API_TIME_FORMAT = PrintableDateFormatter.ofPattern("HH:mm");
     public static final PrintableDateFormatter API_TIME_WITH_SECONDS_FORMAT = PrintableDateFormatter.ofPattern("HH:mm:ss");

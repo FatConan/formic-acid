@@ -3,6 +3,8 @@ package de.themonstrouscavalca.formicacid.tests.formatters;
 import de.themonstrouscavalca.formicacid.formatters.DateFormatters;
 import org.junit.Test;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
+
 import static org.junit.Assert.assertEquals;
 
 public class FormattersTest{
@@ -37,7 +39,7 @@ public class FormattersTest{
 
     @Test
     public void testSinceEpoch(){
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS); //Avoid accuracy issue, either truncate both to millis or work in micros
         String sinceEpoch = DateFormatters.sinceEpoch(localDateTime);
         Instant instant = Instant.ofEpochMilli(Long.parseLong(sinceEpoch));
         LocalDateTime fromEpoch = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
