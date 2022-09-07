@@ -6,15 +6,15 @@ import play.twirl.api.Html;
 import java.util.*;
 
 public class ButtonConfigBuilder{
-    private String formName = "";
-    private String name = "";
-    private String label = "";
-    private String title = "";
-    private String id = "";
-    private boolean wrapInSpan = false;
+    String formName = "";
+    String name = "";
+    String label = "";
+    String title = "";
+    String id = "";
+    boolean wrapInSpan = false;
 
-    private List<String> buttonClasses;
-    private Map<String, String> buttonAttributes;
+    List<String> buttonClasses;
+    Map<String, String> buttonAttributes;
 
     public static ButtonConfigBuilder instance(){
         return new ButtonConfigBuilder();
@@ -82,9 +82,11 @@ public class ButtonConfigBuilder{
         return this.addAttribute(String.format("data-%s", dataKey), value);
     }
 
+    String collateClasses(){
+        return String.join(" ", this.buttonClasses);
+    }
+
     public ButtonConfig build(){
-        String cssClasses = String.join(" ", this.buttonClasses);
-        Html attrs = attributesHtml.render(this.buttonAttributes);
-        return new ButtonConfig(this.id, this.name, this.label, this.formName, this.title, this.wrapInSpan, cssClasses, attrs);
+        return new ButtonConfig(this);
     }
 }

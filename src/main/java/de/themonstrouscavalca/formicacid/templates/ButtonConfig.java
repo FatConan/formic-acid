@@ -1,5 +1,6 @@
 package de.themonstrouscavalca.formicacid.templates;
 
+import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
 public class ButtonConfig{
@@ -13,17 +14,18 @@ public class ButtonConfig{
     private final String buttonClasses;
     private final Html buttonAttributes;
 
-    public ButtonConfig(String id, String name, String label, String formName, String title, boolean spanWrapper,
-                          String buttonClasses, Html buttonAttributes){
-        this.id = id;
-        this.name = name;
-        this.formName = formName;
-        this.title = title;
-        this.label = label;
-        this.spanWrapper = spanWrapper;
+    ButtonConfig(ButtonConfigBuilder builder){
+        Html attrs = attributesHtml.render(builder.buttonAttributes);
 
-        this.buttonClasses = buttonClasses;
-        this.buttonAttributes = buttonAttributes;
+        this.id = builder.id;
+        this.name = builder.name;
+        this.formName = builder.formName;
+        this.title = builder.title;
+        this.label = builder.label;
+        this.spanWrapper = builder.wrapInSpan;
+
+        this.buttonClasses = builder.collateClasses();
+        this.buttonAttributes = attrs;
     }
 
     public String getFormName(){

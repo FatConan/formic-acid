@@ -1,5 +1,6 @@
 package de.themonstrouscavalca.formicacid.templates;
 
+import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
 public class FormConfig{
@@ -12,15 +13,17 @@ public class FormConfig{
     private final boolean addGlobalErrors;
     private final boolean addHiddenSubmit;
 
-    public FormConfig(String id, String name, String classes, Html attributes, boolean showRequiredNotice, boolean addGlobalErrors,
-            boolean addHiddenSubmit){
-        this.id = id;
-        this.name = name;
-        this.classes = classes;
-        this.attributes = attributes;
-        this.showRequiredNotice = showRequiredNotice;
-        this.addGlobalErrors = addGlobalErrors;
-        this.addHiddenSubmit = addHiddenSubmit;
+    FormConfig(FormConfigBuilder builder){
+
+        Html attrs = attributesHtml.render(builder.attributes);
+
+        this.id = builder.id;
+        this.name = builder.name;
+        this.classes = builder.collateClasses();
+        this.attributes = attrs;
+        this.showRequiredNotice = builder.requiredNotice;
+        this.addGlobalErrors = builder.globalErrors;
+        this.addHiddenSubmit = builder.hiddenSubmit;
     }
 
     public String getId(){
