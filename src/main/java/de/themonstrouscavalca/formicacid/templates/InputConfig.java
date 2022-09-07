@@ -1,5 +1,6 @@
 package de.themonstrouscavalca.formicacid.templates;
 
+import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
 import java.util.List;
@@ -21,25 +22,28 @@ public class InputConfig{
 
     private final List<InputValuePair> inputValuesPairs;
 
-    public InputConfig(String id, String name, String formName, String label, Boolean required,
-                       String placeholder,
-                       String wrapperClasses, String inputClasses, Html wrapperAttributes, Html inputAttributes,
-                       List<InputValuePair> inputValuePairs,
-                       String value){
-        this.id = id;
-        this.name = name;
-        this.required = required;
-        this.formName = formName;
-        this.label = label;
-        this.value = value;
+    InputConfig(InputConfigBuilder builder){
+        String inputClasses = builder.collateInputClasses();
+        String wrapperClasses = builder.collateWrapperClasses();
+        String id = builder.explicitOrGeneratedId();
 
-        this.placeholder = placeholder;
-        this.inputValuesPairs = inputValuePairs;
+        Html inputAttrs = attributesHtml.render(builder.inputAttributes);
+        Html wrapperAttrs = attributesHtml.render(builder.wrapperAttributes);
+
+        this.id = id;
+        this.name = builder.name;
+        this.required = builder.required;
+        this.formName = builder.formName;
+        this.label = builder.label;
+        this.value = builder.value;
+
+        this.placeholder = builder.placeholder;
+        this.inputValuesPairs = builder.inputValuePairs;
 
         this.wrapperClasses = wrapperClasses;
         this.inputClasses = inputClasses;
-        this.wrapperAttributes = wrapperAttributes;
-        this.inputAttributes = inputAttributes;
+        this.wrapperAttributes = wrapperAttrs;
+        this.inputAttributes = inputAttrs;
     }
 
     public String getFormName(){

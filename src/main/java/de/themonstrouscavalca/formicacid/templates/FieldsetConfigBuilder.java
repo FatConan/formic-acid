@@ -6,13 +6,13 @@ import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesH
 import play.twirl.api.Html;
 
 public class FieldsetConfigBuilder{
-    private String formName = "";
-    private String name = "";
-    private String legend = "";
-    private String id = "";
+    String formName = "";
+    String name = "";
+    String legend = "";
+    String id = "";
 
-    private List<String> fieldsetClasses;
-    private Map<String, String> fieldsetAttributes;
+    List<String> fieldsetClasses;
+    Map<String, String> fieldsetAttributes;
 
     public static FieldsetConfigBuilder instance(){
         return new FieldsetConfigBuilder();
@@ -70,9 +70,12 @@ public class FieldsetConfigBuilder{
         return this.addAttribute(String.format("data-%s", dataKey), value);
     }
 
+    String collateClasses(){
+        return String.join(" ", this.fieldsetClasses);
+    }
+
+
     public FieldsetConfig build(){
-        String cssClasses = String.join(" ", this.fieldsetClasses);
-        Html attrs = attributesHtml.render(this.fieldsetAttributes);
-        return new FieldsetConfig(this.id, this.name, this.formName, this.legend, cssClasses, attrs);
+        return new FieldsetConfig(this);
     }
 }

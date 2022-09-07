@@ -7,16 +7,16 @@ import play.twirl.api.Html;
 import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 
 public class FormConfigBuilder{
-    private String id = "";
-    private String name = "";
-    private List<String> classes;
-    private Map<String, String> attributes;
-    private boolean requiredNotice = false;
-    private boolean globalErrors = false;
-    private boolean hiddenSubmit = false;
+    String id = "";
+    String name = "";
+    List<String> classes;
+    Map<String, String> attributes;
+    boolean requiredNotice = false;
+    boolean globalErrors = false;
+    boolean hiddenSubmit = false;
 
-    private List<String> fieldsetClasses;
-    private Map<String, String> fieldsetAttributes;
+    List<String> fieldsetClasses;
+    Map<String, String> fieldsetAttributes;
 
     public static FormConfigBuilder instance(){
         return new FormConfigBuilder();
@@ -95,11 +95,11 @@ public class FormConfigBuilder{
         return this.addAttribute(String.format("data-%s", dataKey), value);
     }
 
-    public FormConfig build(){
-        String cssClasses = String.join(" ", this.classes);
-        Html attrs = attributesHtml.render(this.attributes);
-
-        return new FormConfig(this.id, this.name, cssClasses, attrs, this.requiredNotice, this.globalErrors, this.hiddenSubmit);
+    String collateClasses(){
+        return String.join(" ", this.classes);
     }
 
+    public FormConfig build(){
+        return new FormConfig(this);
+    }
 }

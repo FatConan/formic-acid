@@ -8,20 +8,20 @@ import play.twirl.api.Html;
 
 
 public class InputConfigBuilder{
-    private String formName = "";
-    private String name = "";
-    private String label = "";
-    private String explicitId = null;
-    private String value = null;
-    private boolean required = false;
+    String formName = "";
+    String name = "";
+    String label = "";
+    String explicitId = null;
+    String value = null;
+    boolean required = false;
 
-    private String placeholder = "";
+    String placeholder = "";
 
-    private List<String> wrapperClasses;
-    private List<String> inputClasses;
-    private Map<String, String> wrapperAttributes;
-    private Map<String, String> inputAttributes;
-    private List<InputValuePair> inputValuePairs;
+    List<String> wrapperClasses;
+    List<String> inputClasses;
+    Map<String, String> wrapperAttributes;
+    Map<String, String> inputAttributes;
+    List<InputValuePair> inputValuePairs;
 
     public static InputConfigBuilder instance(){
         return new InputConfigBuilder();
@@ -136,17 +136,19 @@ public class InputConfigBuilder{
         return this.addInputAttribute(String.format("data-%s", dataKey), value);
     }
 
+    String collateInputClasses(){
+        return String.join(" ", this.inputClasses);
+    }
+
+    String collateWrapperClasses(){
+        return String.join(" ", this.wrapperClasses);
+    }
+
+    String explicitOrGeneratedId(){
+        return this.explicitId != null ? this.explicitId : InputNamer.id(this.name, this.formName);
+    }
+
     public InputConfig build(){
-        String inputClasses = String.join(" ", this.inputClasses);
-        String wrapperClasses = String.join(" ", this.wrapperClasses);
-        String id = this.explicitId != null ? this.explicitId : InputNamer.id(this.name, this.formName);
-
-        Html inputAttrs = attributesHtml.render(this.inputAttributes);
-        Html wrapperAttrs = attributesHtml.render(this.wrapperAttributes);
-
-        return new InputConfig(id, this.name, this.formName, this.label, this.required, this.placeholder,
-                wrapperClasses, inputClasses, wrapperAttrs, inputAttrs,
-                this.inputValuePairs,
-                this.value);
+        return new InputConfig(this);
     }
 }
