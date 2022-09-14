@@ -32,7 +32,7 @@ public abstract class AbstractCell implements IReportCell{
 
     @Override
     public String getText(){
-        return this.value.toString();
+        return this.value != null ? this.value.toString() : "";
     }
 
     @Override
