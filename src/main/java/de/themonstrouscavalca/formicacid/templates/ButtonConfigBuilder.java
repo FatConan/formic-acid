@@ -73,6 +73,18 @@ public class ButtonConfigBuilder{
         return this;
     }
 
+    public ButtonConfigBuilder disable(){
+        return disabled(true);
+    }
+
+    public ButtonConfigBuilder disabled(boolean disable){
+        if(disable){
+            this.addAttribute("disabled", "disabled");
+            this.addClass("disabled");
+        }
+        return this;
+    }
+
     public ButtonConfigBuilder addAttribute(String key, String value){
         this.buttonAttributes.put(key, value);
         return this;
