@@ -13,7 +13,7 @@ public class InputConfig{
     private final boolean required;
     private final String value;
 
-    private String placeholder;
+    private final String placeholder;
 
     private final String wrapperClasses;
     private final String inputClasses;

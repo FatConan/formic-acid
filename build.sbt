@@ -6,7 +6,6 @@ maintainer := "oss@themonstrouscavalca.de"
 version := "2022.9.2-SNAPSHOT"
 scalaVersion := "2.13.8"
 
-
 resolvers ++= Seq(Resolver.mavenLocal,
     "Sonatype snapshots repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "Shibboleth releases" at "https://build.shibboleth.net/nexus/content/repositories/releases/",

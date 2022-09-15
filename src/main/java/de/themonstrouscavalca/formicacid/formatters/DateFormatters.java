@@ -23,6 +23,7 @@ public class DateFormatters{
     public static final PrintableDateFormatter API_DATE_TIME_FORMAT = PrintableDateFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static final PrintableDateFormatter API_DATE_TIME_WITH_SECONDS_FORMAT = PrintableDateFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final PrintableDateFormatter DAY_ONLY = PrintableDateFormatter.ofPattern("d");
+    public static final PrintableDateFormatter VERBOSE_DAY = PrintableDateFormatter.ofPattern("EEEE");
     public static final PrintableDateFormatter DAY_MONTH = PrintableDateFormatter.ofPattern("d MMMM");
 
     public static String daysAgo(LocalDateTime datetime){
