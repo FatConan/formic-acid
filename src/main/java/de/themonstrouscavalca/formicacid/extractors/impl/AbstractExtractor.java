@@ -65,8 +65,13 @@ public abstract class AbstractExtractor<T> implements IExtract<T>{
         if(node == null || node.isNull()){
             return true;
         }
-        String text = node.asText();
-        return text == null || text.trim().isEmpty();
+
+        if(!node.isArray() && !node.isObject()){
+            String text = node.asText();
+            return text == null || text.trim().isEmpty();
+        }
+
+        return false;
     }
 
     protected boolean present(JsonNode node){
