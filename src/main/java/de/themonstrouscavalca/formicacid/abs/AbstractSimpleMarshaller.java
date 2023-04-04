@@ -8,6 +8,7 @@ import de.themonstrouscavalca.formicacid.validators.helpers.ValidatedOptional;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
     public abstract T validationSteps(T entity, JsonNode json);
@@ -26,19 +27,19 @@ public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
     }
 
     @Override
-    public T validateFromJson(JsonNode json){
+    public Optional<T> validateFromJson(JsonNode json){
         if(json == null){
             jsonDecodeError();
-            return null;
+            return Optional.empty();
         }
 
         T entity = this.create();
         this.validationSteps(entity, json);
 
         if(this.hasErrors()){
-            return null;
+            return Optional.empty();
         }
 
-        return entity;
+        return Optional.of(entity);
     }
 }

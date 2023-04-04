@@ -7,9 +7,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.themonstrouscavalca.formicacid.marshallers.exceptions.NotImplemented;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface IValidateForm<T>{
-    default T validateFromPOST(Map<String,String[]> data){
+    default Optional<T> validateFromPOST(Map<String,String[]> data){
         ObjectNode toJson = JsonNodeFactory.instance.objectNode();
         for(Map.Entry<String, String[]> entry: data.entrySet()){
             if(entry.getValue().length == 0){
@@ -26,7 +27,7 @@ public interface IValidateForm<T>{
         return validateFromJson(toJson);
     }
 
-    default T validateFromJson(JsonNode json){
+    default Optional<T> validateFromJson(JsonNode json){
         throw new NotImplemented("Validating form data from JSON is not implemented");
     }
 }
