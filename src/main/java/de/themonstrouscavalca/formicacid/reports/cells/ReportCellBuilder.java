@@ -46,7 +46,7 @@ public class ReportCellBuilder{
         return this;
     }
 
-    public ReportCellBuilder label(String label){
+    public ReportCellBuilder setLabel(String label){
         this.label = label;
         return this;
     }
