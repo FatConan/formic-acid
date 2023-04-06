@@ -9,10 +9,12 @@ import play.twirl.api.Html;
 public abstract class AbstractCell implements IReportCell{
     private final int colSpan;
     private final Object value;
+    private final String label;
 
     AbstractCell(ReportCellBuilder builder){
         this.colSpan = builder.getColSpan();
         this.value = builder.getValue();
+        this.label = builder.getLabel();
     }
 
     @Override

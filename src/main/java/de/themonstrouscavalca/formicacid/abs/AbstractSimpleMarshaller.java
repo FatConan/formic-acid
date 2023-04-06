@@ -27,7 +27,7 @@ public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
     }
 
     @Override
-    public Optional<T> validateFromJson(JsonNode json){
+    public Optional<T> validate(JsonNode json){
         if(json == null){
             jsonDecodeError();
             return Optional.empty();
@@ -41,5 +41,10 @@ public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
         }
 
         return Optional.of(entity);
+    }
+
+    @Override
+    public T validateFromJson(JsonNode json){
+        return validate(json).orElse(null);
     }
 }

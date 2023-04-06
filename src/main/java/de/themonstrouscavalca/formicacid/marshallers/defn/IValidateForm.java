@@ -10,7 +10,29 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface IValidateForm<T>{
-    default Optional<T> validateFromPOST(Map<String,String[]> data){
+    default Optional<T> validate(Map<String,String[]> data){
+        ObjectNode toJson = JsonNodeFactory.instance.objectNode();
+        for(Map.Entry<String, String[]> entry: data.entrySet()){
+            if(entry.getValue().length == 0){
+                toJson.put(entry.getKey(), "");
+            }else if(entry.getValue().length == 1){
+                toJson.put(entry.getKey(), entry.getValue()[0]);
+            }else{
+                ArrayNode vals = toJson.putArray(entry.getKey());
+                for(String v: entry.getValue()){
+                    vals.add(v);
+                }
+            }
+        }
+        return validate(toJson);
+    }
+
+    default Optional<T> validate(JsonNode json){
+        throw new NotImplemented("Validating form data from JSON is not implemented");
+    }
+
+    @Deprecated
+    default T validateFromPOST(Map<String,String[]> data){
         ObjectNode toJson = JsonNodeFactory.instance.objectNode();
         for(Map.Entry<String, String[]> entry: data.entrySet()){
             if(entry.getValue().length == 0){
@@ -27,7 +49,8 @@ public interface IValidateForm<T>{
         return validateFromJson(toJson);
     }
 
-    default Optional<T> validateFromJson(JsonNode json){
+    @Deprecated
+    default T validateFromJson(JsonNode json){
         throw new NotImplemented("Validating form data from JSON is not implemented");
     }
 }
