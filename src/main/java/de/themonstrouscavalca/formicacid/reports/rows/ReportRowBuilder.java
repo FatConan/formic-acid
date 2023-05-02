@@ -51,6 +51,11 @@ public class ReportRowBuilder{
         return this;
     }
 
+    public ReportRowBuilder addSimpleLabelledCell(String value, String label){
+        this.newCell().setValue(value).setLabel(label).end();
+        return this;
+    }
+
     public ReportRowBuilder addCell(IReportCell cell){
        this.cells.add(cell);
        return this;

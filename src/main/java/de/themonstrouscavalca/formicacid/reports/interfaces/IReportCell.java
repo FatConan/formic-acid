@@ -8,5 +8,6 @@ public interface IReportCell{
     boolean isLink();
     Object getValue();
     String getText();
+    String getLabel();
     Html render();
 }

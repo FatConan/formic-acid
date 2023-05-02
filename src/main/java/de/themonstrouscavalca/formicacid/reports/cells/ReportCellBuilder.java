@@ -13,6 +13,7 @@ public class ReportCellBuilder{
 
     private Object value = "";
     private int colSpan = 1;
+    private String label = "";
     private String link = null;
     private List<ButtonConfig> buttonConfigs = new ArrayList<>();
 
@@ -43,6 +44,15 @@ public class ReportCellBuilder{
     public ReportCellBuilder addButton(ButtonConfig config){
         this.buttonConfigs.add(config);
         return this;
+    }
+
+    public ReportCellBuilder setLabel(String label){
+        this.label = label;
+        return this;
+    }
+
+    public String getLabel(){
+        return label;
     }
 
     public int getColSpan(){
