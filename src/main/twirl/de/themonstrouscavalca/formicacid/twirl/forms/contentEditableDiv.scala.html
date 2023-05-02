@@ -1,0 +1,7 @@
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+@import de.themonstrouscavalca.formicacid.templates.InputValuePair
+
+@(options: InputConfig)
+@de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrorsWithLabel(options){
+    <div contenteditable @options.getInputAttributes class="@options.getInputClasses" data-name="@options.getName" id="@options.getId" placeholder="@options.getPlaceholder">@if(options.getValue != null){@options.getValue}</div>
+}
