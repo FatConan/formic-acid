@@ -1,0 +1,18 @@
+@(name: String, title: String, headers: List[String])(controls: Html)(elements: Html)
+<table id="generator_@name" class="generator @name" data-template="@elements.toString">
+    <thead class="generator-head">
+        <tr class="generator-control-row">
+            <th colspan="@headers.size" class="generator-title">@title</th>
+            <td class="actions">@controls</td>
+        </tr>
+        <tr>
+            @for(header:String <- headers){
+                <th>@header</th>
+            }
+            <td>&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody class="generator_rows">
+
+    </tbody>
+</table>
