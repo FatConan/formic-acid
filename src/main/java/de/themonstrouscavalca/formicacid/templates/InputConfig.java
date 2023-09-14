@@ -11,6 +11,7 @@ public class InputConfig{
     private final String label;
     private final String id;
     private final boolean required;
+    private final boolean withLabel;
     private final String value;
 
     private final String placeholder;
@@ -35,6 +36,7 @@ public class InputConfig{
         this.required = builder.required;
         this.formName = builder.formName;
         this.label = builder.label;
+        this.withLabel = builder.label != null && !builder.label.isEmpty();
         this.value = builder.value;
 
         this.placeholder = builder.placeholder;
@@ -72,6 +74,10 @@ public class InputConfig{
 
     public boolean isRequired(){
         return required;
+    }
+
+    public boolean isWithLabel(){
+        return withLabel;
     }
 
     public String getWrapperClasses(){

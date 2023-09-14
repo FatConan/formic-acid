@@ -1,15 +1,15 @@
-@(name: String, title: String, headers: List[String])(controls: Html)(elements: Html)
+@(name: String, title: String, headers: java.util.List[String])(controls: Html)(elements: Html)
 <table id="generator_@name" class="generator @name" data-template="@elements.toString">
     <thead class="generator-head">
         <tr class="generator-control-row">
             <th colspan="@headers.size" class="generator-title">@title</th>
-            <td class="actions">@controls</td>
+            <th class="actions">@controls</th>
         </tr>
         <tr>
             @for(header:String <- headers){
                 <th>@header</th>
             }
-            <td>&nbsp;</td>
+            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody class="generator_rows">

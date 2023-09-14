@@ -2,6 +2,6 @@
 
 @(options: InputConfig)(inner: Html)
 @de.themonstrouscavalca.formicacid.twirl.forms.wrap.html.inputRowAndErrors(options){
-    <label for="@options.getId">@options.getLabel: </label>
+    @if(options.isWithLabel){<label for="@options.getId">@options.getLabel: </label>}
     @inner
 }
