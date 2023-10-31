@@ -5,7 +5,7 @@ organization := "de.themonstrouscavalca"
 maintainer := "oss@themonstrouscavalca.de"
 version := "2023.05.1-SNAPSHOT"
 
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.12"
 
 resolvers ++= Seq(Resolver.mavenLocal,
     "Sonatype snapshots repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
@@ -17,10 +17,10 @@ resolvers ++= Seq(Resolver.mavenLocal,
 
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
-val jacksonVersion = "2.13.3"
+val jacksonVersion = "2.14.2"
 
 libraryDependencies ++= Seq(
-    "de.themonstrouscavalca"        %% "dbaser"                  % "2022.6.2-SNAPSHOT",
+    "de.themonstrouscavalca"        %% "dbaser"                 % "2022.6.3-SNAPSHOT",
     "org.apache.commons"            % "commons-lang3"           % "3.5",
     "commons-validator"             % "commons-validator"       % "1.7",
     "javax.mail"                    % "mail"                    % "1.5.0-b01",
@@ -32,11 +32,10 @@ libraryDependencies ++= Seq(
     "com.opencsv"                   % "opencsv"                 % "3.8",
     "junit"                         % "junit"                   % "4.13.1"                  % Test,
     "com.novocode"                  % "junit-interface"         % "0.11"                    % Test,
-    "org.slf4j"                     % "slf4j-api"               % "1.7.32",
-    "org.slf4j"                     % "slf4j-simple"            % "1.7.32"
+    "org.slf4j"                     % "slf4j-api"               % "2.0.5",
+    "org.slf4j"                     % "slf4j-simple"            % "2.0.5"
 )
 
-Compile / compile / logLevel := Level.Warn
 Test / test / logLevel := util.Level.Error
 
 logBuffered := false

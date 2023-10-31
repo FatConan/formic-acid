@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
-    public abstract T validationSteps(T entity, JsonNode json);
+    public abstract void validationSteps(T entity, JsonNode json);
     public abstract T create();
 
     protected <M> void validateValue(T entity, String fieldName, JsonNode json, IExtract<M> extractor, Collection<IValidate<M>> validators, IHandleValue<ValidatedOptional<M>, T> handleValue){
@@ -41,10 +41,5 @@ public abstract class AbstractSimpleMarshaller<T> extends AbstractMarshaller<T>{
         }
 
         return Optional.of(entity);
-    }
-
-    @Override
-    public T validateFromJson(JsonNode json){
-        return validate(json).orElse(null);
     }
 }

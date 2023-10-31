@@ -30,7 +30,7 @@ public class AbstractSimpleMarshallerTest{
 
 
         @Override
-        public Book validationSteps(Book entity, JsonNode json){
+        public void validationSteps(Book entity, JsonNode json){
             this.validateValue(entity, "id", json, this.longExtractor,
                     requiredOnly(),
                     (v, e) -> e.ID = v.get());
@@ -40,7 +40,6 @@ public class AbstractSimpleMarshallerTest{
             this.validateValue(entity, "author", json, this.stringExtractor,
                     Arrays.asList(new RequiredValidator<>(), new StringLengthValidator(1, 255)),
                     (v, e) -> e.author = v.get());
-            return entity;
         }
 
         @Override
@@ -67,7 +66,7 @@ public class AbstractSimpleMarshallerTest{
         bookRepr.put("author", "Fat Conan");
 
         BookMarshaller marshaller = new BookMarshaller();
-        Optional<Book> book = marshaller.validateFromJson(bookRepr);
+        Optional<Book> book = marshaller.validate(bookRepr);
         assert(book.isPresent());
         Optional<JsonNode> repr = book.map(marshaller::toJson);
         assert(repr.isPresent());
@@ -83,7 +82,7 @@ public class AbstractSimpleMarshallerTest{
         bookRepr.put("authored", "Fat Conan");
 
         BookMarshaller marshaller = new BookMarshaller();
-        Optional<Book> book = marshaller.validateFromJson(bookRepr);
+        Optional<Book> book = marshaller.validate(bookRepr);
         assert(!book.isPresent());
         assert(marshaller.hasErrors());
         assert(marshaller.getErrors().hasFieldError("author"));
