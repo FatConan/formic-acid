@@ -2,7 +2,6 @@ import sbt.util
 
 name := """formicacid"""
 organization := "de.themonstrouscavalca"
-maintainer := "oss@themonstrouscavalca.de"
 version := "2023.05.1-SNAPSHOT"
 
 scalaVersion := "2.13.12"
@@ -18,6 +17,7 @@ resolvers ++= Seq(Resolver.mavenLocal,
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
 val jacksonVersion = "2.14.2"
+val slf4jVersion = "1.7.36"
 
 libraryDependencies ++= Seq(
     "de.themonstrouscavalca"        %% "dbaser"                 % "2022.6.3-SNAPSHOT",
@@ -32,8 +32,8 @@ libraryDependencies ++= Seq(
     "com.opencsv"                   % "opencsv"                 % "3.8",
     "junit"                         % "junit"                   % "4.13.1"                  % Test,
     "com.novocode"                  % "junit-interface"         % "0.11"                    % Test,
-    "org.slf4j"                     % "slf4j-api"               % "2.0.5",
-    "org.slf4j"                     % "slf4j-simple"            % "2.0.5"
+    "org.slf4j"                     % "slf4j-api"               % slf4jVersion,
+    "org.slf4j"                     % "slf4j-simple"            % slf4jVersion
 )
 
 Test / test / logLevel := util.Level.Error
