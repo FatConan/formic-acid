@@ -13,17 +13,14 @@ import de.themonstrouscavalca.formicacid.validators.impl.strings.StringLengthVal
 import de.themonstrouscavalca.formicacid.validators.impl.strings.StringMatchValidator;
 import org.junit.Test;
 
-import javax.xml.bind.ValidationEvent;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
-public class UpdatedPasswordValidation{
+public class UpdatedPasswordValidationTest{
 
     private static final Collection<IValidate<String>> PASSWORD_VALIDATORS = Arrays.asList(
             new RequiredValidator<>("REQUIRED"),
