@@ -16,21 +16,21 @@ resolvers ++= Seq(Resolver.mavenLocal,
 
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
-val jacksonVersion = "2.14.2"
+val jacksonVersion = "2.15.1"
 val slf4jVersion = "1.7.36"
 
 libraryDependencies ++= Seq(
     "de.themonstrouscavalca"        %% "dbaser"                 % "2022.6.3-SNAPSHOT",
-    "org.apache.commons"            % "commons-lang3"           % "3.5",
+    "org.apache.commons"            % "commons-lang3"           % "3.12.0",
     "commons-validator"             % "commons-validator"       % "1.7",
     "javax.mail"                    % "mail"                    % "1.5.0-b01",
-    "jakarta.xml.bind"              % "jakarta.xml.bind-api"    % "2.3.3",
+    "jakarta.xml.bind"              % "jakarta.xml.bind-api"    % "4.0.0",
     "com.fasterxml.jackson.core"    % "jackson-databind"        % jacksonVersion,
     "com.fasterxml.jackson.core"    % "jackson-annotations"     % jacksonVersion,
     "com.fasterxml.jackson.core"    % "jackson-core"            % jacksonVersion,
-    "commons-codec"                 % "commons-codec"           % "1.10",
-    "com.opencsv"                   % "opencsv"                 % "3.8",
-    "junit"                         % "junit"                   % "4.13.1"                  % Test,
+    "commons-codec"                 % "commons-codec"           % "1.15",
+    "com.opencsv"                   % "opencsv"                 % "5.7.1",
+    "junit"                         % "junit"                   % "4.13.2"                  % Test,
     "com.novocode"                  % "junit-interface"         % "0.11"                    % Test,
     "org.slf4j"                     % "slf4j-api"               % slf4jVersion,
     "org.slf4j"                     % "slf4j-simple"            % slf4jVersion

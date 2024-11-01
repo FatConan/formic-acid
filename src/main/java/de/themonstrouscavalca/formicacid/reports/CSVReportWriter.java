@@ -1,6 +1,7 @@
 package de.themonstrouscavalca.formicacid.reports;
 
-import com.opencsv.CSVWriter;
+import com.opencsv.CSVWriterBuilder;
+import com.opencsv.ICSVWriter;
 import de.themonstrouscavalca.formicacid.reports.interfaces.IReportRow;
 
 import java.io.*;
@@ -8,7 +9,9 @@ import java.nio.charset.StandardCharsets;
 
 public class CSVReportWriter{
     public static void reportToCSV(Report report, Writer output) throws IOException{
-        CSVWriter writer = new CSVWriter(output, ',');
+        ICSVWriter writer = new CSVWriterBuilder(output)
+                .withSeparator(',')
+                .build();
         for(ReportSection reportSection : report.getReportSections()){
             int flushCount = 0;
             for(IReportRow row : reportSection.getData()){
