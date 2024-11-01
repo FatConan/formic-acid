@@ -6,7 +6,7 @@
     <div class="checkboxes @options.getInputClasses" @options.getInputAttributes id="@options.getId">
         @for(pair: InputValuePair <- options.getInputValuesPairs) {
             <label class="no-annotations">@pair.getLabel <input name="@{options.getName}_@{pair.getValue}" @options.getInputAttributes type="checkbox" value="@pair.getValue"
-                @if(options.getValue != null && options.getValue.equals(pair.getValue)){checked="checked"} />
+                @if(options.getValue != null && options.getValue.equals(pair.getValue)){checked="checked"}>
                 @extension
             </label>
         }
