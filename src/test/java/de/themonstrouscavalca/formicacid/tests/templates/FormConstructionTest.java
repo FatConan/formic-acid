@@ -20,17 +20,17 @@ public class FormConstructionTest{
         final String standardFormReference = "<form id=\"form_form\" class=\"form \">" +
                 "<div class=\"global-errors\"></div>" +
                 "<div class=\"input-row required\"><p class=\"indicates-required\">Indicates a required field.</p></div>" +
-                "<input type=\"submit\" class=\"hidden\" />" +
+                "<input type=\"submit\" class=\"hidden\">" +
                 "</form>";
         final String actionAndMethodFormReference = "<form id=\"form_form\" class=\"form \" action=\"/form-submission-url\" method=\"POST\" A=\"a\" B=\"b\" C=\"c\"><div class=\"global-errors\"></div>" +
                 "<div class=\"input-row required\"><p class=\"indicates-required\">Indicates a required field.</p></div>" +
-                "<input type=\"submit\" class=\"hidden\" />" +
+                "<input type=\"submit\" class=\"hidden\">" +
                 "</form>";
         final String elementedFormReferenceWithData = "<form id=\"form_test\" class=\"form \" data-data=\"{&quot;Test Key&quot;:&quot;test value&quot;}\">" +
                 "<div class=\"global-errors\"></div>" +
                 "<p>A form is rendered without inputs</p>" +
                 "<div class=\"input-row required\"><p class=\"indicates-required\">Indicates a required field.</p></div>" +
-                "<input type=\"submit\" class=\"hidden\" />" +
+                "<input type=\"submit\" class=\"hidden\">" +
                 "</form>";
 
         Html form = Helpers.reduce(de.themonstrouscavalca.formicacid.twirl.forms.html.form.render(
