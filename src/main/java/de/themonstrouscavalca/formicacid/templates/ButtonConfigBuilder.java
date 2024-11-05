@@ -1,8 +1,5 @@
 package de.themonstrouscavalca.formicacid.templates;
 
-import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
-import play.twirl.api.Html;
-
 import java.util.*;
 
 public class ButtonConfigBuilder{
