@@ -1,6 +1,10 @@
 package de.themonstrouscavalca.formicacid.templates;
 
 public class OptionConfig{
+    public static OptionConfigBuilder builder(){
+        return new OptionConfigBuilder();
+    }
+
     private final String label;
     private final String value;
     private final String optionClasses;

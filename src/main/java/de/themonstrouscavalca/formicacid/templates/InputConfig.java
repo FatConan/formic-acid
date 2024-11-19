@@ -3,9 +3,14 @@ package de.themonstrouscavalca.formicacid.templates;
 import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
 import play.twirl.api.Html;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InputConfig{
+    public static InputConfigBuilder builder(){
+        return new InputConfigBuilder();
+    }
+
     private final String formName;
     private final String name;
     private final String label;
@@ -22,6 +27,8 @@ public class InputConfig{
     private final Html inputAttributes;
 
     private final List<InputValuePair> inputValuesPairs;
+
+    private final List<String> errors;
 
     InputConfig(InputConfigBuilder builder){
         String inputClasses = builder.collateInputClasses();
@@ -46,6 +53,8 @@ public class InputConfig{
         this.inputClasses = inputClasses;
         this.wrapperAttributes = wrapperAttrs;
         this.inputAttributes = inputAttrs;
+
+        this.errors = builder.errors;
     }
 
     public String getFormName(){

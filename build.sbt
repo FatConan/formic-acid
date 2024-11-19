@@ -2,7 +2,7 @@ import sbt.util
 
 name := """formicacid"""
 organization := "de.themonstrouscavalca"
-version := "2023.05.1-SNAPSHOT"
+version := "2024.11.1-SNAPSHOT"
 
 scalaVersion := "2.13.12"
 

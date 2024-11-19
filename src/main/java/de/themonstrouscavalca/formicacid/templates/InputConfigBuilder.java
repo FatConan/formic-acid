@@ -17,11 +17,15 @@ public class InputConfigBuilder{
 
     String placeholder = "";
 
-    List<String> wrapperClasses;
-    List<String> inputClasses;
-    Map<String, String> wrapperAttributes;
-    Map<String, String> inputAttributes;
-    List<InputValuePair> inputValuePairs;
+    List<String> wrapperClasses = new ArrayList<>();
+    List<String> inputClasses = new ArrayList<>();;
+    List<String> errors = new ArrayList<>();
+    String data;
+    List<String> dataArray;
+
+    Map<String, String> wrapperAttributes = new LinkedHashMap<>();
+    Map<String, String> inputAttributes = new LinkedHashMap<>();
+    List<InputValuePair> inputValuePairs = new ArrayList<>();
 
     public static InputConfigBuilder instance(){
         return new InputConfigBuilder();
@@ -43,12 +47,24 @@ public class InputConfigBuilder{
         return builder;
     }
 
-    public InputConfigBuilder(){
-        this.wrapperClasses = new ArrayList<>();
-        this.inputClasses = new ArrayList<>();
-        this.wrapperAttributes = new LinkedHashMap<>();
-        this.inputAttributes = new LinkedHashMap<>();
-        this.inputValuePairs = new ArrayList<>();
+    public InputConfigBuilder addError(String error){
+        this.errors.add(error);
+        return this;
+    }
+
+    public InputConfigBuilder addErrors(List<String> errors){
+        this.errors.addAll(errors);
+        return this;
+    }
+
+    public InputConfigBuilder setData(String data){
+        this.data = data;
+        return this;
+    }
+
+    public InputConfigBuilder setData(String[] data){
+        this.dataArray = List.of(data);
+        return this;
     }
 
     public InputConfigBuilder setPlaceholder(String placeholder){
@@ -149,6 +165,16 @@ public class InputConfigBuilder{
     }
 
     public InputConfig build(){
+        if(this.value != null){
+            if((this.data != null && this.data.equals(value)) || (this.dataArray != null && this.dataArray.contains(this.value))){
+                this.inputAttributes.put("checked", null);
+            }
+        }else if(this.data != null){
+            this.setValue(this.data);
+        }else if(this.dataArray != null && !this.dataArray.isEmpty()){
+            this.setValue(this.dataArray.get(0));
+        }
+
         return new InputConfig(this);
     }
 }
