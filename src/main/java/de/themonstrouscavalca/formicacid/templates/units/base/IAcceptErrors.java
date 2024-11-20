@@ -1,10 +1,12 @@
 package de.themonstrouscavalca.formicacid.templates.units.base;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public interface IAcceptErrors{
-    void errors(List<String> errors);
-    default void error(String error){
-        errors(List.of(error));
+    default void errors(String errors){
+        //No-op by default
+    }
+    default void handleErrors(JsonNode error){
+        //No-op by default
     }
 }

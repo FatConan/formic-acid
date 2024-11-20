@@ -27,7 +27,7 @@ public class InputConfig{
 
     private final List<InputValuePair> inputValuesPairs;
 
-    private final List<String> errors;
+    private final String errors;
 
     InputConfig(InputConfigBuilder builder){
         String inputClasses = builder.collateInputClasses();
@@ -78,6 +78,10 @@ public class InputConfig{
 
     public String getId(){
         return id;
+    }
+
+    public String getErrors(){
+        return errors;
     }
 
     public boolean isRequired(){

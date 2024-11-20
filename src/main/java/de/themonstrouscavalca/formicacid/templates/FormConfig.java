@@ -16,7 +16,7 @@ public class FormConfig{
     private final boolean addGlobalErrors;
     private final boolean addHiddenSubmit;
 
-    private final List<String> errors = new ArrayList<>();
+    private String errors;
 
     public static FormConfigBuilder builder(){
         return new FormConfigBuilder();
@@ -35,11 +35,11 @@ public class FormConfig{
         this.addHiddenSubmit = builder.hiddenSubmit;
     }
 
-    public void addErrors(List<String> errors){
-        this.errors.addAll(errors);
+    public void errors(String errors){
+        this.errors = errors;
     }
 
-    public List<String> getErrors(){
+    public String getErrors(){
         return this.errors;
     }
 

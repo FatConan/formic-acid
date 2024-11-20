@@ -26,8 +26,8 @@ public class Input implements IAmAUnit{
     }
 
     @Override
-    public void errors(List<String> errors){
-        this.configBuilder.addErrors(errors);
+    public void errors(String errors){
+        this.configBuilder.errors(errors);
     }
 
     @Override

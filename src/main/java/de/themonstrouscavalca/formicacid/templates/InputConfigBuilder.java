@@ -19,7 +19,7 @@ public class InputConfigBuilder{
 
     List<String> wrapperClasses = new ArrayList<>();
     List<String> inputClasses = new ArrayList<>();;
-    List<String> errors = new ArrayList<>();
+    String errors;
     String data;
     List<String> dataArray;
 
@@ -47,13 +47,8 @@ public class InputConfigBuilder{
         return builder;
     }
 
-    public InputConfigBuilder addError(String error){
-        this.errors.add(error);
-        return this;
-    }
-
-    public InputConfigBuilder addErrors(List<String> errors){
-        this.errors.addAll(errors);
+    public InputConfigBuilder errors(String errors){
+        this.errors = errors;
         return this;
     }
 
@@ -178,7 +173,11 @@ public class InputConfigBuilder{
     }
 
     String collateWrapperClasses(){
-        return String.join(" ", this.wrapperClasses);
+        List<String> classes = new ArrayList<>(this.wrapperClasses);
+        if(this.errors != null && !this.errors.isEmpty()){
+            classes.add("has-error");
+        }
+        return String.join(" ", classes);
     }
 
     String explicitOrGeneratedId(){

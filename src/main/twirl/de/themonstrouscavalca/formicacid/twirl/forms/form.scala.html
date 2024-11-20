@@ -3,7 +3,7 @@
 @(options: FormConfig)(elements: Html)
 <form id="@options.getId" class="form @options.getClasses" @options.getAttributes>
     @if(options.getAddGlobalErrors){
-        @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.globalErrors()
+        @de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.globalErrors(options)
     }
     @elements
     @if(options.getShowRequiredNotice){

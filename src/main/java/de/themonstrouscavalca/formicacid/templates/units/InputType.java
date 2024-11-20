@@ -8,9 +8,11 @@ import de.themonstrouscavalca.formicacid.twirl.forms.extensible.html.textArea;
 import de.themonstrouscavalca.formicacid.twirl.forms.extensible.html.textInput;
 import de.themonstrouscavalca.formicacid.twirl.forms.html.*;
 import de.themonstrouscavalca.formicacid.twirl.forms.html.selectWithOptions;
+import de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.submitInput;
 import play.twirl.api.Html;
 
 public enum InputType{
+    HIDDEN((ic, h) -> hiddenInput.render(ic)),
     TEXT(textInput::render),
     NUMBER(numberInput::render),
     DATE((ic, h) -> dateInput.render(ic)),
@@ -21,7 +23,8 @@ public enum InputType{
     CHECKBOX(checkboxInput::render),
     PASSWORD(passwordInput::render),
     URL((ic, h) -> urlInput.render(ic)),
-    FILE(fileInput::render);
+    FILE(fileInput::render),
+    SUBMIT((ic, h) -> submitInput.render(ic));
 
     private final InputRenderer renderer;
 
