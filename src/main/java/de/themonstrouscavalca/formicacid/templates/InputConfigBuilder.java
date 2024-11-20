@@ -139,6 +139,27 @@ public class InputConfigBuilder{
         return this;
     }
 
+    public String valueOrData(){
+        if(this.value != null){
+            return this.value;
+        }else if(this.data != null){
+            return this.data;
+        }else if(this.dataArray != null && !this.dataArray.isEmpty()){
+            return this.dataArray.get(0);
+        }
+        return null;
+    }
+
+    public Map<String, String> collectInputAttributes(){
+        Map<String, String> inputAttributes = new LinkedHashMap<>(this.inputAttributes);
+
+        if(this.value != null && (
+                (this.data != null && this.data.equals(this.value)) || (this.dataArray != null && this.dataArray.contains(this.value)))){
+            inputAttributes.put("checked", null);
+        }
+        return inputAttributes;
+    }
+
     public InputConfigBuilder addWrapperData(String dataKey, String value){
         return this.addWrapperAttribute(String.format("data-%s", dataKey), value);
     }
@@ -165,16 +186,6 @@ public class InputConfigBuilder{
     }
 
     public InputConfig build(){
-        if(this.value != null){
-            if((this.data != null && this.data.equals(value)) || (this.dataArray != null && this.dataArray.contains(this.value))){
-                this.inputAttributes.put("checked", null);
-            }
-        }else if(this.data != null){
-            this.setValue(this.data);
-        }else if(this.dataArray != null && !this.dataArray.isEmpty()){
-            this.setValue(this.dataArray.get(0));
-        }
-
         return new InputConfig(this);
     }
 }

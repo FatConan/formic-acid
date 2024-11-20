@@ -51,16 +51,24 @@ public class Form implements IAmAUnit{
 
     public void data(JsonNode data){
         for(Map.Entry<String, IAmAUnit> unitEntry : this.unitMap.entrySet()){
-            if(data.has(unitEntry.getKey())){
-                unitEntry.getValue().data(data.get(unitEntry.getKey()).asText());
+            String fieldName = unitEntry.getKey();
+            IAmAUnit unit = unitEntry.getValue();
+            if(data.has(fieldName)){
+                unit.data(data.get(unitEntry.getKey()).asText());
+            }else{
+                unit.data((String) null);
             }
         }
     }
 
     public void data(Map<String, String[]> data){
         for(Map.Entry<String, IAmAUnit> unitEntry : this.unitMap.entrySet()){
-            if(data.containsKey(unitEntry.getKey())){
-                unitEntry.getValue().data(data.get(unitEntry.getKey()));
+            String fieldName = unitEntry.getKey();
+            IAmAUnit unit = unitEntry.getValue();
+            if(data.containsKey(fieldName)){
+                unit.data(data.get(fieldName));
+            }else{
+                unit.data((String) null);
             }
         }
     }

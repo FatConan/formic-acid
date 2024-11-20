@@ -1,4 +1,14 @@
 @(attributes: java.util.Map[String, String])
 @for(entry:java.util.Map.Entry[String, String] <- attributes.entrySet){
-    @entry.getKey="@entry.getValue"
+    @if(entry.getKey != null && entry.getValue != null) {
+        @entry.getKey="@entry.getValue"
+    }else{
+        @if(entry.getKey != null){
+            @entry.getKey
+        }else{
+            @if(entry.getValue != null) {
+                @entry.getValue
+            }
+        }
+    }
 }
