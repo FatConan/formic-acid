@@ -12,6 +12,9 @@ import scala.jdk.javaapi.CollectionConverters;
 import java.util.*;
 
 public class Form extends CollectingUnit{
+    private static final String GLOBAL_ERRORS_KEY = "global_errors";
+    private static final String ERRORS_KEY = "errors";
+
     public static Builder builder(){
         return new Builder();
     }
@@ -37,11 +40,21 @@ public class Form extends CollectingUnit{
     @Override
     public void handleErrors(JsonNode errors){
         if(errors != null){
-            if(errors.has("global_errors")){
-                this.errors(errors.get("global_errors").asText());
+            if(errors.has(GLOBAL_ERRORS_KEY)){
+                JsonNode globalErrs = errors.get(GLOBAL_ERRORS_KEY);
+                StringBuilder globalErrsString = new StringBuilder();
+                if(globalErrs.isArray()){
+                    for(JsonNode e: globalErrs){
+                        globalErrsString.append(e.asText());
+                        globalErrsString.append("\n");
+                    }
+                }else if(globalErrs.isTextual()){
+                    globalErrsString.append(globalErrs.asText());
+                }
+                this.errors(globalErrsString.toString());
             }
-            if(errors.has("errors")){
-                super.handleErrors(errors.get("errors"));
+            if(errors.has(ERRORS_KEY)){
+                super.handleErrors(errors.get(ERRORS_KEY));
             }
         }
     }
