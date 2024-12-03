@@ -21,6 +21,11 @@ public class FieldSet extends CollectingUnit{
 
     private final FieldsetConfigBuilder config;
 
+    @Override
+    public String name(){
+        return this.config != null ? this.config.build().getName() : "";
+    }
+
     public static class Builder{
         private FieldsetConfigBuilder config;
         private final Map<String, IAmAUnit> unitMap = new LinkedHashMap<>();

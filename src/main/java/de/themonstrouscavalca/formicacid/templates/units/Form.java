@@ -64,6 +64,11 @@ public class Form extends CollectingUnit{
         this.config.errors(errors);
     }
 
+    @Override
+    public String name(){
+        return this.config != null ? this.config.getName() : "";
+    }
+
     public static class Builder{
         private FormConfig config;
         private final Map<String, IAmAUnit> unitMap = new LinkedHashMap<>();
@@ -75,6 +80,11 @@ public class Form extends CollectingUnit{
 
         public Builder unit(String name, IAmAUnit unit){
             this.unitMap.put(name, unit);
+            return this;
+        }
+
+        public Builder unit(IAmAUnit unit){
+            this.unitMap.put(unit.name(), unit);
             return this;
         }
 

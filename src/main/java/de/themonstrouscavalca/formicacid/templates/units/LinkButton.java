@@ -1,23 +1,24 @@
 package de.themonstrouscavalca.formicacid.templates.units;
 
 import de.themonstrouscavalca.formicacid.templates.ButtonConfig;
+import de.themonstrouscavalca.formicacid.templates.LinkConfig;
 import de.themonstrouscavalca.formicacid.templates.units.base.IAmAUnit;
 import play.twirl.api.Html;
 
-public class Button implements IAmAUnit{
+public class LinkButton implements IAmAUnit{
     public static Builder builder(){
         return new Builder();
     }
 
-    private final ButtonConfig config;
+    private final LinkConfig config;
 
-    public Button(Builder builder){
+    public LinkButton(Builder builder){
         this.config = builder.config;
     }
 
     @Override
     public Html render(){
-        return de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.button.render(this.config);
+        return de.themonstrouscavalca.formicacid.twirl.forms.snippets.html.linkButton.render(this.config);
     }
 
     @Override
@@ -26,16 +27,16 @@ public class Button implements IAmAUnit{
     }
 
     public static class Builder{
-        private ButtonConfig config;
+        private LinkConfig config;
 
-        public Builder config(ButtonConfig config){
+        public Builder config(LinkConfig config){
             this.config = config;
             return this;
         }
 
 
-        public Button build(){
-            return new Button(this);
+        public LinkButton build(){
+            return new LinkButton(this);
         }
     }
 }

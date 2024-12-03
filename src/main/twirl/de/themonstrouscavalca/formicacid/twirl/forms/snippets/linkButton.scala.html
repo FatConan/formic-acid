@@ -1,0 +1,10 @@
+@import de.themonstrouscavalca.formicacid.templates.LinkConfig
+
+@(config: LinkConfig)
+<a id="@config.getId" class="btn @config.getClasses" title="@config.getTitle" href="@config.getHref" @config.getAttributes>
+@if(config.isSpanWrapped){
+    <span>@config.getLabel</span>
+}else{
+    @config.getLabel
+}
+</a>

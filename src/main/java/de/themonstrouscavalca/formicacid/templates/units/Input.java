@@ -51,6 +51,11 @@ public class Input implements IAmAUnit{
         this.configBuilder.setData(data);
     }
 
+    @Override
+    public String name(){
+        return this.configBuilder != null ? this.configBuilder.build().getName() : "";
+    }
+
     public static class Builder{
         private InputConfigBuilder configBuilder;
         private InputType inputType = InputType.TEXT;
