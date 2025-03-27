@@ -7,6 +7,20 @@ package de.themonstrouscavalca.formicacid.util;
  * @param <U> Value
  */
 public class Pair<T,U> {
+    @FunctionalInterface
+    public interface KeyFunction<T, V>{
+        T call(V entity);
+    }
+
+    @FunctionalInterface
+    public interface ValueFunction<U, V>{
+        U call(V entity);
+    }
+
+    public static <V, T, U> Pair<T, U> from(V entity, KeyFunction<T, V> key, ValueFunction<U, V> value){
+        return new Pair<>(key.call(entity), value.call(entity));
+    }
+
     private final T key;
     private final U value;
 
