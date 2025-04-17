@@ -93,7 +93,7 @@ public class InputConfigBuilder{
     }
 
     public InputConfigBuilder addValueOptions(List<Pair<String, String>> pairs){
-        this.inputValuePairs.addAll(pairs.stream().map(pair -> new InputValuePair(pair.getKey(), pair.getValue())).collect(Collectors.toList()));
+        this.inputValuePairs.addAll(pairs.stream().map(pair -> new InputValuePair(pair.getKey(), pair.getValue())).toList());
         return this;
     }
 
@@ -134,15 +134,34 @@ public class InputConfigBuilder{
         return this;
     }
 
+    public String dataOrValue(){
+        List<String> data = this.dataOrValues();
+        if(data.size() == 1){
+            return data.getFirst();
+        }
+        return null;
+    }
+
     public String valueOrData(){
         if(this.value != null){
             return this.value;
         }else if(this.data != null){
             return this.data;
         }else if(this.dataArray != null && !this.dataArray.isEmpty()){
-            return this.dataArray.get(0);
+            return this.dataArray.getFirst();
         }
         return null;
+    }
+
+    public List<String> dataOrValues(){
+        if(this.dataArray != null && !this.dataArray.isEmpty()){
+            return this.dataArray;
+        }else if(this.data != null){
+            return Collections.singletonList(this.data);
+        }else if(this.value != null){
+            return Collections.singletonList(this.value);
+        }
+        return Collections.emptyList();
     }
 
     public Map<String, String> collectInputAttributes(){

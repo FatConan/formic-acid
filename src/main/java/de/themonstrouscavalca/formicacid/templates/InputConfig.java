@@ -17,6 +17,7 @@ public class InputConfig{
     private final boolean required;
     private final boolean withLabel;
     private final String value;
+    private final List<String> values;
 
     private final String placeholder;
 
@@ -43,7 +44,8 @@ public class InputConfig{
         this.formName = builder.formName;
         this.label = builder.label;
         this.withLabel = builder.label != null && !builder.label.isEmpty();
-        this.value = builder.valueOrData();
+        this.value = builder.dataOrValue(); //builder.valueOrData();
+        this.values = builder.dataOrValues();
 
         this.placeholder = builder.placeholder;
         this.inputValuesPairs = builder.inputValuePairs;
@@ -70,6 +72,10 @@ public class InputConfig{
 
     public String getValue(){
         return value;
+    }
+
+    public List<String> getValues(){
+        return values;
     }
 
     public String getPlaceholder(){

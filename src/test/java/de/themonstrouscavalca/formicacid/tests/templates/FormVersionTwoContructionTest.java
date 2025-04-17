@@ -29,13 +29,13 @@ public class FormVersionTwoContructionTest{
 
         Map<String, String[]> data = new HashMap<>();
         data.put("input_one", new String[]{"input_one-test-data"});
-        formV2.data(data);
+        formV2.handleData(data);
         Html testTwo = formV2.render();
 
         final ObjectMapper mapper = new ObjectMapper();
         ObjectNode dataNode = mapper.createObjectNode();
         dataNode.put("input_one", "This is some data");
-        formV2.data(dataNode);
+        formV2.handleData(dataNode);
         Html testThree = formV2.render();
 
     }
