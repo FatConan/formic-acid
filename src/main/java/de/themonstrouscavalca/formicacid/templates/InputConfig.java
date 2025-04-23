@@ -44,7 +44,7 @@ public class InputConfig{
         this.formName = builder.formName;
         this.label = builder.label;
         this.withLabel = builder.label != null && !builder.label.isEmpty();
-        this.value = builder.dataOrValue(); //builder.valueOrData();
+        this.value = builder.dataOrValue();
         this.values = builder.dataOrValues();
 
         this.placeholder = builder.placeholder;

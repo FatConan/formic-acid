@@ -1,11 +1,7 @@
 package de.themonstrouscavalca.formicacid.templates;
+
 import de.themonstrouscavalca.formicacid.util.Pair;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
-import play.twirl.api.Html;
-
 
 public class InputConfigBuilder{
     String formName = "";
@@ -142,17 +138,6 @@ public class InputConfigBuilder{
         return null;
     }
 
-    public String valueOrData(){
-        if(this.value != null){
-            return this.value;
-        }else if(this.data != null){
-            return this.data;
-        }else if(this.dataArray != null && !this.dataArray.isEmpty()){
-            return this.dataArray.getFirst();
-        }
-        return null;
-    }
-
     public List<String> dataOrValues(){
         if(this.dataArray != null && !this.dataArray.isEmpty()){
             return this.dataArray;
@@ -168,7 +153,8 @@ public class InputConfigBuilder{
         Map<String, String> inputAttributes = new LinkedHashMap<>(this.inputAttributes);
 
         if(this.value != null && (
-                (this.data != null && this.data.equals(this.value)) || (this.dataArray != null && this.dataArray.contains(this.value)))){
+                (this.data != null && this.data.equals(this.value))
+                        || (this.dataArray != null && this.dataArray.contains(this.value)))){
             inputAttributes.put("checked", null);
         }
         return inputAttributes;
