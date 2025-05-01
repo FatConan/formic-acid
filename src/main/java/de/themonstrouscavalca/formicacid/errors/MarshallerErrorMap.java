@@ -12,6 +12,7 @@ import java.util.*;
 public class MarshallerErrorMap{
     private static final MarshallerErrorMap EMPTY = new MarshallerErrorMap();
     private static final ObjectNode EMPTY_RESPONSE = EMPTY.getErrorResponse();
+    private static final String UNDEFINED_ERROR = "Undefined Error!";
 
     public static MarshallerErrorMap empty(){
         return EMPTY;
@@ -100,8 +101,12 @@ public class MarshallerErrorMap{
 
     public void addErrors(String field, ValidatedOptional validatedOptional){
         if(!validatedOptional.isValid()){
-            for(String error: validatedOptional.getErrors()){
-                this.addError(field, error);
+            if(validatedOptional.getErrors().length > 0){
+                for(String error : validatedOptional.getErrors()){
+                    this.addError(field, error);
+                }
+            }else{
+                this.addError(field, UNDEFINED_ERROR);
             }
         }
     }
