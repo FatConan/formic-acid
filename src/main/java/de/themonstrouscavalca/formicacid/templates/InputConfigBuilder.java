@@ -54,7 +54,9 @@ public class InputConfigBuilder{
     }
 
     public InputConfigBuilder setData(String[] data){
-        this.dataArray = List.of(data);
+        if(data != null){
+            this.dataArray = new ArrayList<>(Arrays.asList(data));
+        }
         return this;
     }
 
