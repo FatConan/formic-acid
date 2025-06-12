@@ -99,7 +99,7 @@ public class MarshallerErrorMap{
         }
     }
 
-    public void addErrors(String field, ValidatedOptional validatedOptional){
+    public void addErrors(String field, ValidatedOptional<?> validatedOptional){
         if(!validatedOptional.isValid()){
             if(validatedOptional.getErrors().length > 0){
                 for(String error : validatedOptional.getErrors()){
@@ -111,7 +111,7 @@ public class MarshallerErrorMap{
         }
     }
 
-    private void mergeNamespacedErrors(ErrorNamespace ns, AbstractMarshaller marshaller, IMapErrorFields mapper){
+    private void mergeNamespacedErrors(ErrorNamespace ns, AbstractMarshaller<?> marshaller, IMapErrorFields mapper){
         if(marshaller.hasErrors()){
             this.errored = true;
             Map<String, List<String>> fieldErrors =  marshaller.getErrors().getNamespacedFieldErrors()
@@ -139,15 +139,15 @@ public class MarshallerErrorMap{
         }
     }
 
-    public void mergeErrors(String namespace, AbstractMarshaller marshaller){
+    public void mergeErrors(String namespace, AbstractMarshaller<?> marshaller){
         this.mergeNamespacedErrors(ErrorNamespace.of(namespace), marshaller, (s) -> (s));
     }
 
-    public void mergeErrors(AbstractMarshaller marshaller){
+    public void mergeErrors(AbstractMarshaller<?> marshaller){
         this.mergeNamespacedErrors(ErrorNamespace.getDefault(), marshaller, (s) -> (s));
     }
 
-    public void mergeErrorsFromGenerator(String entryIdentifier, AbstractMarshaller marshaller){
+    public void mergeErrorsFromGenerator(String entryIdentifier, AbstractMarshaller<?> marshaller){
         this.mergeNamespacedErrors(ErrorNamespace.getDefault(),
                 marshaller,
                 (s) -> (String.format("%s_%s", s, entryIdentifier))

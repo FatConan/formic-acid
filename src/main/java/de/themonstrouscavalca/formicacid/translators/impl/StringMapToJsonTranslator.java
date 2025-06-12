@@ -42,7 +42,7 @@ public class StringMapToJsonTranslator implements ITranslateFormData<Map<String,
     public static Map<String, String[]> transposeData(Map<String, String[]> data, List<String> fieldNames){
         Map<String, String[]> transposed = new HashMap<>();
         for(String fieldName: fieldNames){
-            Pattern fieldPattern = Pattern.compile("(" + fieldName + ")_([0-9]+)");
+            Pattern fieldPattern = Pattern.compile("(" + fieldName + ")_([a-zA-Z0-9]+)");
             if(data.containsKey(fieldName)){
                 transposed.put(fieldName, data.get(fieldName));
             }else{
