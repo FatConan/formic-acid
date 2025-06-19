@@ -15,6 +15,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringMapToJsonTranslator implements ITranslateFormData<Map<String, String[]>, JsonNode>{
+    public static final String VALUE_DELIMITER = "__";
+
+    public static String valueAppend(String name, String value){
+        return String.format("%s%s%s", name, VALUE_DELIMITER, value);
+    }
+
     protected void grabString(ObjectNode node, String key, String[] value){
         if(value == null || value.length == 0){
             node.putNull(key);
@@ -33,7 +39,7 @@ public class StringMapToJsonTranslator implements ITranslateFormData<Map<String,
         for(String fieldName: fieldNames){
             String[] values = data.get(fieldName);
             for(String val : values){
-                transposed.put(fieldName + "_" + val, new String[]{val});
+                transposed.put(fieldName + VALUE_DELIMITER + val, new String[]{val});
             }
         }
         return transposed;
@@ -42,7 +48,7 @@ public class StringMapToJsonTranslator implements ITranslateFormData<Map<String,
     public static Map<String, String[]> transposeData(Map<String, String[]> data, List<String> fieldNames){
         Map<String, String[]> transposed = new HashMap<>();
         for(String fieldName: fieldNames){
-            Pattern fieldPattern = Pattern.compile("(" + fieldName + ")_([a-zA-Z0-9]+)");
+            Pattern fieldPattern = Pattern.compile("(" + fieldName + ")" + VALUE_DELIMITER + "([a-zA-Z0-9]+)");
             if(data.containsKey(fieldName)){
                 transposed.put(fieldName, data.get(fieldName));
             }else{
