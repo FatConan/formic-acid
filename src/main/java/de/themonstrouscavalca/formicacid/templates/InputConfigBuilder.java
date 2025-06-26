@@ -96,7 +96,11 @@ public class InputConfigBuilder{
     }
 
     public InputConfigBuilder require(){
-        this.required = true;
+        return this.required(true);
+    }
+
+    public InputConfigBuilder required(boolean required){
+        this.required = required;
         return this;
     }
 
