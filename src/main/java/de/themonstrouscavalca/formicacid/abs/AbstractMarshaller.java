@@ -12,6 +12,16 @@ import de.themonstrouscavalca.formicacid.validators.impl.basic.RequiredValidator
 
 import java.util.*;
 
+/** A marshaller is a class that provides methods to both validate a JSON representation of a particular object and
+ * export a JSON representation of a particular object. This can be achieved by any class implementing both
+ * the IValidateForm and IExportToJson, but the AbstractMarshaller is designed as a more complex version that
+ * supports a number of ancillary, but useful functions. These include providing a standardised error
+ * response format (in JSON) that can be used with the HTML form representations and with the supporting
+ * MalicAcid Javascript library, as well as methods to allow the use of sub-marshallers for complex objects and
+ * corresponding forms, including methods to enable namespaced error handling.
+ *
+ * @param <T>
+ */
 public abstract class AbstractMarshaller<T> implements IValidateForm<T>, IExportToJson<T>{
     private MarshallerErrorMap errors = new MarshallerErrorMap();
 
@@ -51,7 +61,6 @@ public abstract class AbstractMarshaller<T> implements IValidateForm<T>, IExport
         this.errors.addError(jsonField, errorMsg);
     }
 
-
     protected <M> ValidatedOptional<M> extractValue(String fieldName, JsonNode json, IExtract<M> extractor, Collection<IValidate<M>> validators){
         ValidatedOptional<M> value = extractor.extractValidatedValue(fieldName, json, validators);
         this.addErrors(fieldName, value);
@@ -62,6 +71,11 @@ public abstract class AbstractMarshaller<T> implements IValidateForm<T>, IExport
         return this.extractValue(fieldName, json, extractor, Collections.emptyList());
     }
 
+    /**
+     * A shortcut for providing a generic RequiredValidator for any particular field.
+     * @return
+     * @param <M>
+     */
     protected <M> Collection<IValidate<M>> requiredOnly(){
         return Collections.singletonList(
                 new RequiredValidator<M>()

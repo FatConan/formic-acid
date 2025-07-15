@@ -7,7 +7,7 @@ import de.themonstrouscavalca.formicacid.validators.impl.AbstractValidator;
 import java.util.Collection;
 import java.util.Optional;
 
-public class RequiredCollectionValidator<T extends Collection> extends AbstractValidator<T> implements IValidate<T>{
+public class RequiredCollectionValidator<T extends Collection<?>> extends AbstractValidator<T> implements IValidate<T>{
     protected final String DEFAULT_ERROR_MESSAGE = "This is a required field";
 
     @Override

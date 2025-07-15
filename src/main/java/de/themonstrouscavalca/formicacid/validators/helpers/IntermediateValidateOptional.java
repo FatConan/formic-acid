@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @param <T>
+ */
 public class IntermediateValidateOptional<T> extends AbstractOptional<T>{
     private List<String> errors;
 
