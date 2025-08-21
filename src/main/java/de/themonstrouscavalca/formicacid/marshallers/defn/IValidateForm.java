@@ -9,6 +9,15 @@ import de.themonstrouscavalca.formicacid.marshallers.exceptions.NotImplemented;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * IValidateForm is an interface intended to provide validation for JSON data. Its intention is to return an
+ * optional object of type T upon the successful validation of a corresponding JSON data representation.
+ * Furthermore, to provide improved support for raw form data, a default implementation of validate accepting
+ * a Map of String to String[] elements is provided that performs an intermediate translation to a JSON
+ * representation of the same data and hands that off to the undefined validate method.
+ *
+ * @param <T> The type of the expected validated object
+ */
 public interface IValidateForm<T>{
     default Optional<T> validate(Map<String,String[]> data){
         ObjectNode toJson = JsonNodeFactory.instance.objectNode();

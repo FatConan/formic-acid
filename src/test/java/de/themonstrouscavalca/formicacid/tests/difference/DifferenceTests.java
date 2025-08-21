@@ -1,4 +1,4 @@
-package de.themonstrouscavalca.formicacid.tests.deifference;
+package de.themonstrouscavalca.formicacid.tests.difference;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

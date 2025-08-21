@@ -1,1 +1,3 @@
-<div class="global-errors"></div>
+@import de.themonstrouscavalca.formicacid.templates.FormConfig
+@(options: FormConfig)
+<div class="global-errors">@options.getErrors</div>

@@ -1,11 +1,7 @@
 package de.themonstrouscavalca.formicacid.templates;
+
 import de.themonstrouscavalca.formicacid.util.Pair;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import de.themonstrouscavalca.formicacid.twirl.forms.attributes.html.attributesHtml;
-import play.twirl.api.Html;
-
 
 public class InputConfigBuilder{
     String formName = "";
@@ -17,11 +13,15 @@ public class InputConfigBuilder{
 
     String placeholder = "";
 
-    List<String> wrapperClasses;
-    List<String> inputClasses;
-    Map<String, String> wrapperAttributes;
-    Map<String, String> inputAttributes;
-    List<InputValuePair> inputValuePairs;
+    List<String> wrapperClasses = new ArrayList<>();
+    List<String> inputClasses = new ArrayList<>();;
+    String errors;
+    String data;
+    List<String> dataArray;
+
+    Map<String, String> wrapperAttributes = new LinkedHashMap<>();
+    Map<String, String> inputAttributes = new LinkedHashMap<>();
+    List<InputValuePair> inputValuePairs = new ArrayList<>();
 
     public static InputConfigBuilder instance(){
         return new InputConfigBuilder();
@@ -43,12 +43,21 @@ public class InputConfigBuilder{
         return builder;
     }
 
-    public InputConfigBuilder(){
-        this.wrapperClasses = new ArrayList<>();
-        this.inputClasses = new ArrayList<>();
-        this.wrapperAttributes = new LinkedHashMap<>();
-        this.inputAttributes = new LinkedHashMap<>();
-        this.inputValuePairs = new ArrayList<>();
+    public InputConfigBuilder errors(String errors){
+        this.errors = errors;
+        return this;
+    }
+
+    public InputConfigBuilder setData(String data){
+        this.data = data;
+        return this;
+    }
+
+    public InputConfigBuilder setData(String[] data){
+        if(data != null){
+            this.dataArray = new ArrayList<>(Arrays.asList(data));
+        }
+        return this;
     }
 
     public InputConfigBuilder setPlaceholder(String placeholder){
@@ -82,12 +91,16 @@ public class InputConfigBuilder{
     }
 
     public InputConfigBuilder addValueOptions(List<Pair<String, String>> pairs){
-        this.inputValuePairs.addAll(pairs.stream().map(pair -> new InputValuePair(pair.getKey(), pair.getValue())).collect(Collectors.toList()));
+        this.inputValuePairs.addAll(pairs.stream().map(pair -> new InputValuePair(pair.getKey(), pair.getValue())).toList());
         return this;
     }
 
     public InputConfigBuilder require(){
-        this.required = true;
+        return this.required(true);
+    }
+
+    public InputConfigBuilder required(boolean required){
+        this.required = required;
         return this;
     }
 
@@ -123,6 +136,36 @@ public class InputConfigBuilder{
         return this;
     }
 
+    public String dataOrValue(){
+        List<String> data = this.dataOrValues();
+        if(data.size() == 1){
+            return data.getFirst();
+        }
+        return null;
+    }
+
+    public List<String> dataOrValues(){
+        if(this.dataArray != null && !this.dataArray.isEmpty()){
+            return this.dataArray;
+        }else if(this.data != null){
+            return Collections.singletonList(this.data);
+        }else if(this.value != null){
+            return Collections.singletonList(this.value);
+        }
+        return Collections.emptyList();
+    }
+
+    public Map<String, String> collectInputAttributes(){
+        Map<String, String> inputAttributes = new LinkedHashMap<>(this.inputAttributes);
+
+        if(this.value != null && (
+                (this.data != null && this.data.equals(this.value))
+                        || (this.dataArray != null && this.dataArray.contains(this.value)))){
+            inputAttributes.put("checked", null);
+        }
+        return inputAttributes;
+    }
+
     public InputConfigBuilder addWrapperData(String dataKey, String value){
         return this.addWrapperAttribute(String.format("data-%s", dataKey), value);
     }
@@ -141,7 +184,11 @@ public class InputConfigBuilder{
     }
 
     String collateWrapperClasses(){
-        return String.join(" ", this.wrapperClasses);
+        List<String> classes = new ArrayList<>(this.wrapperClasses);
+        if(this.errors != null && !this.errors.isEmpty()){
+            classes.add("has-error");
+        }
+        return String.join(" ", classes);
     }
 
     String explicitOrGeneratedId(){

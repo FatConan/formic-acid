@@ -1,0 +1,7 @@
+@import de.themonstrouscavalca.formicacid.templates.OptionConfig
+@import de.themonstrouscavalca.formicacid.templates.OptionsConfig
+
+@(options: OptionsConfig)
+@for(opt:OptionConfig <- options.getOptionsConfig){
+    @de.themonstrouscavalca.formicacid.twirl.forms.html.option(opt)
+}

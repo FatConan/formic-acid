@@ -7,7 +7,17 @@ import de.themonstrouscavalca.formicacid.marshallers.exceptions.NotImplemented;
 
 import java.util.Collection;
 
-public interface IExportToJson <T>{
+/**
+ * The inverse of validating an object from a JSON representation is to export an valid object as a JSON
+ * representation. This is used to translate between a representation that works for an object in code, and
+ * something that works for a form.
+ *
+ * The marshallers provide both a means of validating and exporting and therefore implement both
+ * the IValidateForm and IExportToJson interfaces.
+ *
+ * @param <T> the type of the object to be translated into JSON
+ */
+public interface IExportToJson<T>{
     default JsonNode toJson(T entity){
         throw new NotImplemented("Exporting to JSON is not implemented");
     }

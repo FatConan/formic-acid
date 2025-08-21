@@ -2,27 +2,28 @@ package de.themonstrouscavalca.formicacid.templates;
 
 import java.util.*;
 
-public class ButtonConfigBuilder{
+public class LinkConfigBuilder{
     String formName = "";
     String name = "";
     String label = "";
     String title = "";
     String id = "";
+    String href = "";
     boolean wrapInSpan = false;
 
     List<String> buttonClasses;
     Map<String, String> buttonAttributes;
 
-    public static ButtonConfigBuilder instance(){
-        return new ButtonConfigBuilder();
+    public static LinkConfigBuilder instance(){
+        return new LinkConfigBuilder();
     }
 
-    public static ButtonConfigBuilder of(String name, String label){
+    public static LinkConfigBuilder of(String name, String label){
         return of(name, label, "");
     }
 
-    public static ButtonConfigBuilder of(String name, String label, String formName){
-        ButtonConfigBuilder builder = new ButtonConfigBuilder();
+    public static LinkConfigBuilder of(String name, String label, String formName){
+        LinkConfigBuilder builder = new LinkConfigBuilder();
         builder.setName(name);
         builder.setLabel(label);
         builder.setFormName(formName);
@@ -30,51 +31,56 @@ public class ButtonConfigBuilder{
         return builder;
     }
 
-    public ButtonConfigBuilder(){
+    public LinkConfigBuilder(){
         this.buttonClasses = new ArrayList<>();
         this.buttonAttributes = new LinkedHashMap<>();
     }
 
-    public ButtonConfigBuilder setLabel(String label){
+    public LinkConfigBuilder setLabel(String label){
         this.label = label;
         return this;
     }
 
-    public ButtonConfigBuilder spanWrap(){
+    public LinkConfigBuilder spanWrap(){
         this.wrapInSpan = true;
         return this;
     }
 
-    public ButtonConfigBuilder setName(String name){
+    public LinkConfigBuilder setName(String name){
         this.name = name;
         return this;
     }
 
-    public ButtonConfigBuilder setId(String id){
+    public LinkConfigBuilder setId(String id){
         this.id = id;
         return this;
     }
 
-    public ButtonConfigBuilder setTitle(String title){
+    public LinkConfigBuilder setTitle(String title){
         this.title = title;
         return this;
     }
 
-    public ButtonConfigBuilder setFormName(String formName){
+    public LinkConfigBuilder setHref(String href){
+        this.href = href;
+        return this;
+    }
+
+    public LinkConfigBuilder setFormName(String formName){
         this.formName = formName;
         return this;
     }
 
-    public ButtonConfigBuilder addClass(String classString){
+    public LinkConfigBuilder addClass(String classString){
         this.buttonClasses.add(classString);
         return this;
     }
 
-    public ButtonConfigBuilder disable(){
+    public LinkConfigBuilder disable(){
         return disabled(true);
     }
 
-    public ButtonConfigBuilder disabled(boolean disable){
+    public LinkConfigBuilder disabled(boolean disable){
         if(disable){
             this.addAttribute("disabled", "disabled");
             this.addClass("disabled");
@@ -82,12 +88,12 @@ public class ButtonConfigBuilder{
         return this;
     }
 
-    public ButtonConfigBuilder addAttribute(String key, String value){
+    public LinkConfigBuilder addAttribute(String key, String value){
         this.buttonAttributes.put(key, value);
         return this;
     }
 
-    public ButtonConfigBuilder addData(String dataKey, String value){
+    public LinkConfigBuilder addData(String dataKey, String value){
         return this.addAttribute(String.format("data-%s", dataKey), value);
     }
 
@@ -95,7 +101,7 @@ public class ButtonConfigBuilder{
         return String.join(" ", this.buttonClasses);
     }
 
-    public ButtonConfig build(){
-        return new ButtonConfig(this);
+    public LinkConfig build(){
+        return new LinkConfig(this);
     }
 }

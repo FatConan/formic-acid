@@ -1,1 +1,3 @@
-<div class="error"></div>
+@import de.themonstrouscavalca.formicacid.templates.InputConfig
+@(options: InputConfig)
+<div class="error">@options.getErrors</div>

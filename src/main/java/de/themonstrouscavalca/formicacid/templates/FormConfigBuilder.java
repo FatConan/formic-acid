@@ -61,6 +61,15 @@ public class FormConfigBuilder{
         return this;
     }
 
+    private String htmlId(){
+        return String.format("#%s", this.id);
+    }
+
+    public FormConfigBuilder defaultAction(){
+        this.addAttribute("action", this.htmlId());
+        return this;
+    }
+
     public FormConfigBuilder setAction(String action){
         this.addAttribute("action", action);
         return this;

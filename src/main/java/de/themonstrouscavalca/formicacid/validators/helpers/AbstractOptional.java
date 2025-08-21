@@ -2,6 +2,10 @@ package de.themonstrouscavalca.formicacid.validators.helpers;
 
 import java.util.Collection;
 
+/**
+ *
+ * @param <T>
+ */
 public class AbstractOptional<T>{
     protected boolean valid;
     protected boolean presentInJson;

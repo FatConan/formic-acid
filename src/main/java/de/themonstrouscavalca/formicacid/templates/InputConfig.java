@@ -6,6 +6,10 @@ import play.twirl.api.Html;
 import java.util.List;
 
 public class InputConfig{
+    public static InputConfigBuilder builder(){
+        return new InputConfigBuilder();
+    }
+
     private final String formName;
     private final String name;
     private final String label;
@@ -13,6 +17,7 @@ public class InputConfig{
     private final boolean required;
     private final boolean withLabel;
     private final String value;
+    private final List<String> values;
 
     private final String placeholder;
 
@@ -23,12 +28,14 @@ public class InputConfig{
 
     private final List<InputValuePair> inputValuesPairs;
 
+    private final String errors;
+
     InputConfig(InputConfigBuilder builder){
         String inputClasses = builder.collateInputClasses();
         String wrapperClasses = builder.collateWrapperClasses();
         String id = builder.explicitOrGeneratedId();
 
-        Html inputAttrs = attributesHtml.render(builder.inputAttributes);
+        Html inputAttrs = attributesHtml.render(builder.collectInputAttributes());
         Html wrapperAttrs = attributesHtml.render(builder.wrapperAttributes);
 
         this.id = id;
@@ -37,7 +44,8 @@ public class InputConfig{
         this.formName = builder.formName;
         this.label = builder.label;
         this.withLabel = builder.label != null && !builder.label.isEmpty();
-        this.value = builder.value;
+        this.value = builder.dataOrValue();
+        this.values = builder.dataOrValues();
 
         this.placeholder = builder.placeholder;
         this.inputValuesPairs = builder.inputValuePairs;
@@ -46,6 +54,8 @@ public class InputConfig{
         this.inputClasses = inputClasses;
         this.wrapperAttributes = wrapperAttrs;
         this.inputAttributes = inputAttrs;
+
+        this.errors = builder.errors;
     }
 
     public String getFormName(){
@@ -64,12 +74,20 @@ public class InputConfig{
         return value;
     }
 
+    public List<String> getValues(){
+        return values;
+    }
+
     public String getPlaceholder(){
         return placeholder;
     }
 
     public String getId(){
         return id;
+    }
+
+    public String getErrors(){
+        return errors;
     }
 
     public boolean isRequired(){

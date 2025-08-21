@@ -1,5 +1,9 @@
 package de.themonstrouscavalca.formicacid.validators.helpers;
 
+/**
+ *
+ * @param <T>
+ */
 public class ValidatedOptional<T> extends AbstractOptional<T>{
     private static final ValidatedOptional<?> EMPTY = new ValidatedOptional<>(null, true, false, new String[]{});
 

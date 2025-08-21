@@ -1,6 +1,5 @@
 package de.themonstrouscavalca.formicacid.tests.abs;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -13,7 +12,6 @@ import de.themonstrouscavalca.formicacid.validators.impl.strings.StringLengthVal
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Optional;
 
 public class AbstractSimpleMarshallerTest{
