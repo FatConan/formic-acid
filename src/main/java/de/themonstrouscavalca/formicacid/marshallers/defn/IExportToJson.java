@@ -17,7 +17,7 @@ import java.util.Collection;
  *
  * @param <T> the type of the object to be translated into JSON
  */
-public interface IExportToJson <T>{
+public interface IExportToJson<T>{
     default JsonNode toJson(T entity){
         throw new NotImplemented("Exporting to JSON is not implemented");
     }

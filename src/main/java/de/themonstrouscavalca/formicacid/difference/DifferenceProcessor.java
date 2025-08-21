@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 /**
  * A quick and dirty set of tools for doing top level comparisons between JSON data sets of the sort that is frequently
- * returned from form validators. It allows a quick view of top level additions/deletions and alterations and can be toggled
+ * returned from form marshallers. It allows a quick view of top level additions/deletions and alterations and can be toggled
  * to only highlight those fields that without revealing the associated values.
  */
 public class DifferenceProcessor{
